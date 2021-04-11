@@ -12,8 +12,10 @@ abstract class Weapon
 {
     public function __construct(
         protected string $name,
-        protected IntegerValue $damage,
         protected WeaponType $type,
+        protected IntegerValue $damage,
+        protected Strength $requiredStrength,
+        protected WeaponMastery $requiredWeaponMastery,
     ) {}
 
     public function getType(): WeaponType
@@ -25,8 +27,4 @@ abstract class Weapon
     {
         return $this->damage;
     }
-
-    abstract public function getRequiredStrength(): Strength;
-
-    abstract public function getRequiredWeaponMastery(): WeaponMastery;
 }

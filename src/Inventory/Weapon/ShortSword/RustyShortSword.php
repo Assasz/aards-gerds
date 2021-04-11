@@ -14,11 +14,7 @@ final class RustyShortSword extends ShortSword
         parent::__construct(
             'Rusty Short Sword',
             new IntegerValue(10),
+            new Strength(5),
         );
-    }
-
-    public function getRequiredStrength(): Strength
-    {
-        return new Strength(5);
     }
 }
