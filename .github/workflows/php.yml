@@ -33,7 +33,7 @@ jobs:
       - name: Run PHPStan analyse
         run: ./vendor/bin/phpstan analyse
 
-      - name: Run unit tests
+      - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --testdox --coverage-text --colors=never
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
