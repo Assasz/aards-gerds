@@ -15,9 +15,11 @@ class IntegerValue implements \Stringable
         return $this->value;
     }
 
-    public function diff(self $value): int
+    public function advantage(self $value): int
     {
-        return $this->value - $value->get();
+        $difference = $this->value - $value->get();
+
+        return $difference > 0 ? $difference : 0;
     }
 
     public function __toString(): string

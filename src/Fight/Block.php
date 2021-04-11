@@ -49,11 +49,11 @@ final class Block
         $bonusForWeaponMastery = $target->getWeaponMasteryLevel()->get() * self::BONUS_FOR_WEAPON_MASTERY;
         $chance += $bonusForWeaponMastery;
 
-        $advantageInWeaponMastery = $target->getWeaponMasteryLevel()->diff($attacker->getWeaponMasteryLevel());
-        $chance += $advantageInWeaponMastery > 0 ? $advantageInWeaponMastery * self::BONUS_FOR_WEAPON_MASTERY : 0;
+        $advantageInWeaponMastery = $target->getWeaponMasteryLevel()->advantage($attacker->getWeaponMasteryLevel());
+        $chance += $advantageInWeaponMastery * self::BONUS_FOR_WEAPON_MASTERY;
 
-        $advantageInStrength = $target->getStrength()->diff($attacker->getStrength());
-        $chance += $advantageInStrength > 0 ? $advantageInStrength * self::BONUS_FOR_STRENGTH : 0;
+        $advantageInStrength = $target->getStrength()->advantage($attacker->getStrength());
+        $chance += $advantageInStrength * self::BONUS_FOR_STRENGTH;
 
         if ($chance > self::MAXIMAL_CHANCE) {
             $chance = self::MAXIMAL_CHANCE;
