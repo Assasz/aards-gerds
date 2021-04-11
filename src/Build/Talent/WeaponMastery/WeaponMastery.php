@@ -10,8 +10,6 @@ use AardsGerds\Game\Inventory\Weapon\WeaponType;
 
 final class WeaponMastery implements Talent, \Stringable
 {
-    public const NAME = 'Weapon Mastery';
-
     private function __construct(
         private WeaponType $type,
         private WeaponMasteryLevel $level,
@@ -34,7 +32,7 @@ final class WeaponMastery implements Talent, \Stringable
 
     public function getName(): string
     {
-        return self::NAME;
+        return 'Weapon Mastery';
     }
 
     public function getType(): WeaponType
