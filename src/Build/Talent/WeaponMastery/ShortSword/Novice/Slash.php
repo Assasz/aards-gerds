@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice;
+
+use AardsGerds\Game\Build\Talent\Effect\EffectCollection;
+use AardsGerds\Game\Build\Talent\TalentPoints;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryTalent;
+use AardsGerds\Game\Inventory\Weapon\ShortSword\ShortSword;
+use AardsGerds\Game\Fight\Attack;
+use AardsGerds\Game\Shared\IntegerValue;
+
+final class Slash implements Attack, WeaponMasteryTalent
+{
+    private const DAMAGE_MULTIPLIER = 0.9;
+
+    public function __construct(
+        private ShortSword $shortSword,
+    ) {}
+
+    public function getDamage(): IntegerValue
+    {
+        return new IntegerValue((int) round($this->shortSword->getDamage()->get() * self::DAMAGE_MULTIPLIER));
+    }
+
+    public function getEffects(): EffectCollection
+    {
+        return new EffectCollection([]);
+    }
+
+    public function getName(): string
+    {
+        return 'Slash';
+    }
+
+    public function getRequiredTalentPoints(): TalentPoints
+    {
+        return new TalentPoints(1);
+    }
+
+    public function getRequiredWeaponMastery(): WeaponMastery
+    {
+        return WeaponMastery::shortSword(WeaponMasteryLevel::novice());
+    }
+}
