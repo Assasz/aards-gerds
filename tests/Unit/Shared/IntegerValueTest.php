@@ -25,7 +25,7 @@ final class IntegerValueTest extends TestCase
     public function calculatesDifference(): void {
         self::assertSame(
             (new IntegerValue(5))->get(),
-            (new IntegerValue(10))->diff(new IntegerValue(5)),
+            (new IntegerValue(10))->diff(new IntegerValue(5))->get(),
         );
     }
 
