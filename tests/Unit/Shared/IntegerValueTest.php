@@ -15,30 +15,29 @@ final class IntegerValueTest extends TestCase
         self::assertIsString((string) new IntegerValue(1));
     }
 
-    /**
-     * @test
-     * @dataProvider provideIntegerValuesWithExpectedAdvantage
-     */
-    public function calculatesAdvantage(
-        IntegerValue $firstValue,
-        IntegerValue $secondValue,
-        int $expectedAdvantage,
-    ): void {
-        self::assertSame($expectedAdvantage, $firstValue->advantage($secondValue));
+    /** @test */
+    public function canBeGreaterThan(): void
+    {
+        self::assertTrue((new IntegerValue(10))->isGreaterThan(new IntegerValue(5)));
     }
 
-    public function provideIntegerValuesWithExpectedAdvantage(): \Generator
-    {
-        yield 'first value greater' => [
-            new IntegerValue(10),
-            new IntegerValue(6),
-            4,
-        ];
+    /** @test */
+    public function calculatesDifference(): void {
+        self::assertSame(
+            (new IntegerValue(5))->get(),
+            (new IntegerValue(10))->diff(new IntegerValue(5)),
+        );
+    }
 
-        yield 'second value greater' => [
-            new IntegerValue(6),
-            new IntegerValue(10),
-            0,
-        ];
+    /** @test */
+    public function canBeIncremented(): void
+    {
+        self::assertSame(6, (new IntegerValue(5))->increment()->get());
+    }
+
+    /** @test */
+    public function canBeIncreased(): void
+    {
+        self::assertSame(10, (new IntegerValue(5))->increaseBy(new IntegerValue(5))->get());
     }
 }

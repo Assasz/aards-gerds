@@ -15,11 +15,28 @@ class IntegerValue implements \Stringable
         return $this->value;
     }
 
-    public function advantage(self $value): int
+    public function isGreaterThan(self $value): bool
     {
-        $difference = $this->value - $value->get();
+        return $this->value > $value->get();
+    }
 
-        return $difference > 0 ? $difference : 0;
+    public function diff(self $value): static
+    {
+        return new static($this->value - $value->get());
+    }
+
+    public function increment(): static
+    {
+        $this->value += 1;
+
+        return $this;
+    }
+
+    public function increaseBy(self $value): static
+    {
+        $this->value += $value->get();
+
+        return $this;
     }
 
     public function __toString(): string
