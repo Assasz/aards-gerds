@@ -22,9 +22,9 @@ composer-update: ## Update project dependencies
 up: ## spin up environment
 		docker-compose -f docker-compose.yml up -d
 
-.PHONY: phpunit
-phpunit: ## execute project unit tests
-		docker-compose exec php sh -lc "./vendor/bin/phpunit --testdox"
+.PHONY: tests
+tests: ## executes project tests and calculates coverage
+		docker-compose exec php sh -lc "XDEBUG_MODE=coverage ./vendor/bin/phpunit --testdox --coverage-text --colors=never"
 
 .PHONY: phpstan
 phpstan: ## executes php stan
