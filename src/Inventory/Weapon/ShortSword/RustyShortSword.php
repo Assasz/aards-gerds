@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Inventory\Weapon\ShortSword;
 
+use AardsGerds\Game\Build\Attribute\Damage;
 use AardsGerds\Game\Build\Attribute\Strength;
-use AardsGerds\Game\Shared\IntegerValue;
 
 final class RustyShortSword extends ShortSword
 {
@@ -13,7 +13,7 @@ final class RustyShortSword extends ShortSword
     {
         parent::__construct(
             'Rusty Short Sword',
-            new IntegerValue(10),
+            new Damage(10),
             new Strength(5),
         );
     }
