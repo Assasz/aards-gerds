@@ -34,7 +34,7 @@ jobs:
         run: ./vendor/bin/phpstan analyse
 
       - name: Run PHPUnit tests
-        run: ./vendor/bin/phpunit --testdox --coverage-text --colors=never
+        run: XDEBUG_MODE=coverage ./vendor/bin/phpunit --testdox --coverage-text --colors=never
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
