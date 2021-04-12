@@ -6,7 +6,7 @@ namespace AardsGerds\Game\Shared;
 
 class IntegerValue implements \Stringable
 {
-    public function __construct(
+    final public function __construct(
         protected int $value,
     ) {}
 

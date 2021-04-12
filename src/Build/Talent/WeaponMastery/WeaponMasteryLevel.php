@@ -65,9 +65,4 @@ final class WeaponMasteryLevel extends IntegerValue
     {
         return self::STRING_VALUES[$this->value];
     }
-
-    private function __construct(int $value)
-    {
-        parent::__construct($value);
-    }
 }
