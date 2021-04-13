@@ -38,29 +38,39 @@ final class LevelProgressTest extends TestCase
         self::assertSame(2100, $levelProgress->getCurrentExperience()->get());
     }
 
-    /** @test */
-    public function increasesTo11Level(): void
-    {
-        $levelProgress = new LevelProgress(new Level(10), new Experience(9000));
+    /**
+     * @test
+     * @dataProvider provideCases
+     */
+    public function increases(
+        LevelProgress $levelProgress,
+        Experience $requiredExperience,
+        Level $expectedLevel,
+        Experience $expectedExperience,
+    ): void {
         $levelProgress->increase(
-            new Experience(2000),
+            $requiredExperience,
             $this->createMock(Player::class),
         );
 
-        self::assertSame(11, $levelProgress->getLevel()->get());
-        self::assertSame(11000, $levelProgress->getCurrentExperience()->get());
+        self::assertTrue($levelProgress->getLevel()->equals($expectedLevel));
+        self::assertTrue($levelProgress->getCurrentExperience()->equals($expectedExperience));
     }
 
-    /** @test */
-    public function increasesTo21Level(): void
+    public function provideCases(): \Generator
     {
-        $levelProgress = new LevelProgress(new Level(20), new Experience(29000));
-        $levelProgress->increase(
-            new Experience(3000),
-            $this->createMock(Player::class),
-        );
+        yield 'from 10 to 11 level' => [
+            new LevelProgress(new Level(10), new Experience(9000)),
+            new Experience(2000),
+            new Level(11),
+            new Experience(11000),
+        ];
 
-        self::assertSame(21, $levelProgress->getLevel()->get());
-        self::assertSame(32000, $levelProgress->getCurrentExperience()->get());
+        yield 'from 20 to 21 level' => [
+            new LevelProgress(new Level(20), new Experience(29000)),
+            new Experience(3000),
+            new Level(21),
+            new Experience(32000),
+        ];
     }
 }

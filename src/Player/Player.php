@@ -19,7 +19,7 @@ final class Player
         private TalentPoints $talentPoints,
     ) {}
 
-    public static function unserialize(array $data): self
+    public static function denormalize(array $data): self
     {
         return new self(
             $data['name'],
@@ -32,7 +32,7 @@ final class Player
         );
     }
 
-    public function serialize(): array
+    public function normalize(): array
     {
         return [
             'name' => $this->name,

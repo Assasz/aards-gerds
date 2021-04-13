@@ -64,15 +64,15 @@ final class LevelProgress
         $this->experienceNeededForNextLevel = new Experience(0);
 
         for ($level = 2; $level <= $this->level->get() + 1; $level++) {
-            $this->experienceNeededForNextLevel->increaseBy($this->getExperienceNeededFor(new Level($level)));
+            $this->experienceNeededForNextLevel->increaseBy($this->getRequiredExperience(new Level($level)));
         }
     }
 
-    private function getExperienceNeededFor(Level $level): Experience
+    private function getRequiredExperience(Level $level): Experience
     {
         return match (true) {
-            $level->isGreaterThan(new Level(20)) => new Experience(3000),
             $level->isGreaterThan(new Level(10)) => new Experience(2000),
+            $level->isGreaterThan(new Level(20)) => new Experience(3000),
             default => new Experience(1000),
         };
     }
