@@ -15,9 +15,19 @@ class IntegerValue implements \Stringable
         return $this->value;
     }
 
+    public function equals(self $value): bool
+    {
+        return $this->value === $value->get();
+    }
+
     public function isGreaterThan(self $value): bool
     {
         return $this->value > $value->get();
+    }
+
+    public function isGreaterThanOrEqual(self $value): bool
+    {
+        return $this->value >= $value->get();
     }
 
     public function diff(self $value): static

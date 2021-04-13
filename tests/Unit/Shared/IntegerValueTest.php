@@ -16,6 +16,12 @@ final class IntegerValueTest extends TestCase
     }
 
     /** @test */
+    public function canBeEqual(): void
+    {
+        self::assertTrue((new IntegerValue(10))->equals(new IntegerValue(10)));
+    }
+
+    /** @test */
     public function canBeGreaterThan(): void
     {
         self::assertTrue((new IntegerValue(10))->isGreaterThan(new IntegerValue(5)));
