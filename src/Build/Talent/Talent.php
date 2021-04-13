@@ -8,7 +8,7 @@ use AardsGerds\Game\Build\Talent\TalentPoints;
 
 interface Talent
 {
-    public function getName(): string;
+    public static function getName(): string;
 
-    public function getRequiredTalentPoints(): TalentPoints;
+    public static function getRequiredTalentPoints(): TalentPoints;
 }

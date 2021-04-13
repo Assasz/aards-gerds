@@ -8,5 +8,5 @@ use AardsGerds\Game\Build\Talent\Talent;
 
 interface WeaponMasteryTalent extends Talent
 {
-    public function getRequiredWeaponMastery(): WeaponMastery;
+    public static function getRequiredWeaponMastery(): WeaponMastery;
 }

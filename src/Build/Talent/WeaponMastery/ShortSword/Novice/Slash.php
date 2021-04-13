@@ -31,17 +31,17 @@ final class Slash implements Attack, WeaponMasteryTalent
         return new EffectCollection([]);
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'Slash';
     }
 
-    public function getRequiredTalentPoints(): TalentPoints
+    public static function getRequiredTalentPoints(): TalentPoints
     {
         return new TalentPoints(1);
     }
 
-    public function getRequiredWeaponMastery(): WeaponMastery
+    public static function getRequiredWeaponMastery(): WeaponMastery
     {
         return WeaponMastery::shortSword(WeaponMasteryLevel::novice());
     }

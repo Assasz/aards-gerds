@@ -30,9 +30,14 @@ final class WeaponMastery implements Talent, \Stringable
         return new self(WeaponType::bow(), $level);
     }
 
-    public function getName(): string
+    public static function getName(): string
     {
         return 'Weapon Mastery';
+    }
+
+    public static function getRequiredTalentPoints(): TalentPoints
+    {
+        return new TalentPoints(4);
     }
 
     public function getType(): WeaponType
@@ -43,11 +48,6 @@ final class WeaponMastery implements Talent, \Stringable
     public function getLevel(): WeaponMasteryLevel
     {
         return $this->level;
-    }
-
-    public function getRequiredTalentPoints(): TalentPoints
-    {
-        return new TalentPoints(4);
     }
 
     public function __toString(): string

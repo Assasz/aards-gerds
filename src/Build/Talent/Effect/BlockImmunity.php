@@ -6,12 +6,12 @@ namespace AardsGerds\Game\Build\Talent\Effect;
 
 final class BlockImmunity implements Effect
 {
-    public function getName(): string
+    public static function getName(): string
     {
         return 'Block Immunity';
     }
 
-    public function getDescription(): string
+    public static function getDescription(): string
     {
         return 'This attack cannot be blocked.';
     }

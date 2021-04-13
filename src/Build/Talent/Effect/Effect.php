@@ -6,7 +6,7 @@ namespace AardsGerds\Game\Build\Talent\Effect;
 
 interface Effect
 {
-    public function getName(): string;
+    public static function getName(): string;
 
-    public function getDescription(): string;
+    public static function getDescription(): string;
 }
