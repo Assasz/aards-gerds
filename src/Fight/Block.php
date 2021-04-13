@@ -23,18 +23,21 @@ final class Block
      */
     private const BONUS_FOR_STRENGTH = 0.005;
 
-    // attacker: 2 wm, 50 str
-    // target: 4 wm, 80 str
-    // bonus for wm: 4 x 0.05 = 0.2
-    // bonus for advantage: 2 x 0.05 + 30 x 0.005 = 0.1 + 0.15 = 0.25
-    // chance: minimal + bonuses = 0.1 + 0.2 + 0.25 = 0.55
-
-    // attacker: 4 wm, 80 str
-    // target: 2 wm, 50 str
-    // bonus for wm: 2 x 0.05 = 0.1
-    // bonus for advantage: 0
-    // chance: minimal + bonuses = 0.1 + 0.1 = 0.2
-
+    /**
+     * @example
+     * attacker: 2 wm, 50 str
+     * target: 4 wm, 80 str
+     * bonus for wm: 4 x 0.05 = 0.2
+     * bonus for advantage: 2 x 0.05 + 30 x 0.005 = 0.1 + 0.15 = 0.25
+     * expected chance: minimal + bonuses = 0.1 + 0.2 + 0.25 = 0.55
+     *
+     * @example
+     * attacker: 4 wm, 80 str
+     * target: 2 wm, 50 str
+     * bonus for wm: 2 x 0.05 = 0.1
+     * bonus for advantage: 0
+     * expected chance: minimal + bonuses = 0.1 + 0.1 = 0.2
+     */
     public static function calculateChance(
         Fighter $attacker,
         Fighter $target,
