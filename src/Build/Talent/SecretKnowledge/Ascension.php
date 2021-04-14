@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Build\Talent\SecretKnowledge;
 
 use AardsGerds\Game\Shared\IntegerValue;
+use AardsGerds\Game\Shared\IntegerValueException;
 
 final class Ascension extends IntegerValue
 {
@@ -16,17 +17,6 @@ final class Ascension extends IntegerValue
     public const SIXTH_ASCENSION = 6;
     public const SEVENTH_ASCENSION = 7;
     public const EIGHTH_ASCENSION = 8;
-
-    private const STRING_VALUES = [
-        self::FIRST_ASCENSION => 'First Ascension',
-        self::SECOND_ASCENSION => 'Second Ascension',
-        self::THIRD_ASCENSION => 'Third Ascension',
-        self::FOURTH_ASCENSION => 'Fourth Ascension',
-        self::FIFTH_ASCENSION => 'Fifth Ascension',
-        self::SIXTH_ASCENSION => 'Sixth Ascension',
-        self::SEVENTH_ASCENSION => 'Seventh Ascension',
-        self::EIGHTH_ASCENSION => 'Eighth Ascension',
-    ];
 
     public static function firstAscension(): self
     {
@@ -70,6 +60,23 @@ final class Ascension extends IntegerValue
 
     public function __toString(): string
     {
-        return self::STRING_VALUES[$this->value];
+        return match ($this->value) {
+            self::FIRST_ASCENSION => 'First Ascension',
+            self::SECOND_ASCENSION => 'Second Ascension',
+            self::THIRD_ASCENSION => 'Third Ascension',
+            self::FOURTH_ASCENSION => 'Fourth Ascension',
+            self::FIFTH_ASCENSION => 'Fifth Ascension',
+            self::SIXTH_ASCENSION => 'Sixth Ascension',
+            self::SEVENTH_ASCENSION => 'Seventh Ascension',
+            self::EIGHTH_ASCENSION => 'Eighth Ascension',
+            default => throw IntegerValueException::invalidValue($this->value),
+        };
+    }
+
+    protected function validate(): void
+    {
+        if (!in_array($this->value, range(self::FIRST_ASCENSION, self::EIGHTH_ASCENSION))) {
+            throw IntegerValueException::invalidValue($this->value);
+        }
     }
 }

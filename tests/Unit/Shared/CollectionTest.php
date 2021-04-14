@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Tests\Unit\Shared;
 
 use AardsGerds\Game\Shared\Collection;
+use AardsGerds\Game\Shared\CollectionException;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
@@ -12,7 +13,7 @@ final class CollectionTest extends TestCase
     /** @test */
     public function assertsType(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(CollectionException::class);
 
         $this->createCollection([new \ArrayObject()]);
     }

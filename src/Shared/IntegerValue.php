@@ -8,7 +8,9 @@ class IntegerValue implements \Stringable
 {
     final public function __construct(
         protected int $value,
-    ) {}
+    ) {
+        $this->validate();
+    }
 
     public function get(): int
     {
@@ -52,5 +54,9 @@ class IntegerValue implements \Stringable
     public function __toString(): string
     {
         return (string) $this->value;
+    }
+
+    protected function validate(): void
+    {
     }
 }

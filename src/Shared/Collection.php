@@ -42,9 +42,7 @@ abstract class Collection implements \IteratorAggregate, \Countable
 
         foreach ($this->items as $item) {
             if (!$item instanceof $type) {
-                throw new \InvalidArgumentException(
-                    sprintf('The object %s is not an instance of %s', get_class($item), $type),
-                );
+                throw CollectionException::invalidType(get_class($item), $type);
             }
         }
     }

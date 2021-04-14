@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Build\Talent\WeaponMastery;
 
 use AardsGerds\Game\Shared\IntegerValue;
+use AardsGerds\Game\Shared\IntegerValueException;
 
 final class WeaponMasteryLevel extends IntegerValue
 {
@@ -15,16 +16,6 @@ final class WeaponMasteryLevel extends IntegerValue
     public const MASTER_OF_FIRST_TIER = 4;
     public const MASTER_OF_SECOND_TIER = 5;
     public const MASTER_OF_THIRD_TIER = 6;
-
-    private const STRING_VALUES = [
-        self::INEXPERIENCED => 'inexperienced',
-        self::NOVICE => 'novice',
-        self::WARRIOR => 'warrior',
-        self::VETERAN => 'veteran',
-        self::MASTER_OF_FIRST_TIER => 'master of first tier',
-        self::MASTER_OF_SECOND_TIER => 'master of second tier',
-        self::MASTER_OF_THIRD_TIER => 'master of third tier',
-    ];
 
     public static function inexperienced(): self
     {
@@ -63,6 +54,22 @@ final class WeaponMasteryLevel extends IntegerValue
 
     public function __toString(): string
     {
-        return self::STRING_VALUES[$this->value];
+        return match ($this->value) {
+            self::INEXPERIENCED => 'inexperienced',
+            self::NOVICE => 'novice',
+            self::WARRIOR => 'warrior',
+            self::VETERAN => 'veteran',
+            self::MASTER_OF_FIRST_TIER => 'master of first tier',
+            self::MASTER_OF_SECOND_TIER => 'master of second tier',
+            self::MASTER_OF_THIRD_TIER => 'master of third tier',
+            default => throw IntegerValueException::invalidValue($this->value),
+        };
+    }
+
+    protected function validate(): void
+    {
+        if (!in_array($this->value, range(self::INEXPERIENCED, self::MASTER_OF_THIRD_TIER))) {
+            throw IntegerValueException::invalidValue($this->value);
+        }
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Tests\Unit\Build\Talent\WeaponMastery;
 
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Shared\IntegerValueException;
 use PHPUnit\Framework\TestCase;
 
 final class WeaponMasteryLevelTest extends TestCase
@@ -70,5 +71,13 @@ final class WeaponMasteryLevelTest extends TestCase
 
         self::assertSame(6, $weaponMasteryLevel->get());
         self::assertSame('master of third tier', (string) $weaponMasteryLevel);
+    }
+
+    /** @test */
+    public function throwsExceptionOnInvalidValue(): void
+    {
+        $this->expectException(IntegerValueException::class);
+
+        new WeaponMasteryLevel(10);
     }
 }
