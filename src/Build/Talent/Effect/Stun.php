@@ -13,6 +13,6 @@ final class Stun implements Effect
 
     public static function getDescription(): string
     {
-        return 'This attack stuns opponent for 1 round.';
+        return 'This attack stuns opponent for 2 rounds.';
     }
 }
