@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Entity\Human;
+namespace AardsGerds\Game\Entity;
 
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
-use AardsGerds\Game\Inventory\Weapon\Weapon;
 use AardsGerds\Game\Fight\Fighter;
+use AardsGerds\Game\Inventory\Weapon\Weapon;
 
-abstract class Human implements Fighter
+abstract class Entity implements Fighter
 {
     public function __construct(
         protected string $name,

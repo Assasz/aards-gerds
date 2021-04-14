@@ -12,12 +12,10 @@ final class TalentCollection extends Collection
 {
     public function findWeaponMasteryForWeaponType(WeaponType $weaponType): ?WeaponMastery
     {
-        $weaponMasteryTalents = $this->filter(
+        return $this->filter(
             static fn(Talent $talent): bool =>
                 $talent instanceof WeaponMastery && $talent->getType()->equals($weaponType),
-        );
-
-        return $weaponMasteryTalents->count() ? $weaponMasteryTalents->getIterator()->current() : null;
+        )->getIterator()->current();
     }
 
     protected function getType(): string

@@ -11,9 +11,10 @@ use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 
-final class Bandit extends Human
+final class Bandit extends Entity
 {
     public function __construct()
     {

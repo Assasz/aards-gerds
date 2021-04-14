@@ -13,11 +13,11 @@ use AardsGerds\Game\Build\Level;
 use AardsGerds\Game\Build\LevelProgress;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
-use AardsGerds\Game\Entity\Human\Human;
+use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 
-final class Player extends Human
+final class Player extends Entity
 {
     public function __construct(
         string $name,
