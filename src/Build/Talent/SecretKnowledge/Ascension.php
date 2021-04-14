@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Build\Talent\SecretKnowledge;
 
+use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Shared\IntegerValue;
 use AardsGerds\Game\Shared\IntegerValueException;
 
@@ -56,6 +57,21 @@ final class Ascension extends IntegerValue
     public static function eighthAscension(): self
     {
         return new self(self::EIGHTH_ASCENSION);
+    }
+
+    public function getRequiredEtherum(): Etherum
+    {
+        return match ($this->value) {
+            self::FIRST_ASCENSION => new Etherum(10),
+            self::SECOND_ASCENSION => new Etherum(20),
+            self::THIRD_ASCENSION => new Etherum(40),
+            self::FOURTH_ASCENSION => new Etherum(80),
+            self::FIFTH_ASCENSION => new Etherum(160),
+            self::SIXTH_ASCENSION => new Etherum(320),
+            self::SEVENTH_ASCENSION => new Etherum(640),
+            self::EIGHTH_ASCENSION => new Etherum(1280),
+            default => throw IntegerValueException::invalidValue($this->value),
+        };
     }
 
     public function __toString(): string
