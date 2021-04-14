@@ -10,4 +10,9 @@ final class IntegerValueException extends \RuntimeException
     {
         return new self("{$value} is not a valid value");
     }
+
+    public static function onlyPositive(): self
+    {
+        return new self('Only positive integers are accepted');
+    }
 }

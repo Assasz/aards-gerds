@@ -34,7 +34,7 @@ class IntegerValue implements \Stringable
 
     public function diff(self $value): static
     {
-        return new static($this->value - $value->get());
+        return new static(abs($this->value - $value->get()));
     }
 
     public function increment(): static
@@ -58,5 +58,8 @@ class IntegerValue implements \Stringable
 
     protected function validate(): void
     {
+        if ($this->value < 0) {
+            throw IntegerValueException::onlyPositive();
+        }
     }
 }

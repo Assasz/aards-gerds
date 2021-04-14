@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Tests\Unit\Shared;
 
 use AardsGerds\Game\Shared\IntegerValue;
+use AardsGerds\Game\Shared\IntegerValueException;
 use PHPUnit\Framework\TestCase;
 
 final class IntegerValueTest extends TestCase
@@ -45,5 +46,13 @@ final class IntegerValueTest extends TestCase
     public function canBeIncreased(): void
     {
         self::assertSame(10, (new IntegerValue(5))->increaseBy(new IntegerValue(5))->get());
+    }
+
+    /** @test */
+    public function throwsExceptionOnNegativeValue(): void
+    {
+        $this->expectException(IntegerValueException::class);
+
+        new IntegerValue(-1);
     }
 }
