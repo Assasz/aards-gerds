@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Build;
 
 use AardsGerds\Game\Build\Attribute\AttributePoints;
+use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Player\Player;
 
@@ -55,6 +56,7 @@ final class LevelProgress
         $this->level->increment();
         $this->calculateExperienceNeededForNextLevel();
 
+        $player->getHealth()->increaseBy(new Health(20));
         $player->getAttributePoints()->increaseBy(new AttributePoints(5));
         $player->getTalentPoints()->increaseBy(new TalentPoints(3));
     }

@@ -21,6 +21,11 @@ abstract class Human implements Fighter
         protected ?Weapon $weapon,
     ) {}
 
+    public function getHealth(): Health
+    {
+        return $this->health;
+    }
+
     public function getStrength(): Strength
     {
         return $this->strength;
@@ -38,5 +43,10 @@ abstract class Human implements Fighter
         }
 
         return $weaponMastery->getLevel();
+    }
+
+    public function getWeapon(): ?Weapon
+    {
+        return $this->weapon;
     }
 }
