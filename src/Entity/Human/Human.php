@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Entity\Human;
 
+use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
@@ -16,6 +17,7 @@ abstract class Human implements Fighter
     public function __construct(
         protected string $name,
         protected Health $health,
+        protected Etherum $etherum,
         protected Strength $strength,
         protected TalentCollection $talentCollection,
         protected ?Weapon $weapon,
@@ -24,6 +26,11 @@ abstract class Human implements Fighter
     public function getHealth(): Health
     {
         return $this->health;
+    }
+
+    public function getEtherum(): Etherum
+    {
+        return $this->etherum;
     }
 
     public function getStrength(): Strength

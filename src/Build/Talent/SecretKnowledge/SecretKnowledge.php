@@ -13,6 +13,11 @@ final class SecretKnowledge implements Talent, \Stringable
         private Ascension $ascension,
     ) {}
 
+    public function getAscension(): Ascension
+    {
+        return $this->ascension;
+    }
+
     public static function getName(): string
     {
         return 'Secret Knowledge';

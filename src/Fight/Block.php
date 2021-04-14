@@ -43,7 +43,7 @@ final class Block
         Fighter $target,
         Attack $attack,
     ): float {
-        if ($attack->getEffects()->has(BlockImmunity::class)) {
+        if ($attack->getEffects()->has(BlockImmunity::getName())) {
             return 0;
         }
 

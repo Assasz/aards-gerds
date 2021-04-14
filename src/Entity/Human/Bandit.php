@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Entity\Human;
 
+use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
@@ -21,6 +22,7 @@ final class Bandit extends Human
         parent::__construct(
             'Bandit',
             new Health(100),
+            new Etherum(1),
             new Strength(20),
             new TalentCollection([
                 WeaponMastery::shortSword(WeaponMasteryLevel::novice()),

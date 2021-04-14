@@ -8,10 +8,10 @@ use AardsGerds\Game\Shared\Collection;
 
 final class EffectCollection extends Collection
 {
-    public function has(string $effectType): bool
+    public function has(string $effectName): bool
     {
         return $this->filter(
-            static fn(Effect $effect): bool => $effect instanceof $effectType,
+            static fn(Effect $effect): bool => $effect::getName() === $effectName,
         )->count() > 0;
     }
 
