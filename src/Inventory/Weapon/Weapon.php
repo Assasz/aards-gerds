@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Inventory\Weapon;
 
 use AardsGerds\Game\Build\Attribute\Damage;
-use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 
 abstract class Weapon
@@ -14,7 +13,6 @@ abstract class Weapon
         protected string $name,
         protected WeaponType $type,
         protected Damage $damage,
-        protected Strength $requiredStrength,
         protected WeaponMastery $requiredWeaponMastery,
     ) {}
 
