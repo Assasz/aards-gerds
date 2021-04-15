@@ -19,5 +19,5 @@ abstract class Decision implements \Stringable
         return $this->order;
     }
 
-    abstract public function getResult(): Event;
+    abstract public function __invoke(): Event;
 }

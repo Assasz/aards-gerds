@@ -14,4 +14,6 @@ abstract class Event
         protected DecisionCollection $decisionCollection,
         protected Player $player,
     ) {}
+
+    abstract public function __invoke(): Decision;
 }

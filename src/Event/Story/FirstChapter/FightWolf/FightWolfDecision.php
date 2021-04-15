@@ -15,18 +15,18 @@ final class FightWolfDecision extends Decision
     public function __construct(
         IntegerValue $order,
         Player $player,
-        protected Wolf $wolf,
+        private Wolf $wolf,
     ) {
         parent::__construct($order, $player);
     }
 
-    public function getResult(): Event
+    public function __invoke(): Event
     {
         return new FightWolfEvent($this->player, $this->wolf);
     }
 
     public function __toString(): string
     {
-        return 'Attack wolf';
+        return "{$this->order}. Attack wolf";
     }
 }
