@@ -9,12 +9,10 @@ use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Experience;
-use AardsGerds\Game\Build\Level;
 use AardsGerds\Game\Build\LevelProgress;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Entity\Entity;
-use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 
 final class Player extends Entity
@@ -40,40 +38,9 @@ final class Player extends Entity
         );
     }
 
-    public static function denormalize(array $data): self
+    public function getLevelProgress(): LevelProgress
     {
-        return new self(
-            $data['name'],
-            new Health($data['health']),
-            new Etherum($data['etherum']),
-            new Strength($data['strength']),
-            new TalentCollection([]),
-            new RustyShortSword(),
-            new LevelProgress(
-                new Level($data['levelProgress']['level']),
-                new Experience($data['levelProgress']['currentExperience']),
-            ),
-            new AttributePoints($data['attributePoints']),
-            new TalentPoints($data['talentPoints']),
-        );
-    }
-
-    public function normalize(): array
-    {
-        return [
-            'name' => $this->name,
-            'health' => $this->health->get(),
-            'etherum' => $this->etherum->get(),
-            'strength' => $this->strength->get(),
-            'talents' => 'not implemented yet',
-            'weapon' => 'not implemented yet',
-            'levelProgress' => [
-                'level' => $this->levelProgress->getLevel()->get(),
-                'currentExperience' => $this->levelProgress->getCurrentExperience()->get(),
-            ],
-            'attributePoints' => $this->attributePoints->get(),
-            'talentPoints' => $this->talentPoints->get(),
-        ];
+        return $this->levelProgress;
     }
 
     public function increaseExperience(Experience $experience): void

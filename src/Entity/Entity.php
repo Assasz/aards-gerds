@@ -23,6 +23,11 @@ abstract class Entity implements Fighter
         protected ?Weapon $weapon,
     ) {}
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function getHealth(): Health
     {
         return $this->health;
@@ -36,6 +41,11 @@ abstract class Entity implements Fighter
     public function getStrength(): Strength
     {
         return $this->strength;
+    }
+
+    public function getTalents(): TalentCollection
+    {
+        return $this->talentCollection;
     }
 
     public function getWeaponMasteryLevel(): WeaponMasteryLevel
