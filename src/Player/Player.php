@@ -13,6 +13,7 @@ use AardsGerds\Game\Build\LevelProgress;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 
 final class Player extends Entity
@@ -23,6 +24,7 @@ final class Player extends Entity
         Etherum $etherum,
         Strength $strength,
         TalentCollection $talentCollection,
+        Inventory $inventory,
         ?Weapon $weapon,
         private LevelProgress $levelProgress,
         private AttributePoints $attributePoints,
@@ -34,6 +36,7 @@ final class Player extends Entity
             $etherum,
             $strength,
             $talentCollection,
+            $inventory,
             $weapon,
         );
     }

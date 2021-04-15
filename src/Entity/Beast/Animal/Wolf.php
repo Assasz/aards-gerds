@@ -9,6 +9,8 @@ use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Inventory\Inventory;
+use AardsGerds\Game\Inventory\Trophy\WolfFur;
 
 final class Wolf extends Entity
 {
@@ -20,6 +22,7 @@ final class Wolf extends Entity
             new Etherum(1),
             new Strength(10),
             new TalentCollection([]),
+            new Inventory([new WolfFur()]),
             null,
         );
     }

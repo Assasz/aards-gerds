@@ -12,6 +12,7 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 
 final class Bandit extends Entity
@@ -29,6 +30,7 @@ final class Bandit extends Entity
                 WeaponMastery::shortSword(WeaponMasteryLevel::novice()),
                 new Slash($weapon),
             ]),
+            new Inventory([]),
             $weapon,
         );
     }

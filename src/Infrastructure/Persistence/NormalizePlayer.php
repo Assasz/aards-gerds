@@ -16,6 +16,7 @@ final class NormalizePlayer
             'etherum' => $player->getEtherum()->get(),
             'strength' => $player->getStrength()->get(),
             'talents' => 'not implemented yet',
+            'inventory' => 'not implemented yet',
             'weapon' => 'not implemented yet',
             'levelProgress' => [
                 'level' => $player->getLevelProgress()->getLevel()->get(),

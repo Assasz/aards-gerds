@@ -13,6 +13,7 @@ use AardsGerds\Game\Build\Level;
 use AardsGerds\Game\Build\LevelProgress;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
+use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 use AardsGerds\Game\Player\Player;
 
@@ -26,6 +27,7 @@ final class DenormalizePlayer
             new Etherum($data['etherum']),
             new Strength($data['strength']),
             new TalentCollection([]),
+            new Inventory([]),
             new RustyShortSword(),
             new LevelProgress(
                 new Level($data['levelProgress']['level']),

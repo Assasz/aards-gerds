@@ -10,6 +10,7 @@ use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Fight\Fighter;
+use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 
 abstract class Entity implements Fighter
@@ -20,6 +21,7 @@ abstract class Entity implements Fighter
         protected Etherum $etherum,
         protected Strength $strength,
         protected TalentCollection $talentCollection,
+        protected Inventory $inventory,
         protected ?Weapon $weapon,
     ) {}
 
