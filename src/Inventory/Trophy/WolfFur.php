@@ -14,6 +14,7 @@ final class WolfFur extends Trophy
             'Wolf Fur',
             'Some tanner surely will buy it.',
             new Coin(20),
+            new Coin(40),
         );
     }
 }

@@ -17,6 +17,7 @@ final class RustyShortSword extends ShortSword
             'Rusty Short Sword',
             'Blade is covered in little rust, but it seems to be usable.',
             new Coin(1),
+            new Coin(10),
             new Damage(10),
             WeaponMasteryLevel::novice(),
             new Strength(5),

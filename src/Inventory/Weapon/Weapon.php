@@ -9,30 +9,18 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Inventory\Coin;
 use AardsGerds\Game\Inventory\InventoryItem;
 
-abstract class Weapon implements InventoryItem
+abstract class Weapon extends InventoryItem
 {
     public function __construct(
-        protected string $name,
-        protected string $description,
-        protected Coin $sellValue,
+        string $name,
+        string $description,
+        Coin $sellValue,
+        Coin $buyValue,
         protected WeaponType $type,
         protected Damage $damage,
         protected WeaponMastery $requiredWeaponMastery,
-    ) {}
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    public function getSellValue(): Coin
-    {
-        return $this->sellValue;
+    ) {
+        parent::__construct($name, $description, $sellValue, $buyValue);
     }
 
     public function getType(): WeaponType
