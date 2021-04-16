@@ -1,7 +1,7 @@
 {
   "name": "assasz/aards-gerds",
   "type": "project",
-  "description": "RPG game running in CLI. Fully powered by PHP.",
+  "description": "RPG game running on Symfony Console. Fully powered by PHP.",
   "license": "proprietary",
   "authors": [
     {
