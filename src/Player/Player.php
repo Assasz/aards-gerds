@@ -16,6 +16,7 @@ use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
+use AardsGerds\Game\Shared\IntegerValueException;
 
 final class Player extends Entity
 {
@@ -70,7 +71,7 @@ final class Player extends Entity
 
         $corruptionBoundary = $this->calculateCorruptionBoundary();
 
-        if (!$this->isCorrupted() && $this->etherum->isGreaterThanOrEqual($corruptionBoundary)) {
+        if ($this->etherum->isGreaterThanOrEqual($corruptionBoundary)) {
             if ($playerAscension->isLowerThan(Ascension::sixthAscension())) {
                 throw PlayerException::etherumOverdose();
             }
@@ -87,5 +88,25 @@ final class Player extends Entity
     public function getTalentPoints(): TalentPoints
     {
         return $this->talentPoints;
+    }
+
+    private function calculateCorruptionBoundary(): Etherum
+    {
+        $ascension = $this->talentCollection->findSecretKnowledge()?->getAscension();
+        if ($ascension === null) {
+            return new Etherum(2);
+        }
+
+        try {
+            $nextAscensionEtherum = $ascension->increment()->getRequiredEtherum();
+        } catch (IntegerValueException $exception) {
+            // entity has 8th ascension
+            $nextAscensionEtherum = new Etherum($ascension->getRequiredEtherum()->get() * 2);
+        }
+
+        // etherum required by next ascension + 0.5 x etherum required by next ascension
+        return $nextAscensionEtherum->increaseBy(
+            new Etherum((int) ($nextAscensionEtherum->get() * 0.5)),
+        );
     }
 }

@@ -12,7 +12,6 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Fight\Fighter;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
-use AardsGerds\Game\Shared\IntegerValueException;
 
 abstract class Entity implements Fighter
 {
@@ -74,25 +73,5 @@ abstract class Entity implements Fighter
     public function isCorrupted(): bool
     {
         return $this->corrupted;
-    }
-
-    public function calculateCorruptionBoundary(): Etherum
-    {
-        $ascension = $this->talentCollection->findSecretKnowledge()?->getAscension();
-        if ($ascension === null) {
-            return new Etherum(2);
-        }
-
-        try {
-            $nextAscensionEtherum = $ascension->increment()->getRequiredEtherum();
-        } catch (IntegerValueException $exception) {
-            // entity has 8th ascension
-            $nextAscensionEtherum = new Etherum($ascension->getRequiredEtherum()->get() * 2);
-        }
-
-        // etherum required by next ascension + 0.5 x etherum required by next ascension
-        return $nextAscensionEtherum->increaseBy(
-            new Etherum((int) ($nextAscensionEtherum->get() * 0.5)),
-        );
     }
 }
