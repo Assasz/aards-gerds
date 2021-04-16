@@ -19,7 +19,7 @@ final class Wolf extends Entity
         parent::__construct(
             'Wolf',
             new Health(50),
-            new Etherum(1),
+            new Etherum(0),
             new Strength(10),
             new TalentCollection([]),
             new Inventory([new WolfFur()]),
