@@ -23,6 +23,11 @@ final class SecretKnowledge implements Talent, \Stringable
         return 'Secret Knowledge';
     }
 
+    public static function getDescription(): string
+    {
+        return 'Also known as Etheurgy is some places. Art of Etherum wielding.';
+    }
+
     public static function getRequiredTalentPoints(): TalentPoints
     {
         return new TalentPoints(6);

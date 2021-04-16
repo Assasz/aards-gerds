@@ -36,6 +36,11 @@ final class Slash implements Attack, WeaponMasteryTalent
         return 'Slash';
     }
 
+    public static function getDescription(): string
+    {
+        return 'Standard slash with sword. Everyone can do it.';
+    }
+
     public static function getRequiredTalentPoints(): TalentPoints
     {
         return new TalentPoints(1);

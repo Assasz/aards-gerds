@@ -35,6 +35,11 @@ final class WeaponMastery implements Talent, \Stringable
         return 'Weapon Mastery';
     }
 
+    public static function getDescription(): string
+    {
+        return 'Talent of weapon fighting.';
+    }
+
     public static function getRequiredTalentPoints(): TalentPoints
     {
         return new TalentPoints(4);

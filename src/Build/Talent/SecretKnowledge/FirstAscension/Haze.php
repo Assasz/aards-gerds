@@ -36,6 +36,11 @@ final class Haze implements EtherumAttack, SecretKnowledgeTalent
         return 'Haze';
     }
 
+    public static function getDescription(): string
+    {
+        return 'Gives your enemy a break.';
+    }
+
     public static function getRequiredTalentPoints(): TalentPoints
     {
         return new TalentPoints(2);
