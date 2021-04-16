@@ -17,7 +17,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(1, $ascension->get());
         self::assertSame('First Ascension', (string) $ascension);
-        self::assertSame(10, $ascension->getRequiredEtherum()->get());
+        self::assertSame(1, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -27,7 +27,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(2, $ascension->get());
         self::assertSame('Second Ascension', (string) $ascension);
-        self::assertSame(20, $ascension->getRequiredEtherum()->get());
+        self::assertSame(2, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -37,7 +37,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(3, $ascension->get());
         self::assertSame('Third Ascension', (string) $ascension);
-        self::assertSame(40, $ascension->getRequiredEtherum()->get());
+        self::assertSame(4, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -47,7 +47,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(4, $ascension->get());
         self::assertSame('Fourth Ascension', (string) $ascension);
-        self::assertSame(80, $ascension->getRequiredEtherum()->get());
+        self::assertSame(8, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -57,7 +57,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(5, $ascension->get());
         self::assertSame('Fifth Ascension', (string) $ascension);
-        self::assertSame(160, $ascension->getRequiredEtherum()->get());
+        self::assertSame(16, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -67,7 +67,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(6, $ascension->get());
         self::assertSame('Sixth Ascension', (string) $ascension);
-        self::assertSame(320, $ascension->getRequiredEtherum()->get());
+        self::assertSame(32, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -77,7 +77,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(7, $ascension->get());
         self::assertSame('Seventh Ascension', (string) $ascension);
-        self::assertSame(640, $ascension->getRequiredEtherum()->get());
+        self::assertSame(64, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */
@@ -87,7 +87,7 @@ final class AscensionTest extends TestCase
 
         self::assertSame(8, $ascension->get());
         self::assertSame('Eighth Ascension', (string) $ascension);
-        self::assertSame(1280, $ascension->getRequiredEtherum()->get());
+        self::assertSame(128, $ascension->getRequiredEtherum()->get());
     }
 
     /** @test */

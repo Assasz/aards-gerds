@@ -29,6 +29,7 @@ final class DenormalizePlayer
             new TalentCollection([]),
             new Inventory([]),
             new RustyShortSword(),
+            $data['corrupted'],
             new LevelProgress(
                 new Level($data['levelProgress']['level']),
                 new Experience($data['levelProgress']['currentExperience']),

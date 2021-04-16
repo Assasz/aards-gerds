@@ -10,6 +10,7 @@ use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Build\LevelProgress;
+use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Entity\Entity;
@@ -26,6 +27,7 @@ final class Player extends Entity
         TalentCollection $talentCollection,
         Inventory $inventory,
         ?Weapon $weapon,
+        bool $corrupted,
         private LevelProgress $levelProgress,
         private AttributePoints $attributePoints,
         private TalentPoints $talentPoints,
@@ -38,6 +40,7 @@ final class Player extends Entity
             $talentCollection,
             $inventory,
             $weapon,
+            $corrupted,
         );
     }
 
@@ -49,6 +52,31 @@ final class Player extends Entity
     public function increaseExperience(Experience $experience): void
     {
         $this->levelProgress->increase($experience, $this);
+    }
+
+    /**
+     * @throws PlayerException
+     */
+    public function increaseEtherum(Etherum $etherum): void
+    {
+        $this->etherum->increaseBy($etherum);
+
+        if ($this->isCorrupted()) {
+            return;
+        }
+
+        $playerAscension = $this->talentCollection->findSecretKnowledge()?->getAscension()
+            ?? throw PlayerException::etherumOverdose();
+
+        $corruptionBoundary = $this->calculateCorruptionBoundary();
+
+        if (!$this->isCorrupted() && $this->etherum->isGreaterThanOrEqual($corruptionBoundary)) {
+            if ($playerAscension->isLowerThan(Ascension::sixthAscension())) {
+                throw PlayerException::etherumOverdose();
+            }
+
+            $this->corrupted = true;
+        }
     }
 
     public function getAttributePoints(): AttributePoints

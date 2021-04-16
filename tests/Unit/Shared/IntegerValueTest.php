@@ -23,6 +23,12 @@ final class IntegerValueTest extends TestCase
     }
 
     /** @test */
+    public function canBeLowerThan(): void
+    {
+        self::assertTrue((new IntegerValue(5))->isLowerThan(new IntegerValue(10)));
+    }
+
+    /** @test */
     public function canBeGreaterThan(): void
     {
         self::assertTrue((new IntegerValue(10))->isGreaterThan(new IntegerValue(5)));

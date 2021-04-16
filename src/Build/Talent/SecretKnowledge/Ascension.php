@@ -62,14 +62,14 @@ final class Ascension extends IntegerValue
     public function getRequiredEtherum(): Etherum
     {
         return match ($this->value) {
-            self::FIRST_ASCENSION => new Etherum(10),
-            self::SECOND_ASCENSION => new Etherum(20),
-            self::THIRD_ASCENSION => new Etherum(40),
-            self::FOURTH_ASCENSION => new Etherum(80),
-            self::FIFTH_ASCENSION => new Etherum(160),
-            self::SIXTH_ASCENSION => new Etherum(320),
-            self::SEVENTH_ASCENSION => new Etherum(640),
-            self::EIGHTH_ASCENSION => new Etherum(1280),
+            self::FIRST_ASCENSION => new Etherum(1),
+            self::SECOND_ASCENSION => new Etherum(2),
+            self::THIRD_ASCENSION => new Etherum(4),
+            self::FOURTH_ASCENSION => new Etherum(8),
+            self::FIFTH_ASCENSION => new Etherum(16),
+            self::SIXTH_ASCENSION => new Etherum(32),
+            self::SEVENTH_ASCENSION => new Etherum(64),
+            self::EIGHTH_ASCENSION => new Etherum(128),
             default => throw IntegerValueException::invalidValue($this->value),
         };
     }

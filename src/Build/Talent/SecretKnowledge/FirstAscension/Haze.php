@@ -28,7 +28,7 @@ final class Haze implements EtherumAttack, SecretKnowledgeTalent
 
     public static function getEtherumCost(): Etherum
     {
-        return new Etherum(2);
+        return new Etherum(1);
     }
 
     public static function getName(): string

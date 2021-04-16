@@ -18,6 +18,7 @@ final class NormalizePlayer
             'talents' => 'not implemented yet',
             'inventory' => 'not implemented yet',
             'weapon' => 'not implemented yet',
+            'corrupted' => $player->isCorrupted(),
             'levelProgress' => [
                 'level' => $player->getLevelProgress()->getLevel()->get(),
                 'currentExperience' => $player->getLevelProgress()->getCurrentExperience()->get(),

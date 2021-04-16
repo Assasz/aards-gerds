@@ -22,6 +22,11 @@ class IntegerValue implements \Stringable
         return $this->value === $value->get();
     }
 
+    public function isLowerThan(self $value): bool
+    {
+        return $this->value < $value->get();
+    }
+
     public function isGreaterThan(self $value): bool
     {
         return $this->value > $value->get();

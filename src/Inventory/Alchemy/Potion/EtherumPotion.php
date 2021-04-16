@@ -14,7 +14,8 @@ final class EtherumPotion extends Potion
     {
         parent::__construct(
             'Etherum Potion',
-            'Alcohol solution with little Etherum in it. This potion will grant you 1 Etherum.',
+            'Alcohol solution with little Etherum in it. 
+            This potion will grant you 1 Etherum, or kill you if you underestimate it.',
             new Coin(100),
             new Coin(200),
         );
@@ -22,6 +23,6 @@ final class EtherumPotion extends Potion
 
     public function drink(Player $player): void
     {
-        $player->getEtherum()->increaseBy(new Etherum(1));
+        $player->increaseEtherum(new Etherum(1));
     }
 }
