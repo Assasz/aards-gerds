@@ -8,6 +8,6 @@ final class PlayerException extends \DomainException
 {
     public static function etherumOverdose(): self
     {
-        return new self('Player just died from etherum overdose');
+        return new self('You have just died from etherum overdose');
     }
 }
