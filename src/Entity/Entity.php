@@ -65,6 +65,11 @@ abstract class Entity implements Fighter
         return $weaponMastery->getLevel();
     }
 
+    public function getInventory(): Inventory
+    {
+        return $this->inventory;
+    }
+
     public function getWeapon(): ?Weapon
     {
         return $this->weapon;
