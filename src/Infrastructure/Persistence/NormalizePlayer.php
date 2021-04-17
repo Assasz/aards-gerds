@@ -38,9 +38,9 @@ final class NormalizePlayer
     {
         $data = ['className' => $className = get_class($weapon)];
 
-        if (in_array(RebredirWeapon::class, class_uses($className))) {
+        if (in_array(RebredirWeapon::class, class_uses($className) ?: [])) {
             /** @var RebredirWeapon $weapon */
-            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()]);
+            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()]); /** @phpstan-ignore-line */
         }
 
         return $data;
