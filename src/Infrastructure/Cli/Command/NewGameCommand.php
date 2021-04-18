@@ -16,8 +16,7 @@ final class NewGameCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('This command starts new game');
+        $this->setDescription('This command starts new game');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

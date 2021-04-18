@@ -14,7 +14,7 @@ services:
     resource: '../src/Infrastructure/'
     exclude:
       - '../src/Infrastructure/GameKernel.php'
-      - '../src/Infrastructure/Cli/PlayerInput.php'
+      - '../src/Infrastructure/Cli/PlayerIO.php'
 
   AardsGerds\Game\Infrastructure\Cli\Command\:
     resource: '../src/Infrastructure/Cli/Command'
