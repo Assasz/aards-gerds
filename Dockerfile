@@ -1,8 +1,7 @@
 FROM php:8.0-fpm
 
-### Setup PHP
-RUN apt-get update -y && apt-get install -y \
-      wait-for-it git zip unzip ngrep \
+### Setup environment
+RUN apt-get update -y && apt-get install -y zip unzip ngrep \
     && rm -r /var/lib/apt/lists/*
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
