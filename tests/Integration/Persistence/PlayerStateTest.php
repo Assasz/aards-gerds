@@ -1,0 +1,83 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AardsGerds\Game\Tests\Integration\Persistence;
+
+use AardsGerds\Game\Build\Attribute\AttributePoints;
+use AardsGerds\Game\Build\Attribute\Etherum;
+use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Strength;
+use AardsGerds\Game\Build\Experience;
+use AardsGerds\Game\Build\Level;
+use AardsGerds\Game\Build\LevelProgress;
+use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
+use AardsGerds\Game\Build\Talent\SecretKnowledge\FirstAscension\Haze;
+use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledge;
+use AardsGerds\Game\Build\Talent\TalentCollection;
+use AardsGerds\Game\Build\Talent\TalentPoints;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Infrastructure\Persistence\DenormalizePlayer;
+use AardsGerds\Game\Infrastructure\Persistence\NormalizePlayer;
+use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
+use AardsGerds\Game\Infrastructure\Persistence\PlayerStateException;
+use AardsGerds\Game\Inventory\Inventory;
+use AardsGerds\Game\Inventory\Trophy\WolfFur;
+use AardsGerds\Game\Inventory\Weapon\GreatSword\Amuril;
+use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
+use AardsGerds\Game\Player\Player;
+use PHPUnit\Framework\TestCase;
+
+final class PlayerStateTest extends TestCase
+{
+    private string $savesLocation;
+    private PlayerState $playerState;
+
+    public function setUp(): void
+    {
+        $this->savesLocation = __DIR__ . '/Resources';
+        $this->playerState = new PlayerState(
+            new NormalizePlayer(),
+            new DenormalizePlayer(),
+            $this->savesLocation,
+        );
+    }
+
+    /** @test */
+    public function savesPlayerStateIntoFile(): void
+    {
+        $player = new Player(
+            'Barabarabasz',
+            new Health(100),
+            new Etherum(50),
+            new Strength(50),
+            new TalentCollection([
+                WeaponMastery::greatSword(WeaponMasteryLevel::masterOfFirstTier()),
+                new SecretKnowledge(Ascension::sixthAscension()),
+                new Haze(),
+            ]),
+            new Inventory([new WolfFur(), new RustyShortSword()]),
+            new Amuril(new Etherum(100)),
+            true,
+            new LevelProgress(new Level(10), new Experience(9000)),
+            new AttributePoints(5),
+            new TalentPoints(5),
+        );
+
+        $this->playerState->save($player);
+
+        self::assertJsonFileEqualsJsonFile(
+            "{$this->savesLocation}/barabarabasz_expected.json",
+            "{$this->savesLocation}/barabarabasz.json",
+        );
+    }
+
+    /** @test */
+    public function throwsExceptionOnNotExistentFile(): void
+    {
+        $this->expectException(PlayerStateException::class);
+
+        $this->playerState->load('nonsense');
+    }
+}
