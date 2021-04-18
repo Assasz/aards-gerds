@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure;
 
-use AardsGerds\Game\Infrastructure\Cli\RunGameCommand;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
@@ -53,6 +53,12 @@ final class GameKernel
     private function setUpConsole(): void
     {
         $this->console = new Application();
-        $this->console->add(new RunGameCommand());
+        $commands = $this->container->findTaggedServiceIds('console.command');
+
+        foreach ($commands as $commandId => $tags) {
+            /** @var Command $command */
+            $command = $this->container->get($commandId);
+            $this->console->add($command);
+        }
     }
 }

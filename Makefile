@@ -34,6 +34,14 @@ phpstan: ## executes php stan
 exec: ## Gets inside a container, use 's' variable to select a service. make exec s=php
 		docker-compose exec $(s) bash -l
 
+.PHONY: new-game
+new-game: ## Starts new game
+		docker-compose exec php sh -lc "php bin/console game:new"
+
+.PHONY: load-game
+load-game: ## Loads existing game, use 'p' variable to select a player to load. make load-game p=Barabarabasz
+		docker-compose exec php sh -lc "php bin/console game:load $(p)"
+
 .PHONY: logs
 logs: ## Look for 's' service logs, make s=php logs
 		docker-compose logs -f $(s)

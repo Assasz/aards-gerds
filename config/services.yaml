@@ -11,6 +11,13 @@ services:
   # this creates a service per class whose id is the fully-qualified class name
   AardsGerds\Game\Infrastructure\:
     resource: '../src/Infrastructure/'
-    exclude: '../src/Infrastructure/GameKernel.php'
+    exclude:
+      - '../src/Infrastructure/GameKernel.php'
+      - '../src/Infrastructure/Cli/PlayerInput.php'
+
+  AardsGerds\Game\Infrastructure\Cli\Command\:
+    resource: '../src/Infrastructure/Cli/Command'
+    public: true
+    tags: [ 'console.command' ]
 
   AardsGerds\Game\Infrastructure\Persistence\PlayerState: { $savesLocation: '%savesLocation%' }
