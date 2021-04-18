@@ -9,7 +9,7 @@ use AardsGerds\Game\Event\DecisionCollection;
 use AardsGerds\Game\Player\PlayerAction;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-final class PlayerInput implements PlayerAction
+final class PlayerIO implements PlayerAction
 {
     public function __construct(
         private SymfonyStyle $io,
@@ -28,5 +28,10 @@ final class PlayerInput implements PlayerAction
     public function askForConfirmation(string $question): bool
     {
         return $this->io->confirm($question);
+    }
+
+    public function note(string $message): void
+    {
+        $this->io->note($message);
     }
 }

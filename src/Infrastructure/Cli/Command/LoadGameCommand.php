@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli\Command;
 
-use AardsGerds\Game\Infrastructure\Cli\PlayerInput;
+use AardsGerds\Game\Infrastructure\Cli\PlayerIO;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
+use AardsGerds\Game\Infrastructure\Persistence\PlayerStateException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,8 +35,14 @@ final class LoadGameCommand extends Command
         $playerName = $input->getArgument('player');
         assert(is_string($playerName));
 
-        $player = $this->playerState->load($playerName);
-        $playerInput = new PlayerInput(new SymfonyStyle($input, $output));
+        $playerIO = new PlayerIO(new SymfonyStyle($input, $output));
+
+        try {
+            $player = $this->playerState->load($playerName);
+        } catch (PlayerStateException $exception) {
+            $playerIO->note("Player {$playerName} doesn't exist.");
+            return Command::FAILURE;
+        }
 
         return Command::SUCCESS;
     }
