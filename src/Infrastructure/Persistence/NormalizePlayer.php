@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Persistence;
 
+use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledge;
 use AardsGerds\Game\Build\Talent\Talent;
 use AardsGerds\Game\Build\Talent\TalentCollection;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\InventoryItem;
 use AardsGerds\Game\Inventory\Weapon\RebredirWeapon;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 use AardsGerds\Game\Player\Player;
+use function Lambdish\Phunctional\map;
 
 final class NormalizePlayer
 {
@@ -21,9 +24,9 @@ final class NormalizePlayer
             'health' => $player->getHealth()->get(),
             'etherum' => $player->getEtherum()->get(),
             'strength' => $player->getStrength()->get(),
-            'talents' => $this->normalizeTalents($player->getTalents()),
-            'inventory' => $this->normalizeInventory($player->getInventory()),
-            'weapon' => $player->getWeapon() !== null ? $this->normalizeWeapon($player->getWeapon()) : null,
+            'talents' => self::normalizeTalents($player->getTalents()),
+            'inventory' => self::normalizeInventory($player->getInventory()),
+            'weapon' => $player->getWeapon() !== null ? self::normalizeWeapon($player->getWeapon()) : null,
             'corrupted' => $player->isCorrupted(),
             'levelProgress' => [
                 'level' => $player->getLevelProgress()->getLevel()->get(),
@@ -34,35 +37,50 @@ final class NormalizePlayer
         ];
     }
 
-    private function normalizeWeapon(Weapon $weapon): array
+    private static function normalizeWeapon(Weapon $weapon): array
     {
         $data = ['className' => $className = get_class($weapon)];
 
         if (in_array(RebredirWeapon::class, class_uses($className) ?: [])) {
             /** @var RebredirWeapon $weapon */
-            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()]); /** @phpstan-ignore-line */
+            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()->get()]); /** @phpstan-ignore-line */
         }
 
         return $data;
     }
 
-    private function normalizeTalents(TalentCollection $talentCollection): array
+    private static function normalizeTalents(TalentCollection $talentCollection): array
     {
-        return array_map(
-            static fn(Talent $talent): array => [
-                'className' => get_class($talent),
-            ],
-            $talentCollection->getItems(),
+        return map(
+            static function(Talent $talent): array {
+                $data = ['className' => get_class($talent)];
+
+                return match (true) {
+                    $talent instanceof SecretKnowledge => array_merge($data, [
+                        'ascension' => $talent->getAscension()->get(),
+                    ]),
+                    $talent instanceof WeaponMastery => array_merge($data, [
+                        'type' => (string) $talent->getType(),
+                        'level' => $talent->getLevel()->get(),
+                    ]),
+                    default => $data,
+                };
+            },
+            $talentCollection,
         );
     }
 
-    private function normalizeInventory(Inventory $inventory): array
+    private static function normalizeInventory(Inventory $inventory): array
     {
-        return array_map(
-            static fn(InventoryItem $inventoryItem): array => [
-                'className' => get_class($inventoryItem),
-            ],
-            $inventory->getItems(),
+        return map(
+            static function(InventoryItem $inventoryItem): array {
+                if ($inventoryItem instanceof Weapon) {
+                    return self::normalizeWeapon($inventoryItem);
+                }
+
+                return ['className' => get_class($inventoryItem)];
+            },
+            $inventory,
         );
     }
 }
