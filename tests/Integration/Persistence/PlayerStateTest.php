@@ -18,8 +18,6 @@ use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
-use AardsGerds\Game\Infrastructure\Persistence\DenormalizePlayer;
-use AardsGerds\Game\Infrastructure\Persistence\NormalizePlayer;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerStateException;
 use AardsGerds\Game\Inventory\Inventory;
@@ -27,21 +25,18 @@ use AardsGerds\Game\Inventory\Trophy\WolfFur;
 use AardsGerds\Game\Inventory\Weapon\GreatSword\Amuril;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 use AardsGerds\Game\Player\Player;
-use PHPUnit\Framework\TestCase;
+use AardsGerds\Game\Tests\Integration\IntegrationTestCase;
 
-final class PlayerStateTest extends TestCase
+final class PlayerStateTest extends IntegrationTestCase
 {
     private string $savesLocation;
     private PlayerState $playerState;
 
     public function setUp(): void
     {
-        $this->savesLocation = __DIR__ . '/Resources';
-        $this->playerState = new PlayerState(
-            new NormalizePlayer(),
-            new DenormalizePlayer(),
-            $this->savesLocation,
-        );
+        parent::setUp();
+        $this->savesLocation = self::getParameter('savesLocation');
+        $this->playerState = self::getService(PlayerState::class);
     }
 
     /** @test */

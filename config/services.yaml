@@ -1,0 +1,16 @@
+parameters:
+  savesLocation: '%kernel.project_dir%/saves'
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  AardsGerds\Game\Infrastructure\:
+    resource: '../src/Infrastructure/'
+    exclude: '../src/Infrastructure/GameKernel.php'
+
+  AardsGerds\Game\Infrastructure\Persistence\PlayerState: { $savesLocation: '%savesLocation%' }
