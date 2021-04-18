@@ -6,7 +6,7 @@ namespace AardsGerds\Game\Event;
 
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Player\Player;
-use AardsGerds\Game\Shared\IntegerValue;
+use AardsGerds\Game\Player\PlayerAction;
 
 abstract class EncounterEvent extends Event
 {
@@ -24,12 +24,9 @@ abstract class EncounterEvent extends Event
         );
     }
 
-    public function __invoke(): Decision
+    public function __invoke(PlayerAction $playerAction): Decision
     {
         // dialog, travel, fight or retreat?
-        $decision = $this->decisionCollection->findByOrder(new IntegerValue(1));
-        assert($decision !== null);
-
-        return $decision;
+        return $playerAction->askForDecision('question', $this->decisionCollection);
     }
 }

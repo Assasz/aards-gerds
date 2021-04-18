@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Event;
 
 use AardsGerds\Game\Player\Player;
-use AardsGerds\Game\Shared\IntegerValue;
+use AardsGerds\Game\Player\PlayerAction;
 
 abstract class TravelEvent extends Event
 {
@@ -22,12 +22,9 @@ abstract class TravelEvent extends Event
         );
     }
 
-    public function __invoke(): Decision
+    public function __invoke(PlayerAction $playerAction): Decision
     {
         // travel, encounter or explore?
-        $decision = $this->decisionCollection->findByOrder(new IntegerValue(1));
-        assert($decision !== null);
-
-        return $decision;
+        return $playerAction->askForDecision('question', $this->decisionCollection);
     }
 }

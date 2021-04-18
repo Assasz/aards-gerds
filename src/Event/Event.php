@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Event;
 
 use AardsGerds\Game\Player\Player;
+use AardsGerds\Game\Player\PlayerAction;
 
 abstract class Event
 {
@@ -15,5 +16,5 @@ abstract class Event
         protected Player $player,
     ) {}
 
-    abstract public function __invoke(): Decision;
+    abstract public function __invoke(PlayerAction $playerAction): Decision;
 }
