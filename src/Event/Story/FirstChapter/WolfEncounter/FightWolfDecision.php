@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Story\FirstChapter\FightWolf;
+namespace AardsGerds\Game\Event\Story\FirstChapter\WolfEncounter;
 
 use AardsGerds\Game\Entity\Beast\Animal\Wolf;
 use AardsGerds\Game\Event\Decision;
+use AardsGerds\Game\Event\Story\FirstChapter\FightWolf\FightWolfEvent;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Event\Event;
 
