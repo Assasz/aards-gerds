@@ -20,7 +20,7 @@ final class PlayerIO implements PlayerAction
         return $this->io->choice($question, $decisions->getItems());
     }
 
-    public function askForInformation(string $question): int|string
+    public function askForInformation(string $question): string
     {
         return $this->io->ask($question);
     }

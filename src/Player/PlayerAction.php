@@ -11,7 +11,7 @@ interface PlayerAction
 {
     public function askForDecision(string $question, DecisionCollection $decisions): Decision;
 
-    public function askForInformation(string $question): int|string;
+    public function askForInformation(string $question): string;
 
     public function askForConfirmation(string $question): bool;
 }
