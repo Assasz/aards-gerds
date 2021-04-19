@@ -9,6 +9,7 @@ use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Experience;
+use AardsGerds\Game\Build\Level;
 use AardsGerds\Game\Build\LevelProgress;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\TalentCollection;
@@ -42,6 +43,26 @@ final class Player extends Entity
             $inventory,
             $weapon,
             $corrupted,
+        );
+    }
+
+    public static function new(string $name): self
+    {
+        return new self(
+            $name,
+            new Health(100),
+            new Etherum(1),
+            new Strength(5),
+            new TalentCollection([]),
+            new Inventory([]),
+            null,
+            false,
+            new LevelProgress(
+                new Level(1),
+                new Experience(0),
+            ),
+            new AttributePoints(0),
+            new TalentPoints(0),
         );
     }
 

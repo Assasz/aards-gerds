@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Infrastructure\Cli\Command;
 
 use AardsGerds\Game\Infrastructure\Cli\PlayerIO;
+use AardsGerds\Game\Player\Player;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,6 +23,8 @@ final class NewGameCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $playerIO = new PlayerIO(new SymfonyStyle($input, $output));
+        $playerName = $playerIO->askForInformation('Choose player name');
+        $player = Player::new($playerName);
 
         return Command::SUCCESS;
     }
