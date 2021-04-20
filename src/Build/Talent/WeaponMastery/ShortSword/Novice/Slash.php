@@ -10,8 +10,8 @@ use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryTalent;
-use AardsGerds\Game\Inventory\Weapon\ShortSword\ShortSword;
 use AardsGerds\Game\Fight\Attack;
+use AardsGerds\Game\Inventory\Weapon\ShortSword\ShortSword;
 
 final class Slash implements Attack, WeaponMasteryTalent
 {

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Shared;
 
+use function Lambdish\Phunctional\first;
+use function Lambdish\Phunctional\all;
+use function Lambdish\Phunctional\instance_of;
+
 abstract class Collection implements \IteratorAggregate, \Countable
 {
     protected array $items;
@@ -40,10 +44,8 @@ abstract class Collection implements \IteratorAggregate, \Countable
     {
         $type = $this->getType();
 
-        foreach ($this->items as $item) {
-            if (!$item instanceof $type) {
-                throw CollectionException::invalidType(get_class($item), $type);
-            }
+        if (!all(instance_of($type), $this->items)) {
+            throw CollectionException::invalidType(get_class(first($this->items)), $type);
         }
     }
 }
