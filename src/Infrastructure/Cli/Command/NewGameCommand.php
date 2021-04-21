@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli\Command;
 
+use AardsGerds\Game\Event\Story\FirstChapter\WolfEncounter\WolfEncounterEvent;
+use AardsGerds\Game\Event\Story\Story;
 use AardsGerds\Game\Infrastructure\Cli\PlayerIO;
 use AardsGerds\Game\Player\Player;
 use Symfony\Component\Console\Command\Command;
@@ -23,8 +25,9 @@ final class NewGameCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $playerIO = new PlayerIO(new SymfonyStyle($input, $output));
-        $playerName = $playerIO->askForInformation('Choose player name');
-        $player = Player::new($playerName);
+        $player = Player::new($playerIO->askForInformation('Choose player name'));
+
+        Story::continue(new WolfEncounterEvent($player), $playerIO);
 
         return Command::SUCCESS;
     }

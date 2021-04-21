@@ -28,6 +28,6 @@ abstract class FightEvent extends Event
     {
         // fight!
         // travel, loot or dialog?
-        return $playerAction->askForDecision('question', $this->decisionCollection);
+        return $playerAction->askForDecision((string) $this->context, $this->decisionCollection);
     }
 }
