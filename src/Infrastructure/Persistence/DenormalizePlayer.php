@@ -88,7 +88,7 @@ final class DenormalizePlayer
         return $weapon;
     }
 
-    private function denormalizeInventory(array $data): Inventory
+    private static function denormalizeInventory(array $data): Inventory
     {
         return new Inventory(map(
             static function(array $item): InventoryItem {
