@@ -10,7 +10,7 @@ use AardsGerds\Game\Inventory\Weapon\WeaponType;
 
 final class WeaponMastery implements Talent, \Stringable
 {
-    private function __construct(
+    public function __construct(
         private WeaponType $type,
         private WeaponMasteryLevel $level,
     ) {}

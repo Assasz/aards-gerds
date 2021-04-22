@@ -66,6 +66,11 @@ final class PlayerStateTest extends IntegrationTestCase
             "{$this->savesLocation}/barabarabasz_expected.json",
             "{$this->savesLocation}/barabarabasz.json",
         );
+
+        $player = $this->playerState->load('Barabarabasz');
+
+        self::assertSame('Barabarabasz', $player->getName());
+        self::assertSame('Amuril', $player->getWeapon()->getName());
     }
 
     /** @test */

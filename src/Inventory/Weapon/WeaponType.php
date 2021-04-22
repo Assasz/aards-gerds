@@ -10,7 +10,7 @@ final class WeaponType implements \Stringable
     public const GREAT_SWORD = 'Great Sword';
     public const BOW = 'Bow';
 
-    private function __construct(
+    public function __construct(
         private string $type,
     ) {}
 

@@ -37,18 +37,6 @@ final class NormalizePlayer
         ];
     }
 
-    private static function normalizeWeapon(Weapon $weapon): array
-    {
-        $data = ['className' => $className = get_class($weapon)];
-
-        if (in_array(RebredirWeapon::class, class_uses($className) ?: [])) {
-            /** @var RebredirWeapon $weapon */
-            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()->get()]); /** @phpstan-ignore-line */
-        }
-
-        return $data;
-    }
-
     private static function normalizeTalents(TalentCollection $talentCollection): array
     {
         return map(
@@ -70,15 +58,26 @@ final class NormalizePlayer
         );
     }
 
+    private static function normalizeWeapon(Weapon $weapon): array
+    {
+        $data = ['className' => $className = get_class($weapon)];
+
+        if (in_array(RebredirWeapon::class, class_uses($className) ?: [])) {
+            /** @var RebredirWeapon $weapon */
+            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()->get()]); /** @phpstan-ignore-line */
+        }
+
+        return $data;
+    }
+
     private static function normalizeInventory(Inventory $inventory): array
     {
         return map(
             static function(InventoryItem $inventoryItem): array {
-                if ($inventoryItem instanceof Weapon) {
-                    return self::normalizeWeapon($inventoryItem);
-                }
-
-                return ['className' => get_class($inventoryItem)];
+                return match (true) {
+                    $inventoryItem instanceof Weapon => self::normalizeWeapon($inventoryItem),
+                    default => ['className' => get_class($inventoryItem)],
+                };
             },
             $inventory,
         );
