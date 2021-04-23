@@ -43,7 +43,7 @@ final class Block
         Fighter $target,
         Attack $attack,
     ): float {
-        if ($attack->getEffects()->has(BlockImmunity::getName())) {
+        if ($attack->getEffects()->has(BlockImmunity::getName()) || $attack instanceof EtherumAttack) {
             return 0;
         }
 

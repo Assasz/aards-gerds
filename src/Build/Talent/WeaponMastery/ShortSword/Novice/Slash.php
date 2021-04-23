@@ -10,20 +10,16 @@ use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryTalent;
-use AardsGerds\Game\Fight\Attack;
-use AardsGerds\Game\Inventory\Weapon\ShortSword\ShortSword;
+use AardsGerds\Game\Fight\MeleeAttack;
+use AardsGerds\Game\Inventory\Weapon\Weapon;
 
-final class Slash implements Attack, WeaponMasteryTalent
+final class Slash implements MeleeAttack, WeaponMasteryTalent
 {
     private const DAMAGE_MULTIPLIER = 0.9;
 
-    public function __construct(
-        private ShortSword $shortSword,
-    ) {}
-
-    public function getDamage(): Damage
+    public function getDamage(Weapon $weapon): Damage
     {
-        return new Damage((int) round($this->shortSword->getDamage()->get() * self::DAMAGE_MULTIPLIER));
+        return new Damage((int) round($weapon->getDamage()->get() * self::DAMAGE_MULTIPLIER));
     }
 
     public function getEffects(): EffectCollection

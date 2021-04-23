@@ -19,8 +19,6 @@ final class Bandit extends Entity
 {
     public function __construct()
     {
-        $weapon = new RustyShortSword();
-
         parent::__construct(
             'Bandit',
             new Health(100),
@@ -28,10 +26,10 @@ final class Bandit extends Entity
             new Strength(20),
             new TalentCollection([
                 WeaponMastery::shortSword(WeaponMasteryLevel::novice()),
-                new Slash($weapon),
+                new Slash(),
             ]),
             new Inventory([]),
-            $weapon,
+            new RustyShortSword(),
         );
     }
 }

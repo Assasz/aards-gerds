@@ -23,7 +23,7 @@ final class Haze implements EtherumAttack, SecretKnowledgeTalent
 
     public function getEffects(): EffectCollection
     {
-        return new EffectCollection([new BlockImmunity(), new Stun()]);
+        return new EffectCollection([new Stun()]);
     }
 
     public static function getEtherumCost(): Etherum
