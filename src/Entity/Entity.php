@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Entity;
 
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
@@ -20,6 +21,7 @@ abstract class Entity implements Fighter
         protected Health $health,
         protected Etherum $etherum,
         protected Strength $strength,
+        protected Initiative $initiative,
         protected TalentCollection $talentCollection,
         protected Inventory $inventory,
         protected ?Weapon $weapon,
@@ -44,6 +46,11 @@ abstract class Entity implements Fighter
     public function getStrength(): Strength
     {
         return $this->strength;
+    }
+
+    public function getInitiative(): Initiative
+    {
+        return $this->initiative;
     }
 
     public function getTalents(): TalentCollection

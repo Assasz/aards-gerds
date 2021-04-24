@@ -3,6 +3,7 @@
   "health": 100,
   "etherum": 50,
   "strength": 50,
+  "initiative": 10,
   "talents": [
     {
       "className": "AardsGerds\\Game\\Build\\Talent\\WeaponMastery\\WeaponMastery",

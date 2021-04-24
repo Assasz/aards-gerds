@@ -18,7 +18,7 @@ final class WolfEncounterEvent extends EncounterEvent
         parent::__construct(
             new WolfEncounterContext(),
             new DecisionCollection([
-                1 => new FightWolfDecision($player, $subject),
+                new FightWolfDecision($player, $subject),
             ]),
             $player,
             $subject,

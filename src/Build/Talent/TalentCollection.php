@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Build\Talent;
 
 use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledge;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
+use AardsGerds\Game\Fight\Attack;
 use AardsGerds\Game\Inventory\Weapon\WeaponType;
 use AardsGerds\Game\Shared\Collection;
 
@@ -24,6 +25,13 @@ final class TalentCollection extends Collection
         return $this->filter(
             static fn(Talent $talent): bool => $talent instanceof SecretKnowledge,
         )->getIterator()->current();
+    }
+
+    public function filterAttacks(): self
+    {
+        return $this->filter(
+            static fn(Talent $talent): bool => $talent instanceof Attack,
+        );
     }
 
     protected function getType(): string

@@ -45,6 +45,7 @@ class IntegerValue implements \Stringable
     public function increment(): static
     {
         $this->value += 1;
+        $this->validate();
 
         return $this;
     }
@@ -52,6 +53,23 @@ class IntegerValue implements \Stringable
     public function increaseBy(self $value): static
     {
         $this->value += $value->get();
+        $this->validate();
+
+        return $this;
+    }
+
+    public function decreaseBy(self $value): static
+    {
+        $this->value -= $value->get();
+        $this->validate();
+
+        return $this;
+    }
+
+    public function replaceWith(self $value): static
+    {
+        $this->value = $value->get();
+        $this->validate();
 
         return $this;
     }

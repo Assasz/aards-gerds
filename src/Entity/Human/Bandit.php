@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Entity\Human;
 
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
@@ -24,6 +25,7 @@ final class Bandit extends Entity
             new Health(100),
             new Etherum(1),
             new Strength(20),
+            new Initiative(10),
             new TalentCollection([
                 WeaponMastery::shortSword(WeaponMasteryLevel::novice()),
                 new Slash(),

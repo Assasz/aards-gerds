@@ -24,6 +24,7 @@ final class NormalizePlayer
             'health' => $player->getHealth()->get(),
             'etherum' => $player->getEtherum()->get(),
             'strength' => $player->getStrength()->get(),
+            'initiative' => $player->getInitiative()->get(),
             'talents' => self::normalizeTalents($player->getTalents()),
             'inventory' => self::normalizeInventory($player->getInventory()),
             'weapon' => $player->getWeapon() !== null ? self::normalizeWeapon($player->getWeapon()) : null,

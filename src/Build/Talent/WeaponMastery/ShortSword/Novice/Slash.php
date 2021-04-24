@@ -46,4 +46,9 @@ final class Slash implements MeleeAttack, WeaponMasteryTalent
     {
         return WeaponMastery::shortSword(WeaponMasteryLevel::novice());
     }
+
+    public function __toString(): string
+    {
+        return self::getName();
+    }
 }

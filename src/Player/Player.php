@@ -7,6 +7,7 @@ namespace AardsGerds\Game\Player;
 use AardsGerds\Game\Build\Attribute\AttributePoints;
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Build\Level;
@@ -14,8 +15,10 @@ use AardsGerds\Game\Build\LevelProgress;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
+use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Inventory;
+use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 use AardsGerds\Game\Shared\IntegerValueException;
 
@@ -26,6 +29,7 @@ final class Player extends Entity
         Health $health,
         Etherum $etherum,
         Strength $strength,
+        Initiative $initiative,
         TalentCollection $talentCollection,
         Inventory $inventory,
         ?Weapon $weapon,
@@ -39,6 +43,7 @@ final class Player extends Entity
             $health,
             $etherum,
             $strength,
+            $initiative,
             $talentCollection,
             $inventory,
             $weapon,
@@ -53,9 +58,10 @@ final class Player extends Entity
             new Health(100),
             new Etherum(1),
             new Strength(5),
-            new TalentCollection([]),
+            new Initiative(10),
+            new TalentCollection([new Slash()]),
             new Inventory([]),
-            null,
+            new RustyShortSword(),
             false,
             new LevelProgress(
                 new Level(1),

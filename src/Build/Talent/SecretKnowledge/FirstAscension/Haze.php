@@ -50,4 +50,9 @@ final class Haze implements EtherumAttack, SecretKnowledgeTalent
     {
         return Ascension::firstAscension();
     }
+
+    public function __toString(): string
+    {
+        return self::getName();
+    }
 }

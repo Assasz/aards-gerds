@@ -6,7 +6,7 @@ namespace AardsGerds\Game\Fight;
 
 use AardsGerds\Game\Build\Talent\Effect\EffectCollection;
 
-interface Attack
+interface Attack extends \Stringable
 {
     public function getEffects(): EffectCollection;
 }

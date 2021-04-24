@@ -7,6 +7,7 @@ namespace AardsGerds\Game\Infrastructure\Persistence;
 use AardsGerds\Game\Build\Attribute\AttributePoints;
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Build\Level;
@@ -35,6 +36,7 @@ final class DenormalizePlayer
             new Health($data['health']),
             new Etherum($data['etherum']),
             new Strength($data['strength']),
+            new Initiative($data['initiative']),
             self::denormalizeTalents($data['talents']),
             self::denormalizeInventory($data['inventory']),
             $data['weapon'] !== null ? self::denormalizeWeapon($data['weapon']) : null,

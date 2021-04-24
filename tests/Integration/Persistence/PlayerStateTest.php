@@ -7,6 +7,7 @@ namespace AardsGerds\Game\Tests\Integration\Persistence;
 use AardsGerds\Game\Build\Attribute\AttributePoints;
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Build\Level;
@@ -47,6 +48,7 @@ final class PlayerStateTest extends IntegrationTestCase
             new Health(100),
             new Etherum(50),
             new Strength(50),
+            new Initiative(10),
             new TalentCollection([
                 WeaponMastery::greatSword(WeaponMasteryLevel::masterOfFirstTier()),
                 new SecretKnowledge(Ascension::sixthAscension()),

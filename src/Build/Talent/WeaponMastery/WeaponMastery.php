@@ -8,7 +8,7 @@ use AardsGerds\Game\Build\Talent\Talent;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Inventory\Weapon\WeaponType;
 
-final class WeaponMastery implements Talent, \Stringable
+final class WeaponMastery implements Talent
 {
     public function __construct(
         private WeaponType $type,

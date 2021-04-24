@@ -55,6 +55,18 @@ final class IntegerValueTest extends TestCase
     }
 
     /** @test */
+    public function canBeDecreased(): void
+    {
+        self::assertSame(5, (new IntegerValue(10))->decreaseBy(new IntegerValue(5))->get());
+    }
+
+    /** @test */
+    public function canBeReplaced(): void
+    {
+        self::assertSame(5, (new IntegerValue(15))->replaceWith(new IntegerValue(5))->get());
+    }
+
+    /** @test */
     public function throwsExceptionOnNegativeValue(): void
     {
         $this->expectException(IntegerValueException::class);

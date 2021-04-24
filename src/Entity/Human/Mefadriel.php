@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Entity\Human;
 
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
+use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\EighthAscension\ProtectionOfTheGods;
@@ -26,6 +27,7 @@ final class Mefadriel extends Entity
             new Health(10000),
             new Etherum(200),
             new Strength(200),
+            new Initiative(100),
             new TalentCollection([
                 WeaponMastery::greatSword(WeaponMasteryLevel::masterOfThirdTier()),
                 new SecretKnowledge(Ascension::eighthAscension()),

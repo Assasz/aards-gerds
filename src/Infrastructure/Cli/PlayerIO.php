@@ -21,16 +21,34 @@ final class PlayerIO implements PlayerAction
         return $this->io->choice($question, $decisions->getItems());
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function askForChoice(string $question, array $choices): \Stringable
+    {
+        return $this->io->choice($question, $choices);
+    }
+
     public function askForInformation(string $question): string
     {
-        $this->clearOutput();
         return $this->io->ask($question);
     }
 
     public function askForConfirmation(string $question): bool
     {
-        $this->clearOutput();
         return $this->io->confirm($question);
+    }
+
+    public function tell(string|array $message): void
+    {
+        sleep(1);
+        $this->io->text($message);
+    }
+
+    public function newTour(string $message): void
+    {
+        sleep(1);
+        $this->io->section($message);
     }
 
     public function note(string $message): void

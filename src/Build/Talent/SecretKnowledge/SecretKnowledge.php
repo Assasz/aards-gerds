@@ -7,7 +7,7 @@ namespace AardsGerds\Game\Build\Talent\SecretKnowledge;
 use AardsGerds\Game\Build\Talent\Talent;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 
-final class SecretKnowledge implements Talent, \Stringable
+final class SecretKnowledge implements Talent
 {
     public function __construct(
         private Ascension $ascension,

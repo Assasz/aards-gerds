@@ -36,4 +36,9 @@ final class ProtectionOfTheGods implements SecretKnowledgeTalent
     {
         return Ascension::eighthAscension();
     }
+
+    public function __toString(): string
+    {
+        return self::getName();
+    }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event;
 
-use AardsGerds\Game\Entity\EntityCollection;
+use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Fight\Fight;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 
@@ -14,7 +15,7 @@ abstract class FightEvent extends Event
         Context $context,
         DecisionCollection $decisionCollection,
         Player $player,
-        protected EntityCollection $subjects,
+        protected Entity $subject,
     ) {
         parent::__construct(
             EventType::fight(),
@@ -26,8 +27,10 @@ abstract class FightEvent extends Event
 
     public function __invoke(PlayerAction $playerAction): Decision
     {
+        $playerAction->tell((string) $this->context);
         // fight!
+        (new Fight($this->player, $this->subject))($playerAction);
         // travel, loot or dialog?
-        return $playerAction->askForDecision((string) $this->context, $this->decisionCollection);
+        return $playerAction->askForDecision('What is your decision?', $this->decisionCollection);
     }
 }
