@@ -21,7 +21,7 @@ final class Wolf extends Entity
     {
         parent::__construct(
             'Wolf',
-            new Health(50),
+            new Health(30),
             new Etherum(0),
             new Strength(10),
             new Initiative(10),

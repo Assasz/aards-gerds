@@ -29,7 +29,7 @@ abstract class FightEvent extends Event
     {
         $playerAction->tell((string) $this->context);
         // fight!
-        (new Fight($this->player, $this->subject))($playerAction);
+        (new Fight($this->player, $this->subject, $playerAction))();
         // travel, loot or dialog?
         return $playerAction->askForDecision('What is your decision?', $this->decisionCollection);
     }

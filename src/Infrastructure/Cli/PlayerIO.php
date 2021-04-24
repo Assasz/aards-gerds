@@ -21,10 +21,7 @@ final class PlayerIO implements PlayerAction
         return $this->io->choice($question, $decisions->getItems());
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function askForChoice(string $question, array $choices): \Stringable
+    public function askForChoice(string $question, array $choices): mixed
     {
         return $this->io->choice($question, $choices);
     }
@@ -45,7 +42,7 @@ final class PlayerIO implements PlayerAction
         $this->io->text($message);
     }
 
-    public function newTour(string $message): void
+    public function newRound(string $message): void
     {
         sleep(1);
         $this->io->section($message);

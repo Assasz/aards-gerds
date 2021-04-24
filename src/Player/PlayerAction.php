@@ -11,10 +11,7 @@ interface PlayerAction
 {
     public function askForDecision(string $question, DecisionCollection $decisions): Decision;
 
-    /**
-     * @param \Stringable[] $choices
-     */
-    public function askForChoice(string $question, array $choices): \Stringable;
+    public function askForChoice(string $question, array $choices): mixed;
 
     public function askForInformation(string $question): string;
 
@@ -22,7 +19,7 @@ interface PlayerAction
 
     public function tell(string|array $message): void;
 
-    public function newTour(string $message): void;
+    public function newRound(string $message): void;
 
     public function note(string $message): void;
 }

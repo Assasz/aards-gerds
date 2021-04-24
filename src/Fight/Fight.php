@@ -9,6 +9,7 @@ use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
+use AardsGerds\Game\Player\PlayerException;
 use AardsGerds\Game\Shared\IntegerValue;
 use AardsGerds\Game\Shared\IntegerValueException;
 
@@ -19,32 +20,35 @@ final class Fight
     public function __construct(
         private Fighter $player,
         private Fighter $opponent,
+        private PlayerAction $playerAction,
     ) {
         $this->round = new IntegerValue(1);
     }
 
-    public function __invoke(PlayerAction $playerAction): Fighter
+    public function __invoke(): void
     {
         $playerInitialHealth = new Health($this->player->getHealth()->get());
-        $opponentInitialHealth = new Health($this->opponent->getHealth()->get());
 
         while (true) {
-            $playerAction->newTour("Round {$this->round}:");
+            $this->playerAction->newRound("Round {$this->round}:");
             $attackOrder = AttackOrder::resolve($this->player, $this->opponent);
 
             try {
-                $this->attack($playerAction, $attackOrder->first(), $attackOrder->last());
+                $this->attack($attackOrder->first(), $attackOrder->last());
                 if ($this->isAbleForExtraAttack($attackOrder->first(), $attackOrder->last())) {
-                    $this->attack($playerAction, $attackOrder->first(), $attackOrder->last());
+                    $this->attack($attackOrder->first(), $attackOrder->last());
                 }
 
-                $this->attack($playerAction, $attackOrder->last(), $attackOrder->first());
+                $this->attack($attackOrder->last(), $attackOrder->first());
             } catch (IntegerValueException $exception) {
-                // someone died
+                if ($this->player->getHealth()->isLowerThan(new Health(1))) {
+                    throw PlayerException::death();
+                }
+
                 break;
             }
 
-            $playerAction->tell([
+            $this->playerAction->tell([
                 '',
                 "{$this->player->getName()} health: {$this->player->getHealth()}",
                 "{$this->opponent->getName()} health: {$this->opponent->getHealth()}",
@@ -53,27 +57,18 @@ final class Fight
             $this->round->increment();
         }
 
-        $winner = $this->player->getHealth()->isGreaterThan($this->opponent->getHealth())
-            ? $this->player
-            : $this->opponent;
-
-        $playerAction->tell("Winner is {$winner->getName()}");
-        $playerAction->askForConfirmation('Continue?');
-
+        $this->playerAction->askForConfirmation('Continue?');
         $this->player->getHealth()->replaceWith($playerInitialHealth);
-        $this->opponent->getHealth()->replaceWith($opponentInitialHealth);
-
-        return $winner;
     }
 
     /**
      * @throws IntegerValueException if target's health drop below 0
      */
-    private function attack(PlayerAction $playerAction, Fighter $attacker, Fighter $target): void
+    private function attack(Fighter $attacker, Fighter $target): void
     {
         /** @var Attack $attack */
         $attack = $attacker instanceof Player
-            ? $this->askForAction($playerAction, $attacker)
+            ? $this->askForAction($attacker)
             : $attacker->getTalents()->filterAttacks()->getIterator()->current(); // todo
 
         $damage = match (true) {
@@ -87,11 +82,11 @@ final class Fight
         try {
             $target->getHealth()->decreaseBy($damage);
         } catch (IntegerValueException $exception) {
-            $playerAction->tell("{$attacker->getName()} uses {$attack} and deals {$damage} damage, which brings opponent to their knees!");
+            $this->playerAction->tell("{$attacker->getName()} uses {$attack} and deals {$damage} damage, which brings opponent to their knees!");
             throw $exception;
         }
 
-        $playerAction->tell("{$attacker->getName()} uses {$attack} and deals {$damage} damage.");
+        $this->playerAction->tell("{$attacker->getName()} uses {$attack} and deals {$damage} damage.");
     }
 
     private function isAbleForExtraAttack(Fighter $attacker, Fighter $target): bool
@@ -100,17 +95,17 @@ final class Fight
             ->isGreaterThan($target->getInitiative());
     }
 
-    private function askForAction(PlayerAction $playerAction, Player $player): Attack
+    private function askForAction(Player $player): Attack
     {
         /** @var Attack $attack */
-        $attack = $playerAction->askForChoice(
+        $attack = $this->playerAction->askForChoice(
             'Select action',
             $player->getTalents()->filterAttacks()->getItems(),
         );
 
         if ($attack instanceof MeleeAttack && $player->getWeapon() === null) {
-            $playerAction->note('This attack requires weapon equipped.');
-            return $this->askForAction($playerAction, $player);
+            $this->playerAction->note('This attack requires weapon equipped.');
+            return $this->askForAction($player);
         }
 
         return $attack;
