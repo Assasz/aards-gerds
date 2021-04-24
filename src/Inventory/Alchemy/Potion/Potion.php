@@ -6,9 +6,9 @@ namespace AardsGerds\Game\Inventory\Alchemy\Potion;
 
 use AardsGerds\Game\Inventory\Coin;
 use AardsGerds\Game\Inventory\InventoryItem;
-use AardsGerds\Game\Player\Player;
+use AardsGerds\Game\Inventory\Usable;
 
-abstract class Potion extends InventoryItem
+abstract class Potion extends InventoryItem implements Usable
 {
     public function __construct(
         string $name,
@@ -18,6 +18,4 @@ abstract class Potion extends InventoryItem
     ) {
         parent::__construct($name, $description, $sellValue, $buyValue);
     }
-
-    abstract public function drink(Player $player): void;
 }

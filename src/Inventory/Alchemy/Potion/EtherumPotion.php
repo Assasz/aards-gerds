@@ -7,6 +7,7 @@ namespace AardsGerds\Game\Inventory\Alchemy\Potion;
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Inventory\Coin;
 use AardsGerds\Game\Player\Player;
+use AardsGerds\Game\Player\PlayerAction;
 
 final class EtherumPotion extends Potion
 {
@@ -21,8 +22,9 @@ final class EtherumPotion extends Potion
         );
     }
 
-    public function drink(Player $player): void
+    public function use(Player $player, PlayerAction $playerAction): void
     {
         $player->increaseEtherum(new Etherum(1));
+        $playerAction->tell('Whoah, what the heck was that...');
     }
 }

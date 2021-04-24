@@ -17,6 +17,7 @@ use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Inventory\Alchemy\Potion\HealthPotion;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
@@ -60,7 +61,7 @@ final class Player extends Entity
             new Strength(5),
             new Initiative(10),
             new TalentCollection([new Slash()]),
-            new Inventory([]),
+            new Inventory([new HealthPotion()]),
             new RustyShortSword(),
             false,
             new LevelProgress(

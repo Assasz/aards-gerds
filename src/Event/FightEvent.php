@@ -28,9 +28,11 @@ abstract class FightEvent extends Event
     public function __invoke(PlayerAction $playerAction): Decision
     {
         $playerAction->tell((string) $this->context);
-        // fight!
         (new Fight($this->player, $this->subject, $playerAction))();
         // travel, loot or dialog?
-        return $playerAction->askForDecision('What is your decision?', $this->decisionCollection);
+        return $playerAction->askForDecision(
+            "{$this->subject->getName()} corpse is lying at your feet. What's next?",
+            $this->decisionCollection,
+        );
     }
 }

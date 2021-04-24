@@ -7,6 +7,7 @@ namespace AardsGerds\Game\Fight;
 use AardsGerds\Game\Build\Attribute\Damage;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Initiative;
+use AardsGerds\Game\Inventory\Usable;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 use AardsGerds\Game\Player\PlayerException;
@@ -66,27 +67,32 @@ final class Fight
      */
     private function attack(Fighter $attacker, Fighter $target): void
     {
-        /** @var Attack $attack */
-        $attack = $attacker instanceof Player
-            ? $this->askForAction($attacker)
-            : $attacker->getTalents()->filterAttacks()->getIterator()->current(); // todo
+        if ($attacker instanceof Player) {
+            $action = $this->askForAction($attacker);
+            if ($action instanceof Usable) {
+                $action->use($attacker, $this->playerAction);
+                return;
+            }
+        } else {
+            $action = $attacker->getTalents()->filterAttacks()->getIterator()->current(); // todo
+        }
 
         $damage = match (true) {
-            $attack instanceof MeleeAttack => $attack->getDamage(
-                $attacker->getWeapon() ?? throw FightException::weaponRequired(),
-            ),
-            $attack instanceof EtherumAttack => $attack->getDamage(),
+            $action instanceof MeleeAttack => (new Damage(
+                    $action->getDamage($attacker->getWeapon() ?? throw FightException::weaponRequired())->get()
+                ))->increaseBy($attacker->getStrength()),
+            $action instanceof EtherumAttack => $action->getDamage(),
             default => new Damage(0),
         };
 
         try {
             $target->getHealth()->decreaseBy($damage);
         } catch (IntegerValueException $exception) {
-            $this->playerAction->tell("{$attacker->getName()} uses {$attack} and deals {$damage} damage, which brings opponent to their knees!");
+            $this->playerAction->tell("{$attacker->getName()} uses {$action} and deals {$damage} damage, which brings opponent to their knees!");
             throw $exception;
         }
 
-        $this->playerAction->tell("{$attacker->getName()} uses {$attack} and deals {$damage} damage.");
+        $this->playerAction->tell("{$attacker->getName()} uses {$action} and deals {$damage} damage.");
     }
 
     private function isAbleForExtraAttack(Fighter $attacker, Fighter $target): bool
@@ -95,19 +101,31 @@ final class Fight
             ->isGreaterThan($target->getInitiative());
     }
 
-    private function askForAction(Player $player): Attack
+    private function askForAction(Player $player): Attack|Usable
     {
-        /** @var Attack $attack */
-        $attack = $this->playerAction->askForChoice(
+        $action = $this->playerAction->askForChoice(
             'Select action',
-            $player->getTalents()->filterAttacks()->getItems(),
+            array_merge($player->getTalents()->filterAttacks()->getItems(), ['Go to inventory']),
         );
 
-        if ($attack instanceof MeleeAttack && $player->getWeapon() === null) {
+        if ($action === 'Go to inventory') {
+            $selectedItem = $this->playerAction->askForChoice(
+                'Select item to use',
+                array_merge($player->getInventory()->filterUsable()->getItems(), ['Back']),
+            );
+
+            if ($selectedItem === 'Back') {
+                return $this->askForAction($player);
+            }
+
+            return $selectedItem;
+        }
+
+        if ($action instanceof MeleeAttack && $player->getWeapon() === null) {
             $this->playerAction->note('This attack requires weapon equipped.');
             return $this->askForAction($player);
         }
 
-        return $attack;
+        return $action;
     }
 }
