@@ -78,9 +78,9 @@ final class Fight
         }
 
         $damage = match (true) {
-            $action instanceof MeleeAttack => (new Damage(
-                    $action->getDamage($attacker->getWeapon() ?? throw FightException::weaponRequired())->get()
-                ))->increaseBy($attacker->getStrength()),
+            $action instanceof MeleeAttack =>
+                $action->getDamage($attacker->getWeapon() ?? throw FightException::weaponRequired())
+                    ->increaseBy($attacker->getStrength()),
             $action instanceof EtherumAttack => $action->getDamage(),
             default => new Damage(0),
         };
