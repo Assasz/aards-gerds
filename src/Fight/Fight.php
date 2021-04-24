@@ -32,15 +32,15 @@ final class Fight
 
         while (true) {
             $this->playerAction->newRound("Round {$this->round}:");
-            $attackOrder = AttackOrder::resolve($this->player, $this->opponent);
+            $attackOrder = AttackOrder::resolve($this->player, $this->opponent); // todo refactor
 
             try {
-                $this->attack($attackOrder->first(), $attackOrder->last());
-                if ($this->isAbleForExtraAttack($attackOrder->first(), $attackOrder->last())) {
-                    $this->attack($attackOrder->first(), $attackOrder->last());
+                $this->action($attackOrder->first(), $attackOrder->last());
+                if ($this->isAbleForExtraAction($attackOrder->first(), $attackOrder->last())) {
+                    $this->action($attackOrder->first(), $attackOrder->last());
                 }
 
-                $this->attack($attackOrder->last(), $attackOrder->first());
+                $this->action($attackOrder->last(), $attackOrder->first());
             } catch (IntegerValueException $exception) {
                 if ($this->player->getHealth()->isLowerThan(new Health(1))) {
                     throw PlayerException::death();
@@ -63,9 +63,9 @@ final class Fight
     }
 
     /**
-     * @throws IntegerValueException if target's health drop below 0
+     * @throws IntegerValueException if target's health hits 0
      */
-    private function attack(Fighter $attacker, Fighter $target): void
+    private function action(Fighter $attacker, Fighter $target): void
     {
         if ($attacker instanceof Player) {
             $action = $this->askForAction($attacker);
@@ -95,12 +95,6 @@ final class Fight
         $this->playerAction->tell("{$attacker->getName()} uses {$action} and deals {$damage} damage.");
     }
 
-    private function isAbleForExtraAttack(Fighter $attacker, Fighter $target): bool
-    {
-        return (new Initiative((int) $attacker->getInitiative()->get() / 2))
-            ->isGreaterThan($target->getInitiative());
-    }
-
     private function askForAction(Player $player): Attack|Usable
     {
         $action = $this->playerAction->askForChoice(
@@ -127,5 +121,11 @@ final class Fight
         }
 
         return $action;
+    }
+
+    private function isAbleForExtraAction(Fighter $attacker, Fighter $target): bool
+    {
+        return (new Initiative((int) $attacker->getInitiative()->get() / 2))
+            ->isGreaterThan($target->getInitiative());
     }
 }
