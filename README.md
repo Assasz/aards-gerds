@@ -4,6 +4,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/Assasz/aards-gerds/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Assasz/aards-gerds/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Assasz/aards-gerds/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Assasz/aards-gerds/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/Assasz/aards-gerds/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/assasz/aards-gerds)
 
 RPG game running on Symfony Console. Fully powered by PHP.
 
@@ -14,7 +15,7 @@ Via Composer:
 composer create-project assasz/aards-gerds
 ```
 
-### Development
+### Usage
 
 (Docker-compose required, make nice to have)
 
