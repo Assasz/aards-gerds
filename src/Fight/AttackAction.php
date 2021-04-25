@@ -40,16 +40,14 @@ final class AttackAction
         Fighter $attacker,
         Attack $attack,
     ): Damage {
-        $initialDamage = new Damage(0);
-
         return match (true) {
             $attack instanceof MeleeAttack =>
-                $initialDamage
+                (new Damage(0))
                     ->increaseBy($attack->getDamage($attacker->getWeapon()
                         ?? throw FightException::weaponRequired()))
                     ->increaseBy($attacker->getStrength()),
             $attack instanceof EtherumAttack => $attack->getDamage(),
-            default => $initialDamage,
+            default => new Damage(0),
         };
     }
 
