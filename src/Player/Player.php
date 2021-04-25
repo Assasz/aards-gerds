@@ -61,7 +61,7 @@ final class Player extends Entity
             new Strength(5),
             new Initiative(10),
             new TalentCollection([new Slash()]),
-            new Inventory([new HealthPotion()]),
+            new Inventory([new HealthPotion(), new HealthPotion()]),
             new RustyShortSword(),
             false,
             new LevelProgress(

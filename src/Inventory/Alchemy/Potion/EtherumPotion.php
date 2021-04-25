@@ -25,6 +25,8 @@ final class EtherumPotion extends Potion
     public function use(Player $player, PlayerAction $playerAction): void
     {
         $player->increaseEtherum(new Etherum(1));
+        $player->getInventory()->remove($this);
+
         $playerAction->tell('Whoah, what the heck was that...');
     }
 }

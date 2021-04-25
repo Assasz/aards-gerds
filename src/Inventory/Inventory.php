@@ -15,6 +15,15 @@ final class Inventory extends Collection
         );
     }
 
+    public function remove(InventoryItem $item): self
+    {
+        $this->items = $this->filter(
+            static fn(InventoryItem $inventoryItem): bool => $inventoryItem !== $item,
+        )->getItems();
+
+        return $this;
+    }
+
     protected function getType(): string
     {
         return InventoryItem::class;
