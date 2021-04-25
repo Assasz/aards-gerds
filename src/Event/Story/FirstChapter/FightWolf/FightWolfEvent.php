@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Event\Story\FirstChapter\FightWolf;
 
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Entity\Beast\Animal\Wolf;
+use AardsGerds\Game\Entity\EntityCollection;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Event\DecisionCollection;
 use AardsGerds\Game\Event\FightEvent;
@@ -20,7 +21,7 @@ final class FightWolfEvent extends FightEvent
                 new LootWolfDecision($player, $wolf),
             ]),
             $player,
-            $wolf,
+            new EntityCollection([$wolf]),
             new Experience(200),
         );
     }

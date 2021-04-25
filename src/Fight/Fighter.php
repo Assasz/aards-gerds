@@ -11,7 +11,7 @@ use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
 
-interface Fighter
+interface Fighter extends \Stringable
 {
     public function getName(): string;
 

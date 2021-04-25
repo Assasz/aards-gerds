@@ -42,6 +42,12 @@ final class PlayerIO implements PlayerAction
         $this->io->text($message);
     }
 
+    public function list(array $items): void
+    {
+        sleep(1);
+        $this->io->definitionList(...$items);
+    }
+
     public function newRound(string $message): void
     {
         sleep(1);

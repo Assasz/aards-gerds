@@ -19,6 +19,8 @@ interface PlayerAction
 
     public function tell(string|array $message): void;
 
+    public function list(array $items): void;
+
     public function newRound(string $message): void;
 
     public function note(string $message): void;

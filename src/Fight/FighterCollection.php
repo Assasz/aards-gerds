@@ -7,15 +7,15 @@ namespace AardsGerds\Game\Fight;
 use AardsGerds\Game\Shared\Collection;
 use function Lambdish\Phunctional\sort;
 
-final class ActionOrder extends Collection
+final class FighterCollection extends Collection
 {
-    public static function resolve(Fighter ...$fighters): self
+    public function order(): self
     {
         return new self(
             sort(
                 static fn(Fighter $one, Fighter $another) =>
                     $another->getInitiative()->get() <=> $one->getInitiative()->get(),
-                $fighters,
+                $this->items,
             ),
         );
     }
