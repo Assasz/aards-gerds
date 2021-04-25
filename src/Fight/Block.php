@@ -43,7 +43,7 @@ final class Block
         Fighter $target,
         Attack $attack,
     ): float {
-        if ($attack->getEffects()->has(BlockImmunity::getName()) || $attack instanceof EtherumAttack) {
+        if (self::cannotBeBlocked($attack)) {
             return 0;
         }
 
@@ -67,5 +67,10 @@ final class Block
         }
 
         return $chance;
+    }
+
+    private static function cannotBeBlocked(Attack $attack): bool
+    {
+        return $attack->getEffects()->has(BlockImmunity::getName()) || $attack instanceof EtherumAttack;
     }
 }

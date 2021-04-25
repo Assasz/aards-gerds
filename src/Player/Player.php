@@ -16,6 +16,8 @@ use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
+use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Alchemy\Potion\HealthPotion;
 use AardsGerds\Game\Inventory\Inventory;
@@ -61,7 +63,10 @@ final class Player extends Entity
             new Etherum(1),
             new Strength(5),
             new Initiative(10),
-            new TalentCollection([new Slash()]),
+            new TalentCollection([
+                WeaponMastery::shortSword(WeaponMasteryLevel::novice()),
+                new Slash(),
+            ]),
             new Inventory([new HealthPotion(), new HealthPotion()]),
             new RustyShortSword(),
             false,

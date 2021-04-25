@@ -58,13 +58,11 @@ final class Fight
         }
     }
 
-    /**
-     * @throws IntegerValueException if target's health hits 0
-     */
     private function action(Fighter $fighter): void
     {
         if ($fighter instanceof Player) {
             $action = $this->askForAction();
+
             if ($action instanceof Usable) {
                 $action->use($fighter, $this->playerAction);
                 return;
@@ -73,16 +71,7 @@ final class Fight
             $action = $fighter->getTalents()->filterAttacks()->getIterator()->current();
         }
 
-        $damage = $this->calculateDamage($action, $fighter);
-
-        try {
-            $this->findOpponent($fighter)->getHealth()->decreaseBy($damage);
-        } catch (IntegerValueException $exception) {
-            $this->playerAction->tell("{$fighter->getName()} uses {$action} and deals {$damage} damage, which brings opponent to their knees!");
-            throw $exception;
-        }
-
-        $this->playerAction->tell("{$fighter->getName()} uses {$action} and deals {$damage} damage.");
+        AttackAction::invoke($fighter, $this->findOpponent($fighter), $action, $this->playerAction);
     }
 
     private function askForAction(): Attack|Usable
@@ -122,16 +111,5 @@ final class Fight
         }
 
         return $this->player;
-    }
-
-    private function calculateDamage(Attack $attack, Fighter $fighter): Damage
-    {
-        return match (true) {
-            $attack instanceof MeleeAttack =>
-                $attack->getDamage($fighter->getWeapon() ?? throw FightException::weaponRequired())
-                    ->increaseBy($fighter->getStrength()),
-            $attack instanceof EtherumAttack => $attack->getDamage(),
-            default => new Damage(0),
-        };
     }
 }
