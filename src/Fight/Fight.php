@@ -58,7 +58,6 @@ final class Fight
             $this->round->increment();
         }
 
-        $this->playerAction->askForConfirmation('Continue?');
         $this->player->getHealth()->replaceWith($playerInitialHealth);
     }
 

@@ -78,9 +78,9 @@ final class Player extends Entity
         return $this->levelProgress;
     }
 
-    public function increaseExperience(Experience $experience): void
+    public function increaseExperience(Experience $experience, PlayerAction $playerAction): void
     {
-        $this->levelProgress->increase($experience, $this);
+        $this->levelProgress->increase($experience, $this, $playerAction);
     }
 
     /**

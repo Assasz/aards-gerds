@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event\Story\FirstChapter\FightWolf;
 
+use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Entity\Beast\Animal\Wolf;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Event\DecisionCollection;
@@ -20,6 +21,7 @@ final class FightWolfEvent extends FightEvent
             ]),
             $player,
             $wolf,
+            new Experience(200),
         );
     }
 }

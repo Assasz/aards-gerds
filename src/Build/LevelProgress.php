@@ -8,6 +8,7 @@ use AardsGerds\Game\Build\Attribute\AttributePoints;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Player\Player;
+use AardsGerds\Game\Player\PlayerAction;
 
 final class LevelProgress
 {
@@ -32,12 +33,14 @@ final class LevelProgress
      * current experience: 1100
      * experience needed for next level: 2000
      */
-    public function increase(Experience $experience, Player $player): void
+    public function increase(Experience $experience, Player $player, PlayerAction $playerAction): void
     {
         $this->currentExperience->increaseBy($experience);
+        $playerAction->tell("You have gained {$experience} experience!");
 
         while ($this->currentExperience->isGreaterThanOrEqual($this->experienceNeededForNextLevel)) {
             $this->levelUp($player);
+            $playerAction->tell("You have gained new level!");
         }
     }
 
