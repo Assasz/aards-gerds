@@ -6,7 +6,6 @@ namespace AardsGerds\Game\Fight;
 
 use AardsGerds\Game\Build\Attribute\Damage;
 use AardsGerds\Game\Build\Attribute\Health;
-use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Inventory\Usable;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
@@ -32,15 +31,18 @@ final class Fight
 
         while (true) {
             $this->playerAction->newRound("Round {$this->round}:");
-            $attackOrder = AttackOrder::resolve($this->player, $this->opponent); // todo refactor
+            $actionOrder = ActionOrder::resolve($this->player, $this->opponent);
 
             try {
-                $this->action($attackOrder->first(), $attackOrder->last());
-                if ($this->isAbleForExtraAction($attackOrder->first(), $attackOrder->last())) {
-                    $this->action($attackOrder->first(), $attackOrder->last());
-                }
+                foreach ($actionOrder as $attacker) {
+                    if ($attacker instanceof Player) {
+                        // todo: ask for choice
+                        $this->action($attacker, $this->opponent);
+                        continue;
+                    }
 
-                $this->action($attackOrder->last(), $attackOrder->first());
+                    $this->action($attacker, $this->player);
+                }
             } catch (IntegerValueException $exception) {
                 if ($this->player->getHealth()->isLowerThan(new Health(1))) {
                     throw PlayerException::death();
@@ -120,11 +122,5 @@ final class Fight
         }
 
         return $action;
-    }
-
-    private function isAbleForExtraAction(Fighter $attacker, Fighter $target): bool
-    {
-        return (new Initiative((int) $attacker->getInitiative()->get() / 2))
-            ->isGreaterThan($target->getInitiative());
     }
 }
