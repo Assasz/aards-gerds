@@ -31,18 +31,9 @@ final class Fight
 
         while (true) {
             $this->playerAction->newRound("Round {$this->round}:");
-            $actionOrder = ActionOrder::resolve($this->player, $this->opponent);
 
             try {
-                foreach ($actionOrder as $attacker) {
-                    if ($attacker instanceof Player) {
-                        // todo: ask for choice
-                        $this->action($attacker, $this->opponent);
-                        continue;
-                    }
-
-                    $this->action($attacker, $this->player);
-                }
+                $this->roundActions();
             } catch (IntegerValueException $exception) {
                 if ($this->player->getHealth()->isLowerThan(new Health(1))) {
                     throw PlayerException::death();
@@ -61,6 +52,21 @@ final class Fight
         }
 
         $this->player->getHealth()->replaceWith($playerInitialHealth);
+    }
+
+    private function roundActions(): void
+    {
+        $actionOrder = ActionOrder::resolve($this->player, $this->opponent);
+
+        foreach ($actionOrder as $attacker) {
+            if ($attacker instanceof Player) {
+                // todo: ask for choice
+                $this->action($attacker, $this->opponent);
+                continue;
+            }
+
+            $this->action($attacker, $this->player);
+        }
     }
 
     /**
