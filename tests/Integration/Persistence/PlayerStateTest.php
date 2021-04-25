@@ -58,6 +58,7 @@ final class PlayerStateTest extends IntegrationTestCase
             new Amuril(new Etherum(100)),
             true,
             new LevelProgress(new Level(10), new Experience(9000)),
+            new Health(100),
             new AttributePoints(5),
             new TalentPoints(5),
         );

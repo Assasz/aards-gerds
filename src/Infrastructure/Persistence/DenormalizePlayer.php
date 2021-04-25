@@ -45,6 +45,7 @@ final class DenormalizePlayer
                 new Level($data['levelProgress']['level']),
                 new Experience($data['levelProgress']['currentExperience']),
             ),
+            new Health($data['maximumHealth']),
             new AttributePoints($data['attributePoints']),
             new TalentPoints($data['talentPoints']),
         );

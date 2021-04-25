@@ -13,6 +13,7 @@ use AardsGerds\Game\Player\PlayerException;
 use AardsGerds\Game\Shared\IntegerValue;
 use AardsGerds\Game\Shared\IntegerValueException;
 use function Lambdish\Phunctional\map;
+use function Lambdish\Phunctional\not;
 
 final class Fight
 {
@@ -28,9 +29,7 @@ final class Fight
 
     public function __invoke(): void
     {
-        $playerInitialHealth = new Health($this->player->getHealth()->get());
-
-        while (true) {
+        while ($this->opponents->count() > 0) {
             $fighters = new FighterCollection(
                 array_merge([$this->player], $this->opponents->getItems()),
             );
@@ -46,17 +45,17 @@ final class Fight
                     $this->action($fighter);
                 }
             } catch (IntegerValueException $exception) {
-                if ($this->player->getHealth()->isLowerThan(new Health(1))) {
+                $isDead = static fn(Fighter $fighter): bool => $fighter->getHealth()->isLowerThan(new Health(1));
+
+                if ($isDead($this->player)) {
                     throw PlayerException::death();
                 }
 
-                break;
+                $this->opponents = $this->opponents->filter(not($isDead));
             }
 
             $this->round->increment();
         }
-
-        $this->player->getHealth()->replaceWith($playerInitialHealth);
     }
 
     /**
@@ -70,19 +69,14 @@ final class Fight
                 $action->use($fighter, $this->playerAction);
                 return;
             }
-
-            $opponent = $this->opponents->count() > 1
-                ? $this->playerAction->askForChoice('Select opponent to attack', $this->opponents->getItems())
-                : $this->opponents->getIterator()->current();
         } else {
-            $action = $fighter->getTalents()->filterAttacks()->getIterator()->current(); // todo
-            $opponent = $this->player;
+            $action = $fighter->getTalents()->filterAttacks()->getIterator()->current();
         }
 
         $damage = $this->calculateDamage($action, $fighter);
 
         try {
-            $opponent->getHealth()->decreaseBy($damage);
+            $this->findOpponent($fighter)->getHealth()->decreaseBy($damage);
         } catch (IntegerValueException $exception) {
             $this->playerAction->tell("{$fighter->getName()} uses {$action} and deals {$damage} damage, which brings opponent to their knees!");
             throw $exception;
@@ -119,12 +113,23 @@ final class Fight
         return $action;
     }
 
+    private function findOpponent(Fighter $fighter): Fighter
+    {
+        if ($fighter instanceof Player) {
+            return $this->opponents->count() > 1
+                ? $this->playerAction->askForChoice('Select opponent to attack', $this->opponents->getItems())
+                : $this->opponents->getIterator()->current();
+        }
+
+        return $this->player;
+    }
+
     private function calculateDamage(Attack $attack, Fighter $fighter): Damage
     {
         return match (true) {
             $attack instanceof MeleeAttack =>
-            $attack->getDamage($fighter->getWeapon() ?? throw FightException::weaponRequired())
-                ->increaseBy($fighter->getStrength()),
+                $attack->getDamage($fighter->getWeapon() ?? throw FightException::weaponRequired())
+                    ->increaseBy($fighter->getStrength()),
             $attack instanceof EtherumAttack => $attack->getDamage(),
             default => new Damage(0),
         };

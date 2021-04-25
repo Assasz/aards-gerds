@@ -35,6 +35,7 @@
     "level": 10,
     "currentExperience": 9000
   },
+  "maximumHealth": 100,
   "attributePoints": 5,
   "talentPoints": 5
 }

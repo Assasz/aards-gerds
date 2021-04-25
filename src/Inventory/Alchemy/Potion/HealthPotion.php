@@ -23,8 +23,7 @@ final class HealthPotion extends Potion
 
     public function use(Player $player, PlayerAction $playerAction): void
     {
-        // todo: player maximum health
-        $player->getHealth()->increaseBy(new Health(40));
+        $player->heal(new Health(40));
         $player->getInventory()->remove($this);
 
         $playerAction->tell('You feel better now.');

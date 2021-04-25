@@ -36,6 +36,7 @@ final class Player extends Entity
         ?Weapon $weapon,
         bool $corrupted,
         private LevelProgress $levelProgress,
+        private Health $maximumHealth,
         private AttributePoints $attributePoints,
         private TalentPoints $talentPoints,
     ) {
@@ -68,6 +69,7 @@ final class Player extends Entity
                 new Level(1),
                 new Experience(0),
             ),
+            new Health(100),
             new AttributePoints(0),
             new TalentPoints(0),
         );
@@ -81,6 +83,35 @@ final class Player extends Entity
     public function increaseExperience(Experience $experience, PlayerAction $playerAction): void
     {
         $this->levelProgress->increase($experience, $this, $playerAction);
+    }
+
+    public function getMaximumHealth(): Health
+    {
+        return $this->maximumHealth;
+    }
+
+    public function getAttributePoints(): AttributePoints
+    {
+        return $this->attributePoints;
+    }
+
+    public function getTalentPoints(): TalentPoints
+    {
+        return $this->talentPoints;
+    }
+
+    public function heal(Health $health): void
+    {
+        $this->health->increaseBy($health);
+
+        if ($this->health->isGreaterThan($this->maximumHealth)) {
+            $this->healCompletely();
+        }
+    }
+
+    public function healCompletely(): void
+    {
+        $this->health->replaceWith($this->maximumHealth);
     }
 
     /**
@@ -106,16 +137,6 @@ final class Player extends Entity
 
             $this->corrupted = true;
         }
-    }
-
-    public function getAttributePoints(): AttributePoints
-    {
-        return $this->attributePoints;
-    }
-
-    public function getTalentPoints(): TalentPoints
-    {
-        return $this->talentPoints;
     }
 
     private function calculateCorruptionBoundary(): Etherum

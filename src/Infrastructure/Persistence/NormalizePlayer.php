@@ -33,6 +33,7 @@ final class NormalizePlayer
                 'level' => $player->getLevelProgress()->getLevel()->get(),
                 'currentExperience' => $player->getLevelProgress()->getCurrentExperience()->get(),
             ],
+            'maximumHealth' => $player->getMaximumHealth()->get(),
             'attributePoints' => $player->getAttributePoints()->get(),
             'talentPoints' => $player->getTalentPoints()->get(),
         ];
