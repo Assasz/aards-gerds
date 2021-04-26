@@ -82,16 +82,7 @@ final class Fight
         );
 
         if ($action === 'Go to inventory') {
-            $selectedItem = $this->playerAction->askForChoice(
-                'Select item to use',
-                array_merge($this->player->getInventory()->filterUsable()->getItems(), ['Back']),
-            );
-
-            if ($selectedItem === 'Back') {
-                return $this->askForAction();
-            }
-
-            return $selectedItem;
+            return $this->askForUsable();
         }
 
         if ($action instanceof MeleeAttack && $this->player->getWeapon() === null) {
@@ -109,6 +100,20 @@ final class Fight
         }
 
         return $action;
+    }
+
+    private function askForUsable(): Attack|Usable
+    {
+        $selectedItem = $this->playerAction->askForChoice(
+            'Select item to use',
+            array_merge($this->player->getInventory()->filterUsable()->getItems(), ['Back']),
+        );
+
+        if ($selectedItem === 'Back') {
+            return $this->askForAction();
+        }
+
+        return $selectedItem;
     }
 
     private function findOpponent(Fighter $fighter): Fighter
