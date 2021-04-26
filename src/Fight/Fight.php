@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Fight;
 
-use AardsGerds\Game\Build\Attribute\Damage;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Inventory\Usable;
 use AardsGerds\Game\Player\Player;
@@ -71,6 +70,10 @@ final class Fight
             $action = $fighter->getTalents()->filterAttacks()->getIterator()->current();
         }
 
+        if ($action instanceof EtherumAttack) {
+            $fighter->getEtherum()->decreaseBy($action::getEtherumCost());
+        }
+
         AttackAction::invoke($fighter, $this->findOpponent($fighter), $action, $this->playerAction);
     }
 
@@ -82,38 +85,32 @@ final class Fight
         );
 
         if ($action === 'Go to inventory') {
-            return $this->askForUsable();
+            $action = $this->playerAction->askForChoice(
+                'Select item to use',
+                array_merge($this->player->getInventory()->filterUsable()->getItems(), ['Back']),
+            );
+
+            if ($action === 'Back') {
+                return $this->askForAction();
+            }
         }
 
+        return $this->validateAction($action);
+    }
+
+    private function validateAction(Attack|Usable $action): Attack|Usable
+    {
         if ($action instanceof MeleeAttack && $this->player->getWeapon() === null) {
             $this->playerAction->note('This attack requires weapon equipped.');
             return $this->askForAction();
         }
 
-        if ($action instanceof EtherumAttack) {
-            if ($this->player->getEtherum()->isLowerThan($action::getEtherumCost())) {
-                $this->playerAction->note('You do not posses enough Etherum.');
-                return $this->askForAction();
-            }
-
-            $this->player->getEtherum()->decreaseBy($action::getEtherumCost());
-        }
-
-        return $action;
-    }
-
-    private function askForUsable(): Attack|Usable
-    {
-        $selectedItem = $this->playerAction->askForChoice(
-            'Select item to use',
-            array_merge($this->player->getInventory()->filterUsable()->getItems(), ['Back']),
-        );
-
-        if ($selectedItem === 'Back') {
+        if ($action instanceof EtherumAttack && $this->player->getEtherum()->isLowerThan($action::getEtherumCost())) {
+            $this->playerAction->note('You do not posses enough Etherum.');
             return $this->askForAction();
         }
 
-        return $selectedItem;
+        return $action;
     }
 
     private function findOpponent(Fighter $fighter): Fighter
