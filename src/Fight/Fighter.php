@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Fight;
 
+use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
@@ -16,6 +17,8 @@ interface Fighter extends \Stringable
     public function getName(): string;
 
     public function getHealth(): Health;
+
+    public function getEtherum(): Etherum;
 
     public function getStrength(): Strength;
 

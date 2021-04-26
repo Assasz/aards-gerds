@@ -99,6 +99,15 @@ final class Fight
             return $this->askForAction();
         }
 
+        if ($action instanceof EtherumAttack) {
+            if ($this->player->getEtherum()->isLowerThan($action::getEtherumCost())) {
+                $this->playerAction->note('You do not posses enough Etherum.');
+                return $this->askForAction();
+            }
+
+            $this->player->getEtherum()->decreaseBy($action::getEtherumCost());
+        }
+
         return $action;
     }
 
