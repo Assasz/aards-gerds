@@ -8,7 +8,7 @@ use AardsGerds\Game\Build\Attribute\Damage;
 use AardsGerds\Game\Player\PlayerAction;
 use AardsGerds\Game\Shared\IntegerValueException;
 
-final class AttackAction
+final class Clash
 {
     /**
      * @throws IntegerValueException if target's health hits 0

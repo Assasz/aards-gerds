@@ -74,7 +74,7 @@ final class Fight
             $fighter->getEtherum()->decreaseBy($action::getEtherumCost());
         }
 
-        AttackAction::invoke($fighter, $this->findOpponent($fighter), $action, $this->playerAction);
+        Clash::invoke($fighter, $this->findOpponent($fighter), $action, $this->playerAction);
     }
 
     private function askForAction(): Attack|Usable
