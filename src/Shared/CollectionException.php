@@ -10,4 +10,9 @@ final class CollectionException extends \RuntimeException
     {
         return new self("The object {$givenType} is not an instance of {$expectedType}");
     }
+
+    public static function emptyCollection(): self
+    {
+        return new self('There is no elements in the collection');
+    }
 }

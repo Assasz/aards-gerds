@@ -9,6 +9,7 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Fight\Attack;
 use AardsGerds\Game\Inventory\Weapon\WeaponType;
 use AardsGerds\Game\Shared\Collection;
+use AardsGerds\Game\Shared\CollectionException;
 
 final class TalentCollection extends Collection
 {
@@ -32,6 +33,16 @@ final class TalentCollection extends Collection
         return $this->filter(
             static fn(Talent $talent): bool => $talent instanceof Attack,
         );
+    }
+
+    public function randomAttack(): Attack
+    {
+        $attacks = $this->filterAttacks();
+        if ($attacks->isEmpty()) {
+            throw CollectionException::emptyCollection();
+        }
+
+        return $attacks->getItems()[array_rand($attacks->getItems())];
     }
 
     protected function getType(): string

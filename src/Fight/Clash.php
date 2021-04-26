@@ -43,10 +43,13 @@ final class Clash
         return match (true) {
             $attack instanceof MeleeAttack =>
                 (new Damage(0))
-                    ->increaseBy($attack->getDamage($attacker->getWeapon()
-                        ?? throw FightException::weaponRequired()))
+                    ->increaseBy($attack->getDamage($attacker->getWeapon() ?? throw FightException::weaponRequired()))
                     ->increaseBy($attacker->getStrength()),
             $attack instanceof EtherumAttack => $attack->getDamage(),
+            $attack instanceof NaturalAttack =>
+                (new Damage(0))
+                    ->increaseBy($attack->getDamage())
+                    ->increaseBy($attacker->getStrength()),
             default => new Damage(0),
         };
     }

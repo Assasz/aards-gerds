@@ -67,7 +67,7 @@ final class Fight
                 return;
             }
         } else {
-            $action = $fighter->getTalents()->filterAttacks()->getIterator()->current();
+            $action = $fighter->getTalents()->randomAttack(); // careful with etherum attacks
         }
 
         if ($action instanceof EtherumAttack) {
