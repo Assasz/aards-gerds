@@ -13,7 +13,9 @@ use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledgeTalent;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Fight\EtherumAttack;
+use JetBrains\PhpStorm\Immutable;
 
+#[Immutable]
 final class Haze implements EtherumAttack, SecretKnowledgeTalent
 {
     public function getDamage(): Damage

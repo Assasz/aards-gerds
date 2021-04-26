@@ -7,7 +7,9 @@ namespace AardsGerds\Game\Build\Talent\WeaponMastery;
 use AardsGerds\Game\Build\Talent\Talent;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Inventory\Weapon\WeaponType;
+use JetBrains\PhpStorm\Immutable;
 
+#[Immutable]
 final class WeaponMastery implements Talent
 {
     public function __construct(

@@ -6,7 +6,9 @@ namespace AardsGerds\Game\Build\Talent\SecretKnowledge;
 
 use AardsGerds\Game\Build\Talent\Talent;
 use AardsGerds\Game\Build\Talent\TalentPoints;
+use JetBrains\PhpStorm\Immutable;
 
+#[Immutable]
 final class SecretKnowledge implements Talent
 {
     public function __construct(

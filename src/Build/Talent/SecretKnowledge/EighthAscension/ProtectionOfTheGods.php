@@ -9,7 +9,9 @@ use AardsGerds\Game\Build\Talent\Effect\Immortality;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledgeTalent;
 use AardsGerds\Game\Build\Talent\TalentPoints;
+use JetBrains\PhpStorm\Immutable;
 
+#[Immutable]
 final class ProtectionOfTheGods implements SecretKnowledgeTalent
 {
     public function getEffects(): EffectCollection

@@ -12,7 +12,9 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryTalent;
 use AardsGerds\Game\Fight\MeleeAttack;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
+use JetBrains\PhpStorm\Immutable;
 
+#[Immutable]
 final class Slash implements MeleeAttack, WeaponMasteryTalent
 {
     private const DAMAGE_MULTIPLIER = 0.9;
