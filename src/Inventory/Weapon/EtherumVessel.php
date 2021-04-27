@@ -7,7 +7,7 @@ namespace AardsGerds\Game\Inventory\Weapon;
 use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 
-trait RebredirTrait
+trait EtherumVessel
 {
     private Etherum $etherumLoad;
 
