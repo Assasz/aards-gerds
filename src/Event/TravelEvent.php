@@ -15,7 +15,6 @@ abstract class TravelEvent extends Event
         Player $player,
     ) {
         parent::__construct(
-            EventType::travel(),
             $context,
             $decisionCollection,
             $player,

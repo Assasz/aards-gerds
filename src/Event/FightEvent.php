@@ -21,7 +21,6 @@ abstract class FightEvent extends Event
         protected Experience $experience,
     ) {
         parent::__construct(
-            EventType::fight(),
             $context,
             $decisionCollection,
             $player,

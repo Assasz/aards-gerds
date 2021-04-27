@@ -7,6 +7,7 @@ namespace AardsGerds\Game\Infrastructure\Cli\Command;
 use AardsGerds\Game\Event\Story\FirstChapter\WolfEncounter\WolfEncounterEvent;
 use AardsGerds\Game\Event\Story\Story;
 use AardsGerds\Game\Infrastructure\Cli\PlayerIO;
+use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
 use AardsGerds\Game\Player\Player;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,6 +18,12 @@ final class NewGameCommand extends Command
 {
     protected static $defaultName = 'game:new';
 
+    public function __construct(
+        private PlayerState $playerState,
+    ) {
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->setDescription('This command starts new game');
@@ -24,7 +31,7 @@ final class NewGameCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $playerIO = new PlayerIO(new SymfonyStyle($input, $output));
+        $playerIO = new PlayerIO(new SymfonyStyle($input, $output), $this->playerState);
         $player = Player::new($playerIO->askForInformation('Choose player name'));
 
         Story::continue(new WolfEncounterEvent($player), $playerIO);

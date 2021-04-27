@@ -35,7 +35,7 @@ final class LoadGameCommand extends Command
         $playerName = $input->getArgument('player');
         assert(is_string($playerName));
 
-        $playerIO = new PlayerIO(new SymfonyStyle($input, $output));
+        $playerIO = new PlayerIO(new SymfonyStyle($input, $output), $this->playerState);
 
         try {
             $player = $this->playerState->load($playerName);

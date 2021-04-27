@@ -10,7 +10,6 @@ use AardsGerds\Game\Player\PlayerAction;
 abstract class Event
 {
     public function __construct(
-        protected EventType $eventType,
         protected Context $context,
         protected DecisionCollection $decisionCollection,
         protected Player $player,

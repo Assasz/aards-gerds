@@ -33,7 +33,7 @@ final class Fight
                 array_merge([$this->player], $this->opponents->getItems()),
             );
 
-            $this->playerAction->newRound("Round {$this->round}:");
+            $this->playerAction->introduce("Round {$this->round}:");
             $this->playerAction->list(map(
                 static fn(Fighter $fighter) => [$fighter->getName() => "{$fighter->getHealth()} health"],
                 $fighters,

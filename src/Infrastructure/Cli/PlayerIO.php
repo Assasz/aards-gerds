@@ -6,6 +6,8 @@ namespace AardsGerds\Game\Infrastructure\Cli;
 
 use AardsGerds\Game\Event\Decision;
 use AardsGerds\Game\Event\DecisionCollection;
+use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
+use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -13,7 +15,13 @@ final class PlayerIO implements PlayerAction
 {
     public function __construct(
         private SymfonyStyle $io,
+        private PlayerState $playerState,
     ) {}
+
+    public function savePlayerState(Player $player): void
+    {
+        $this->playerState->save($player);
+    }
 
     public function askForDecision(string $question, DecisionCollection $decisions): Decision
     {
@@ -48,10 +56,10 @@ final class PlayerIO implements PlayerAction
         $this->io->definitionList(...$items);
     }
 
-    public function newRound(string $message): void
+    public function introduce(string $message): void
     {
         sleep(1);
-        $this->io->section($message);
+        $this->io->title($message);
     }
 
     public function note(string $message): void

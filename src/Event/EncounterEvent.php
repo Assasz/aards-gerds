@@ -17,7 +17,6 @@ abstract class EncounterEvent extends Event
         protected Entity $subject,
     ) {
         parent::__construct(
-            EventType::encounter(),
             $context,
             $decisionCollection,
             $player,
