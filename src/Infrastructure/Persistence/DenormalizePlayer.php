@@ -81,7 +81,7 @@ final class DenormalizePlayer
         $reflection = new \ReflectionClass($data['className']);
 
         $weapon = match (true) {
-            in_array(RebredirWeapon::class, $reflection->getTraitNames()) =>
+            $reflection->isSubclassOf(RebredirWeapon::class) =>
                 $reflection->newInstance(new Etherum($data['etherumLoad'])),
             default => $reflection->newInstance(),
         };

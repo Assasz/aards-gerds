@@ -64,12 +64,12 @@ final class NormalizePlayer
     {
         $data = ['className' => $className = get_class($weapon)];
 
-        if (in_array(RebredirWeapon::class, class_uses($className) ?: [])) {
-            /** @var RebredirWeapon $weapon */
-            $data = array_merge($data, ['etherumLoad' => $weapon->getEtherumLoad()->get()]); /** @phpstan-ignore-line */
-        }
-
-        return $data;
+        return match (true) {
+            $weapon instanceof RebredirWeapon => array_merge($data, [
+                'etherumLoad' => $weapon->getEtherumLoad()->get(),
+            ]),
+            default => $data,
+        };
     }
 
     private static function normalizeInventory(Inventory $inventory): array

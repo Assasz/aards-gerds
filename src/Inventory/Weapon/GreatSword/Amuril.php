@@ -9,11 +9,12 @@ use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Inventory\Coin;
+use AardsGerds\Game\Inventory\Weapon\RebredirTrait;
 use AardsGerds\Game\Inventory\Weapon\RebredirWeapon;
 
-final class Amuril extends GreatSword
+final class Amuril extends GreatSword implements RebredirWeapon
 {
-    use RebredirWeapon;
+    use RebredirTrait;
 
     public function __construct(
         private Etherum $etherumLoad,
