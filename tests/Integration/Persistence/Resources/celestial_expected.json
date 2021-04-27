@@ -1,5 +1,5 @@
 {
-  "name": "Barabarabasz",
+  "name": "Celestial",
   "health": 100,
   "etherum": 50,
   "strength": 50,
@@ -37,5 +37,8 @@
   },
   "maximumHealth": 100,
   "attributePoints": 5,
-  "talentPoints": 5
+  "talentPoints": 5,
+  "checkpoint": {
+    "className": "AardsGerds\\Game\\Event\\Story\\FirstChapter\\MercenaryCamp\\MercenaryCampVisitEvent"
+  }
 }

@@ -45,7 +45,7 @@ final class PlayerStateTest extends IntegrationTestCase
     public function savesPlayerStateIntoFile(): void
     {
         $player = new Player(
-            'Barabarabasz',
+            'Celestial',
             new Health(100),
             new Etherum(50),
             new Strength(50),
@@ -68,13 +68,13 @@ final class PlayerStateTest extends IntegrationTestCase
         $this->playerState->save($player);
 
         self::assertJsonFileEqualsJsonFile(
-            "{$this->savesLocation}/barabarabasz_expected.json",
-            "{$this->savesLocation}/barabarabasz.json",
+            "{$this->savesLocation}/celestial_expected.json",
+            "{$this->savesLocation}/celestial.json",
         );
 
-        $player = $this->playerState->load('Barabarabasz');
+        $player = $this->playerState->load('Celestial');
 
-        self::assertSame('Barabarabasz', $player->getName());
+        self::assertSame('Celestial', $player->getName());
         self::assertSame('Amuril', $player->getWeapon()->getName());
     }
 
