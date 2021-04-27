@@ -5,5 +5,5 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 
 use AardsGerds\Game\Infrastructure\GameKernel;
 
-$gameKernel = new GameKernel('prod');
+$gameKernel = new GameKernel(GameKernel::ENV_PROD);
 $gameKernel->runConsole();

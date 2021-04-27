@@ -12,6 +12,9 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class GameKernel
 {
+    public const ENV_PROD = 'prod';
+    public const ENV_TEST = 'test';
+
     private ContainerBuilder $container;
     private Application $console;
 
@@ -35,18 +38,16 @@ final class GameKernel
     private function setUpContainer(): void
     {
         $this->container = new ContainerBuilder();
-        $loader = new YamlFileLoader(
-            $this->container,
-            new FileLocator(dirname(__DIR__, 2) . '/config'),
-        );
+        $projectDir = dirname(__DIR__, 2);
+        $loader = new YamlFileLoader($this->container, new FileLocator("{$projectDir}/config"));
 
         $loader->load(match ($this->environment) {
-            'test' => 'services_test.yaml',
-            'prod' => 'services.yaml',
+            self::ENV_PROD => 'services.yaml',
+            self::ENV_TEST => 'services_test.yaml',
             default => throw GameKernelException::unknownEnvironment($this->environment),
         });
 
-        $this->container->setParameter('kernel.project_dir', dirname(__DIR__, 2));
+        $this->container->setParameter('kernel.project_dir', $projectDir);
         $this->container->compile();
     }
 

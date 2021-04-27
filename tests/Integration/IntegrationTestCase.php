@@ -13,7 +13,7 @@ abstract class IntegrationTestCase extends TestCase
 
     public function setUp(): void
     {
-        self::$gameKernel = new GameKernel('test');
+        self::$gameKernel = new GameKernel(GameKernel::ENV_TEST);
     }
 
     public function tearDown(): void
