@@ -12,8 +12,7 @@ abstract class Event
     public function __construct(
         protected Context $context,
         protected DecisionCollection $decisionCollection,
-        protected Player $player,
     ) {}
 
-    abstract public function __invoke(PlayerAction $playerAction): Decision;
+    abstract public function __invoke(Player $player, PlayerAction $playerAction): Decision;
 }

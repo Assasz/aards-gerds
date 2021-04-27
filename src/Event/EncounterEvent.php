@@ -13,17 +13,15 @@ abstract class EncounterEvent extends Event
     public function __construct(
         Context $context,
         DecisionCollection $decisionCollection,
-        Player $player,
         protected Entity $subject,
     ) {
         parent::__construct(
             $context,
             $decisionCollection,
-            $player,
         );
     }
 
-    public function __invoke(PlayerAction $playerAction): Decision
+    public function __invoke(Player $player, PlayerAction $playerAction): Decision
     {
         // dialog, travel, fight or retreat?
         return $playerAction->askForDecision((string) $this->context, $this->decisionCollection);

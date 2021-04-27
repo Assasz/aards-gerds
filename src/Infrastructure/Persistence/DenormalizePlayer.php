@@ -48,6 +48,7 @@ final class DenormalizePlayer
             new Health($data['maximumHealth']),
             new AttributePoints($data['attributePoints']),
             new TalentPoints($data['talentPoints']),
+            new $data['checkpoint']['className'](),
         );
     }
 

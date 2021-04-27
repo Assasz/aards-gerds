@@ -36,6 +36,7 @@ final class NormalizePlayer
             'maximumHealth' => $player->getMaximumHealth()->get(),
             'attributePoints' => $player->getAttributePoints()->get(),
             'talentPoints' => $player->getTalentPoints()->get(),
+            'checkpoint' => ['className' => get_class($player->getCheckpoint())],
         ];
     }
 

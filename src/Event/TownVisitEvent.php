@@ -15,19 +15,19 @@ abstract class TownVisitEvent extends Event
     public function __construct(
         Context $context,
         DecisionCollection $decisionCollection,
-        Player $player,
         protected Town $town,
     ) {
         parent::__construct(
             $context,
             $decisionCollection,
-            $player,
         );
     }
 
-    public function __invoke(PlayerAction $playerAction): Decision
+    public function __invoke(Player $player, PlayerAction $playerAction): Decision
     {
-        $playerAction->savePlayerState($this->player);
+        $player->setCheckpoint($this);
+        $playerAction->savePlayerState($player);
+
         $playerAction->introduce($this->town->getName());
         $playerAction->tell((string) $this->context);
 

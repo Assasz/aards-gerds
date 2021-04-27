@@ -19,6 +19,7 @@ use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MercenaryCampVisitEvent;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerStateException;
 use AardsGerds\Game\Inventory\Inventory;
@@ -61,6 +62,7 @@ final class PlayerStateTest extends IntegrationTestCase
             new Health(100),
             new AttributePoints(5),
             new TalentPoints(5),
+            new MercenaryCampVisitEvent(),
         );
 
         $this->playerState->save($player);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli\Command;
 
+use AardsGerds\Game\Event\Story\Story;
 use AardsGerds\Game\Infrastructure\Cli\PlayerIO;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerStateException;
@@ -43,6 +44,8 @@ final class LoadGameCommand extends Command
             $playerIO->note("Player {$playerName} doesn't exist.");
             return Command::FAILURE;
         }
+
+        Story::continue($player->getCheckpoint(), $player, $playerIO);
 
         return Command::SUCCESS;
     }

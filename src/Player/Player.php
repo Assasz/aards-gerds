@@ -19,6 +19,8 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MercenaryCampVisitEvent;
+use AardsGerds\Game\Event\TownVisitEvent;
 use AardsGerds\Game\Inventory\Alchemy\Potion\HealthPotion;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\ShortSword\RustyShortSword;
@@ -41,6 +43,7 @@ final class Player extends Entity
         private Health $maximumHealth,
         private AttributePoints $attributePoints,
         private TalentPoints $talentPoints,
+        private TownVisitEvent $checkpoint,
     ) {
         parent::__construct(
             $name,
@@ -77,6 +80,7 @@ final class Player extends Entity
             new Health(100),
             new AttributePoints(0),
             new TalentPoints(0),
+            new MercenaryCampVisitEvent(),
         );
     }
 
@@ -103,6 +107,16 @@ final class Player extends Entity
     public function getTalentPoints(): TalentPoints
     {
         return $this->talentPoints;
+    }
+
+    public function getCheckpoint(): TownVisitEvent
+    {
+        return $this->checkpoint;
+    }
+
+    public function setCheckpoint(TownVisitEvent $checkpoint): void
+    {
+        $this->checkpoint = $checkpoint;
     }
 
     public function heal(Health $health): void

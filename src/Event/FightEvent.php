@@ -16,24 +16,22 @@ abstract class FightEvent extends Event
     public function __construct(
         Context $context,
         DecisionCollection $decisionCollection,
-        Player $player,
         protected EntityCollection $subjects,
         protected Experience $experience,
     ) {
         parent::__construct(
             $context,
             $decisionCollection,
-            $player,
         );
     }
 
-    public function __invoke(PlayerAction $playerAction): Decision
+    public function __invoke(Player $player, PlayerAction $playerAction): Decision
     {
         $playerAction->tell((string) $this->context);
 
-        (new Fight($this->player, new FighterCollection($this->subjects), $playerAction))();
+        (new Fight($player, new FighterCollection($this->subjects), $playerAction))();
 
-        $this->player->increaseExperience($this->experience, $playerAction);
+        $player->increaseExperience($this->experience, $playerAction);
         $playerAction->askForConfirmation('Continue?');
 
         // travel, loot or dialog?

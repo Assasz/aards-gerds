@@ -34,7 +34,7 @@ final class NewGameCommand extends Command
         $playerIO = new PlayerIO(new SymfonyStyle($input, $output), $this->playerState);
         $player = Player::new($playerIO->askForInformation('Choose player name'));
 
-        Story::continue(new WolfEncounterEvent($player), $playerIO);
+        Story::continue(new WolfEncounterEvent(), $player, $playerIO);
 
         return Command::SUCCESS;
     }
