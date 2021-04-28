@@ -18,6 +18,7 @@ final class FightWolfEvent extends FightEvent
             new FightWolfContext(),
             new DecisionCollection([
                 new LootWolfDecision($wolf),
+                new ContinueTravelDecision(),
             ]),
             new EntityCollection([$wolf]),
             new Experience(200),

@@ -22,6 +22,6 @@ abstract class TravelEvent extends Event
     public function __invoke(Player $player, PlayerAction $playerAction): Decision
     {
         // travel, encounter or explore?
-        return $playerAction->askForDecision('question', $this->decisionCollection);
+        return $playerAction->askForDecision((string) $this->context, $this->decisionCollection);
     }
 }

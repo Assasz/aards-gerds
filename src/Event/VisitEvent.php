@@ -37,7 +37,10 @@ abstract class VisitEvent extends Event
             $visitors,
         ));
 
-        $playerAction->askForConfirmation('Continue?');
+        $choice = $playerAction->askForChoice(
+            'Where do you want to go?',
+            array_merge($visitors->getItems(), ['Leave this place']),
+        );
 
         // travel
         return $playerAction->askForDecision('question', $this->decisionCollection);
