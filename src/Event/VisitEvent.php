@@ -32,15 +32,17 @@ abstract class VisitEvent extends Event
         $playerAction->tell((string) $this->context);
 
         $visitors = $this->location->getVisitors();
-        $playerAction->list(map(
-            static fn(Visitor $visitor): array => [$visitor->getName() => (string) $visitor->getRole()],
-            $visitors,
-        ));
+        if (!$visitors->isEmpty()) {
+            $playerAction->list(map(
+                static fn(Visitor $visitor): array => [$visitor->getName() => (string) $visitor->getRole()],
+                $visitors,
+            ));
 
-        $choice = $playerAction->askForChoice(
-            'Where do you want to go?',
-            array_merge($visitors->getItems(), ['Leave this place']),
-        );
+            $choice = $playerAction->askForChoice(
+                'Where do you want to go?',
+                array_merge($visitors->getItems(), ['Leave this place']),
+            );
+        }
 
         // travel
         return $playerAction->askForDecision('question', $this->decisionCollection);

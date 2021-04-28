@@ -6,7 +6,7 @@ namespace AardsGerds\Game\Location;
 
 final class VisitorRole implements \Stringable
 {
-    private const ROLE_TRADER = 'trader';
+    private const ROLE_MERCHANT = 'merchant';
     private const ROLE_TEACHER = 'teacher';
     private const ROLE_QUEST_GIVER = 'quest giver';
 
@@ -14,9 +14,9 @@ final class VisitorRole implements \Stringable
         private string $role,
     ) {}
 
-    public static function trader(): self
+    public static function merchant(): self
     {
-        return new self(self::ROLE_TRADER);
+        return new self(self::ROLE_MERCHANT);
     }
 
     public static function teacher(): self
