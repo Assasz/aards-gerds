@@ -17,8 +17,8 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\GreatSword\Protector;
-use AardsGerds\Game\Location\Town\Visitor;
-use AardsGerds\Game\Location\Town\VisitorRole;
+use AardsGerds\Game\Location\Visitor;
+use AardsGerds\Game\Location\VisitorRole;
 
 final class Mefadriel extends Entity implements Visitor
 {

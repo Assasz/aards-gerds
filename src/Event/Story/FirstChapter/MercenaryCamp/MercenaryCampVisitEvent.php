@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp;
 
 use AardsGerds\Game\Event\DecisionCollection;
-use AardsGerds\Game\Event\TownVisitEvent;
+use AardsGerds\Game\Event\VisitEvent;
 use AardsGerds\Game\Location\Town\MercenaryCamp;
 
-final class MercenaryCampVisitEvent extends TownVisitEvent
+final class MercenaryCampVisitEvent extends VisitEvent
 {
     public function __construct()
     {

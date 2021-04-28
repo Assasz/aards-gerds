@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Location\Town;
+namespace AardsGerds\Game\Location;
 
 final class VisitorRole implements \Stringable
 {

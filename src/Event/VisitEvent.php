@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event;
 
-use AardsGerds\Game\Location\Town\Town;
-use AardsGerds\Game\Location\Town\Visitor;
+use AardsGerds\Game\Location\Location;
+use AardsGerds\Game\Location\Visitor;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 use function Lambdish\Phunctional\map;
 
-abstract class TownVisitEvent extends Event
+abstract class VisitEvent extends Event
 {
     public function __construct(
         Context $context,
         DecisionCollection $decisionCollection,
-        protected Town $town,
+        protected Location $location,
     ) {
         parent::__construct(
             $context,
@@ -28,10 +28,10 @@ abstract class TownVisitEvent extends Event
         $player->setCheckpoint($this);
         $playerAction->savePlayerState($player);
 
-        $playerAction->introduce($this->town->getName());
+        $playerAction->introduce($this->location->getName());
         $playerAction->tell((string) $this->context);
 
-        $visitors = $this->town->getVisitors();
+        $visitors = $this->location->getVisitors();
         $playerAction->list(map(
             static fn(Visitor $visitor): array => [$visitor->getName() => (string) $visitor->getRole()],
             $visitors,
