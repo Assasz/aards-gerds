@@ -12,6 +12,6 @@ final class Dice
      */
     public static function roll(IntegerValue $chance): bool
     {
-        return mt_rand(1, 10000000) <= $chance->get() * 10000000;
+        return mt_rand(1, 10000000) <= $chance->get() * 10000;
     }
 }
