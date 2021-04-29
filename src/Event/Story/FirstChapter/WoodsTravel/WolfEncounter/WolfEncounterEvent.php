@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Story\FirstChapter\WolfEncounter;
+namespace AardsGerds\Game\Event\Story\FirstChapter\WoodsTravel\WolfEncounter;
 
 use AardsGerds\Game\Entity\Beast\Animal\Wolf;
 use AardsGerds\Game\Event\DecisionCollection;

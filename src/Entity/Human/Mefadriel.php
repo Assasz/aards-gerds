@@ -17,14 +17,11 @@ use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\GreatSword\Protector;
-use AardsGerds\Game\Location\Visitor;
-use AardsGerds\Game\Location\VisitorRole;
 
-final class Mefadriel extends Entity implements Visitor
+final class Mefadriel extends Entity
 {
-    public function __construct(
-        private VisitorRole $visitorRole,
-    ) {
+    public function __construct()
+    {
         parent::__construct(
             'Mefadriel',
             new Health(10000),
@@ -40,10 +37,5 @@ final class Mefadriel extends Entity implements Visitor
             new Protector(new Etherum(200)),
             true,
         );
-    }
-
-    public function getRole(): VisitorRole
-    {
-        return $this->visitorRole;
     }
 }

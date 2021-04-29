@@ -23,6 +23,7 @@ abstract class EncounterEvent extends Event
 
     public function __invoke(Player $player, PlayerAction $playerAction): Decision
     {
+        $playerAction->introduce((string) $this->context->getLocation());
         // dialog, travel, fight or retreat?
         return $playerAction->askForDecision((string) $this->context, $this->decisionCollection);
     }

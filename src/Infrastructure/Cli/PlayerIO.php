@@ -25,7 +25,6 @@ final class PlayerIO implements PlayerAction
 
     public function askForDecision(string $question, DecisionCollection $decisions): Decision
     {
-        $this->clearOutput();
         return $this->io->choice($question, $decisions->getItems());
     }
 
@@ -59,7 +58,15 @@ final class PlayerIO implements PlayerAction
     public function introduce(string $message): void
     {
         sleep(1);
+        $this->clearOutput();
         $this->io->title($message);
+        sleep(1);
+    }
+
+    public function section(string $message): void
+    {
+        sleep(1);
+        $this->io->section($message);
     }
 
     public function note(string $message): void

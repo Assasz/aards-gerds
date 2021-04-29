@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Story\FirstChapter\FightWolf;
+namespace AardsGerds\Game\Event\Story\FirstChapter\WoodsTravel\FightWolf;
 
 use AardsGerds\Game\Event\Decision;
 use AardsGerds\Game\Event\Event;

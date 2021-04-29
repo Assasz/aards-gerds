@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Story\FirstChapter\FightWolf;
+namespace AardsGerds\Game\Event\Story\FirstChapter\WoodsTravel\FightWolf;
 
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Entity\Beast\Animal\Wolf;

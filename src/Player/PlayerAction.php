@@ -25,5 +25,7 @@ interface PlayerAction
 
     public function introduce(string $message): void;
 
+    public function section(string $message): void;
+
     public function note(string $message): void;
 }

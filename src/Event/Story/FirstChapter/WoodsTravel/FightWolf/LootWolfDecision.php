@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Story\FirstChapter\WolfEncounter;
+namespace AardsGerds\Game\Event\Story\FirstChapter\WoodsTravel\FightWolf;
 
 use AardsGerds\Game\Entity\Beast\Animal\Wolf;
 use AardsGerds\Game\Event\Decision;
-use AardsGerds\Game\Event\Story\FirstChapter\FightWolf\FightWolfEvent;
 use AardsGerds\Game\Event\Event;
+use AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MercenaryCampVisitEvent;
 
-final class FightWolfDecision implements Decision
+final class LootWolfDecision implements Decision
 {
     public function __construct(
         private Wolf $wolf,
@@ -17,11 +17,11 @@ final class FightWolfDecision implements Decision
 
     public function __invoke(): Event
     {
-        return new FightWolfEvent($this->wolf);
+        return new MercenaryCampVisitEvent(); // todo: change event
     }
 
     public function __toString(): string
     {
-        return "Attack wolf";
+        return 'Loot wolf';
     }
 }

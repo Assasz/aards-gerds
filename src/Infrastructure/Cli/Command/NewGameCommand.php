@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli\Command;
 
-use AardsGerds\Game\Event\Story\FirstChapter\WolfEncounter\WolfEncounterEvent;
+use AardsGerds\Game\Event\Story\FirstChapter\WoodsTravel\WolfEncounter\WolfEncounterEvent;
 use AardsGerds\Game\Event\Story\Story;
 use AardsGerds\Game\Infrastructure\Cli\PlayerIO;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
