@@ -13,6 +13,7 @@ use AardsGerds\Game\Fight\EtherumAttack;
 use AardsGerds\Game\Fight\MeleeAttack;
 use AardsGerds\Game\Fight\Block;
 use AardsGerds\Game\Fight\Fighter;
+use AardsGerds\Game\Shared\IntegerValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -26,9 +27,9 @@ final class BlockTest extends TestCase
         Fighter $attacker,
         Fighter $target,
         Attack $attack,
-        float $expectedChance,
+        IntegerValue $expectedChance,
     ): void {
-        self::assertSame($expectedChance, Block::calculateChance($attacker, $target, $attack));
+        self::assertTrue(Block::calculateChance($attacker, $target, $attack)->equals($expectedChance));
     }
 
     /** @test */
@@ -38,12 +39,12 @@ final class BlockTest extends TestCase
         $attack->method('getEffects')->willReturn(new EffectCollection([new BlockImmunity()]));
 
         self::assertSame(
-            0.0,
+            0,
             Block::calculateChance(
                 $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
                 $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
                 $attack,
-            ),
+            )->get(),
         );
     }
 
@@ -51,12 +52,12 @@ final class BlockTest extends TestCase
     public function noChanceIfEtherumAttack(): void
     {
         self::assertSame(
-            0.0,
+            0,
             Block::calculateChance(
                 $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
                 $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
                 $this->createMock(EtherumAttack::class),
-            ),
+            )->get(),
         );
     }
 
@@ -66,21 +67,21 @@ final class BlockTest extends TestCase
             $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
             $this->mockFighter(WeaponMasteryLevel::masterOfFirstTier(), new Strength(80)),
             $this->createMock(MeleeAttack::class),
-            0.55,
+            new IntegerValue(550),
         ];
 
         yield 'attacker 4 wm level and 80 strength, target 2 wm level and 50 strength' => [
             $this->mockFighter(WeaponMasteryLevel::masterOfFirstTier(), new Strength(80)),
             $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
             $this->createMock(MeleeAttack::class),
-            0.2,
+            new IntegerValue(200),
         ];
 
         yield 'attacker 2 wm level and 50 strength, target 6 wm level and 150 strength' => [
             $this->mockFighter(WeaponMasteryLevel::warrior(), new Strength(50)),
             $this->mockFighter(WeaponMasteryLevel::masterOfThirdTier(), new Strength(150)),
             $this->createMock(MeleeAttack::class),
-            0.9,
+            new IntegerValue(900),
         ];
     }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Fight;
 
 use AardsGerds\Game\Build\Talent\Effect\BlockImmunity;
+use AardsGerds\Game\Shared\IntegerValue;
 
 final class Block
 {
@@ -42,9 +43,9 @@ final class Block
         Fighter $attacker,
         Fighter $target,
         Attack $attack,
-    ): float {
+    ): IntegerValue {
         if (self::cannotBeBlocked($attack)) {
-            return 0;
+            return new IntegerValue(0);
         }
 
         $chance = self::MINIMAL_CHANCE;
@@ -66,7 +67,7 @@ final class Block
             $chance = self::MAXIMAL_CHANCE;
         }
 
-        return $chance;
+        return new IntegerValue((int) ($chance * 1000)); // todo: integer value multiply
     }
 
     private static function cannotBeBlocked(Attack $attack): bool

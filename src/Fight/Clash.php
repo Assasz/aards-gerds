@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Fight;
 
 use AardsGerds\Game\Build\Attribute\Damage;
 use AardsGerds\Game\Player\PlayerAction;
+use AardsGerds\Game\Shared\Dice;
 use AardsGerds\Game\Shared\IntegerValueException;
 
 final class Clash
@@ -59,11 +60,6 @@ final class Clash
         Fighter $target,
         Attack $attack,
     ): bool {
-        return self::occurred(Block::calculateChance($attacker, $target, $attack));
-    }
-
-    private static function occurred(float $chance): bool
-    {
-        return mt_rand(1, 10000) <= $chance * 10000;
+        return Dice::roll(Block::calculateChance($attacker, $target, $attack));
     }
 }
