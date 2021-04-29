@@ -8,7 +8,7 @@ use AardsGerds\Game\Dialog\Consequence;
 use AardsGerds\Game\Dialog\DialogOption;
 use AardsGerds\Game\Dialog\DialogOptionCollection;
 use AardsGerds\Game\Entity\Human\Mefadriel;
-use AardsGerds\Game\Event\DecisionCollection;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Event\DialogEvent;
 
 final class MefadrielDialogEvent extends DialogEvent

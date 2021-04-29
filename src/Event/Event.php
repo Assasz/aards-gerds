@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event;
 
+use AardsGerds\Game\Event\Decision\Decision;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 

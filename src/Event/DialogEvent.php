@@ -6,6 +6,8 @@ namespace AardsGerds\Game\Event;
 
 use AardsGerds\Game\Dialog\DialogOption;
 use AardsGerds\Game\Entity\Entity;
+use AardsGerds\Game\Event\Decision\Decision;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 

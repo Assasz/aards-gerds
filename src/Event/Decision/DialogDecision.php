@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Generic;
+namespace AardsGerds\Game\Event\Decision;
 
-use AardsGerds\Game\Event\Decision;
 use AardsGerds\Game\Event\DialogEvent;
 use AardsGerds\Game\Event\Event;
 

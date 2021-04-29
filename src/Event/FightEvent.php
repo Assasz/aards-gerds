@@ -6,6 +6,8 @@ namespace AardsGerds\Game\Event;
 
 use AardsGerds\Game\Build\Experience;
 use AardsGerds\Game\Entity\EntityCollection;
+use AardsGerds\Game\Event\Decision\Decision;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Fight\Fight;
 use AardsGerds\Game\Fight\FighterCollection;
 use AardsGerds\Game\Player\Player;

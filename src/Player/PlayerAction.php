@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Player;
 
-use AardsGerds\Game\Event\Decision;
-use AardsGerds\Game\Event\DecisionCollection;
+use AardsGerds\Game\Event\Decision\Decision;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 
 interface PlayerAction
 {

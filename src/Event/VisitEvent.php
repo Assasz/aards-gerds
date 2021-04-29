@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event;
 
+use AardsGerds\Game\Event\Decision\Decision;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 
@@ -28,5 +30,10 @@ abstract class VisitEvent extends Event
         $playerAction->tell((string) $this->context);
 
         return $playerAction->askForDecision('Where do you want to go?', $this->decisionCollection);
+    }
+
+    public function getContext(): Context
+    {
+        return $this->context;
     }
 }

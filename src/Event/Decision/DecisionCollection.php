@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event;
+namespace AardsGerds\Game\Event\Decision;
 
 use AardsGerds\Game\Shared\Collection;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli;
 
-use AardsGerds\Game\Event\Decision;
-use AardsGerds\Game\Event\DecisionCollection;
+use AardsGerds\Game\Event\Decision\Decision;
+use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
