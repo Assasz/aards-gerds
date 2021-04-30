@@ -34,7 +34,11 @@ abstract class FightEvent extends Event
         (new Fight($player, new FighterCollection($this->subjects), $playerAction))();
 
         $player->increaseExperience($this->experience, $playerAction);
-        $playerAction->askForConfirmation('Continue?');
+
+        $loot = $playerAction->askForConfirmation('Do you want to loot?');
+        if ($loot) {
+            // loot
+        }
 
         // travel, loot or dialog?
         return $playerAction->askForDecision(

@@ -16,6 +16,6 @@ final class WolfEncounterContext implements Context
 
     public function __toString(): string
     {
-        return "Big wolf is hiding in the woods nearby. Definitely he's looking for it's prey.";
+        return "Big wolf is hiding in the woods nearby. Definitely he's looking for its prey.";
     }
 }
