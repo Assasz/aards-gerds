@@ -67,7 +67,7 @@ final class Block
             $chance = self::MAXIMAL_CHANCE;
         }
 
-        return new IntegerValue((int) ($chance * 1000)); // todo: integer value multiply
+        return new IntegerValue((int) ($chance * 1000));
     }
 
     private static function cannotBeBlocked(Attack $attack): bool
