@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Dialog;
 
+use AardsGerds\Game\Event\Event;
+
 final class DialogOption implements \Stringable
 {
     public function __construct(
         private string $dialog,
         private ?DialogOptionCollection $responses = null,
-        private ?Consequence $consequence = null,
+        private ?Event $consequence = null,
     ) {}
 
     public function getResponses(): ?DialogOptionCollection
@@ -17,7 +19,7 @@ final class DialogOption implements \Stringable
         return $this->responses;
     }
 
-    public function getConsequence(): ?Consequence
+    public function getConsequence(): ?Event
     {
         return $this->consequence;
     }

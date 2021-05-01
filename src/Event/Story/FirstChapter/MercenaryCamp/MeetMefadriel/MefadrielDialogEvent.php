@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MeetMefadriel;
 
-use AardsGerds\Game\Dialog\Consequence;
 use AardsGerds\Game\Dialog\DialogOption;
 use AardsGerds\Game\Dialog\DialogOptionCollection;
 use AardsGerds\Game\Entity\Human\Mefadriel;
@@ -31,7 +30,7 @@ final class MefadrielDialogEvent extends DialogEvent
                     new DialogOption(
                         'I need your sword.',
                         new DialogOptionCollection([
-                            new DialogOption('Take it.', null, Consequence::fight()),
+                            new DialogOption('Then take it.'),
                         ]),
                     ),
                 ]),
