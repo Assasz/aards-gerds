@@ -15,6 +15,29 @@ final class Inventory extends Collection
         );
     }
 
+    /**
+     * @note This method mutates state of the collection
+     */
+    public function add(InventoryItem $item): self
+    {
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * @note This method mutates state of the collection
+     */
+    public function addMany(InventoryItem ...$items): self
+    {
+        $this->items = array_merge($this->items, $items);
+
+        return $this;
+    }
+
+    /**
+     * @note This method mutates state of the collection
+     */
     public function remove(InventoryItem $item): self
     {
         $this->items = $this->filter(

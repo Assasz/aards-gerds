@@ -6,6 +6,7 @@ namespace AardsGerds\Game\Player;
 
 use AardsGerds\Game\Event\Decision\Decision;
 use AardsGerds\Game\Event\Decision\DecisionCollection;
+use AardsGerds\Game\Inventory\Inventory;
 
 interface PlayerAction
 {
@@ -22,6 +23,8 @@ interface PlayerAction
     public function tell(string|array $message): void;
 
     public function list(array $items): void;
+
+    public function listInventory(Inventory $inventory): void;
 
     public function introduce(string $message): void;
 
