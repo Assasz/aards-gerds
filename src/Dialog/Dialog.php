@@ -26,7 +26,7 @@ final class Dialog
         }
     }
 
-    public function playerDialog(PlayerDialogOptionCollection $dialogOptions): void
+    private function playerDialog(PlayerDialogOptionCollection $dialogOptions): void
     {
         $response = $this->playerAction->askForResponse($dialogOptions);
 
@@ -46,7 +46,7 @@ final class Dialog
         }
     }
 
-    public function interlocutorDialog(DialogOption $dialogOption): void
+    private function interlocutorDialog(DialogOption $dialogOption): void
     {
         $this->playerAction->tell("{$this->interlocutor->getName()}: {$dialogOption}");
 
