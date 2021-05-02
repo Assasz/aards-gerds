@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event;
 
+use AardsGerds\Game\Dialog\Dialog;
 use AardsGerds\Game\Dialog\DialogOption;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Event\Decision\Decision;
@@ -27,7 +28,13 @@ abstract class DialogEvent extends Event
 
     public function __invoke(Player $player, PlayerAction $playerAction): Decision
     {
-        return $playerAction->askForDecision((string) $this->context, $this->decisionCollection);
+        $playerAction->introduce($this->subject->getName());
+        $playerAction->tell([(string) $this->context, '']);
+
+        (new Dialog($player, $this->subject, $this->dialogOption, $playerAction))();
+        $playerAction->askForConfirmation('Continue?');
+
+        return $playerAction->askForDecision('Where do you want to go?', $this->decisionCollection);
     }
 
     public function getSubject(): Entity

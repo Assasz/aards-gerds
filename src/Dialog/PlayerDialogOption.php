@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Dialog;
 
-final class DialogOption implements \Stringable
+class PlayerDialogOption implements \Stringable
 {
     public function __construct(
         private string $dialog,
-        private PlayerDialogOptionCollection $responses,
+        private DialogOption $response,
     ) {}
 
-    public function getResponses(): PlayerDialogOptionCollection
+    public function getResponse(): DialogOption
     {
-        return $this->responses;
+        return $this->response;
     }
 
     public function __toString(): string

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli;
 
+use AardsGerds\Game\Dialog\DialogOption;
+use AardsGerds\Game\Dialog\PlayerDialogOption;
+use AardsGerds\Game\Dialog\PlayerDialogOptionCollection;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Event\Decision\Decision;
 use AardsGerds\Game\Event\Decision\DecisionCollection;
@@ -30,6 +33,12 @@ final class PlayerIO implements PlayerAction
     public function askForDecision(string $question, DecisionCollection $decisions): Decision
     {
         return $this->io->choice($question, $decisions->getItems());
+    }
+
+    public function askForResponse(PlayerDialogOptionCollection $dialogOptions): PlayerDialogOption
+    {
+        sleep(1);
+        return $this->io->choice('Your response', $dialogOptions->getItems());
     }
 
     public function askForChoice(string $question, array $choices): mixed

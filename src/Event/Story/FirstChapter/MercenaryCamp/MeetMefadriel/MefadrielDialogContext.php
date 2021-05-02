@@ -16,6 +16,8 @@ final class MefadrielDialogContext implements Context
 
     public function __toString(): string
     {
-        return 'mefadriel-dialog-context';
+        return <<<'EOT'
+        As you came closer to the fireplace you noticed a man in heavy armor, staring at the flames without any move.
+        EOT;
     }
 }

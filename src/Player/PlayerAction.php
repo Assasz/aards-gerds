@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Player;
 
+use AardsGerds\Game\Dialog\PlayerDialogOption;
+use AardsGerds\Game\Dialog\PlayerDialogOptionCollection;
 use AardsGerds\Game\Event\Decision\Decision;
 use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Inventory\Inventory;
@@ -13,6 +15,8 @@ interface PlayerAction
     public function savePlayerState(Player $player): void;
 
     public function askForDecision(string $question, DecisionCollection $decisions): Decision;
+
+    public function askForResponse(PlayerDialogOptionCollection $dialogOptions): PlayerDialogOption;
 
     public function askForChoice(string $question, array $choices): mixed;
 
