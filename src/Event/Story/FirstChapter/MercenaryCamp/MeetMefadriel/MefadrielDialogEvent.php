@@ -26,14 +26,7 @@ final class MefadrielDialogEvent extends DialogEvent
                     new PlayerDialogOption(
                         'Who are you?',
                         new DialogOption(
-                            'My name is Mefadriel. I command this miserable camp.',
-                            new PlayerDialogOptionCollection([]),
-                        ),
-                    ),
-                    new PlayerDialogOption(
-                        'I need your sword.',
-                        new DialogOption(
-                            'Then take it.',
+                            'My name is Mefadriel. I joined this miserable camp when they marched at south.',
                             new PlayerDialogOptionCollection([]),
                         ),
                     ),
