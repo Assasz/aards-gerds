@@ -17,11 +17,14 @@ use JetBrains\PhpStorm\Immutable;
 #[Immutable]
 final class Slash implements MeleeAttack, WeaponMasteryTalent
 {
-    private const DAMAGE_MULTIPLIER = 0.9;
+    private const MIN_DAMAGE_MULTIPLIER = 80;
+    private const MAX_DAMAGE_MULTIPLIER = 110;
 
     public function getDamage(Weapon $weapon): Damage
     {
-        return new Damage((int) round($weapon->getDamage()->get() * self::DAMAGE_MULTIPLIER));
+        $damageMultiplier = rand(self::MIN_DAMAGE_MULTIPLIER, self::MAX_DAMAGE_MULTIPLIER) / 100;
+
+        return new Damage((int) round($weapon->getDamage()->get() * $damageMultiplier));
     }
 
     public function getEffects(): EffectCollection
