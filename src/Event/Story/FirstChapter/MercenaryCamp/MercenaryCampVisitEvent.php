@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp;
 
 use AardsGerds\Game\Entity\Human\Mefadriel;
+use AardsGerds\Game\Entity\Human\Tufus;
 use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Event\Decision\DialogDecision;
+use AardsGerds\Game\Event\Decision\TradeDecision;
 use AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MeetMefadriel\MefadrielDialogEvent;
+use AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\VisitBlacksmith\BlacksmithTradeEvent;
 use AardsGerds\Game\Event\VisitEvent;
 
 final class MercenaryCampVisitEvent extends VisitEvent
@@ -18,6 +21,7 @@ final class MercenaryCampVisitEvent extends VisitEvent
             new MercenaryCampVisitContext(),
             new DecisionCollection([
                 new DialogDecision(new MefadrielDialogEvent(new Mefadriel())),
+                new TradeDecision(new BlacksmithTradeEvent(new Tufus())), // todo: dialog event first
             ]),
         );
     }

@@ -40,7 +40,7 @@ final class Dialog
 
         $this->dialogOption->getResponses()->remove($response);
 
-        if ($response instanceof FightDialogOption) {
+        if ($response instanceof DialogOptionWithConsequence) {
             $this->playerAction->askForConfirmation('Continue?');
             $response->getEvent()($this->player, $this->playerAction);
         }
