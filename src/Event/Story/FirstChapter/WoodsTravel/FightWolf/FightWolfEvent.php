@@ -21,7 +21,7 @@ final class FightWolfEvent extends FightEvent
             new DecisionCollection([
                 new TravelDecision(new WoodsTravelEvent()),
             ]),
-            new EntityCollection([$wolf, new Wolf(), new Wolf()]),
+            new EntityCollection([$wolf]),
             new Experience(200),
         );
     }
