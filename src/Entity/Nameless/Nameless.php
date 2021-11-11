@@ -11,6 +11,7 @@ use AardsGerds\Game\Build\Attribute\Strength;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledge;
 use AardsGerds\Game\Build\Talent\TalentCollection;
+use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Entity\Entity;
@@ -30,6 +31,7 @@ final class Nameless extends Entity
             new TalentCollection([
                 WeaponMastery::greatSword(WeaponMasteryLevel::veteran()),
                 new SecretKnowledge(Ascension::sixthAscension()),
+                new Slash(),
             ]),
             new Inventory([]),
             new SteelFromAbyss(),

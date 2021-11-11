@@ -166,10 +166,11 @@ final class Player extends Entity
         }
 
         try {
-            $nextAscensionEtherum = $ascension->increment()->getRequiredEtherum();
-        } catch (IntegerValueException $exception) {
+
+            $nextAscensionEtherum = (new Ascension($ascension->get()))->increment()->getRequiredEtherum();
+        } catch (IntegerValueException) {
             // entity has 8th ascension
-            $nextAscensionEtherum = new Etherum($ascension->getRequiredEtherum()->get() * 2);
+            $nextAscensionEtherum = new Etherum(Ascension::eighthAscension()->getRequiredEtherum()->get() * 2);
         }
 
         // etherum required by next ascension + 0.5 x etherum required by next ascension
