@@ -33,6 +33,13 @@ abstract class Collection implements \IteratorAggregate, \Countable
         return count($this->items) < 1;
     }
 
+    public function makeSureNotEmpty(): void
+    {
+        if ($this->isEmpty()) {
+            throw CollectionException::emptyCollection();
+        }
+    }
+
     public function filter(callable $filter): static
     {
         return new static(array_filter($this->items, $filter));

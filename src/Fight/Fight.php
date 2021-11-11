@@ -16,54 +16,53 @@ use function Lambdish\Phunctional\not;
 
 final class Fight
 {
-    private IntegerValue $round;
+    public static function invoke(
+        Player $player,
+        FighterCollection $opponents,
+        PlayerAction $playerAction,
+    ): void {
+        $round = new IntegerValue(1);
 
-    public function __construct(
-        private Player $player,
-        private FighterCollection $opponents,
-        private PlayerAction $playerAction,
-    ) {
-        $this->round = new IntegerValue(1);
-    }
-
-    public function __invoke(): void
-    {
-        while ($this->opponents->count() > 0) {
+        while ($opponents->count() > 0) {
             $fighters = new FighterCollection(
-                array_merge([$this->player], $this->opponents->getItems()),
+                array_merge([$player], $opponents->getItems()),
             );
 
-            $this->playerAction->section("Round {$this->round}:");
-            $this->playerAction->list(map(
+            $playerAction->section("Round {$round}:");
+            $playerAction->list(map(
                 static fn(Fighter $fighter) => [$fighter->getName() => "{$fighter->getHealth()} health"],
                 $fighters,
             ));
 
             try {
-                foreach ($fighters->order() as $fighter) {
-                    $this->action($fighter);
+                foreach ($fighters->orderByInitiative() as $fighter) {
+                    self::action($fighter, $player, $opponents, $playerAction);
                 }
-            } catch (IntegerValueException $exception) {
+            } catch (IntegerValueException) {
                 $isDead = static fn(Fighter $fighter): bool => $fighter->getHealth()->isLowerThan(new Health(1));
 
-                if ($isDead($this->player)) {
+                if ($isDead($player)) {
                     throw PlayerException::death();
                 }
 
-                $this->opponents = $this->opponents->filter(not($isDead));
+                $opponents = $opponents->filter(not($isDead));
             }
 
-            $this->round->increment();
+            $round->increment();
         }
     }
 
-    private function action(Fighter $fighter): void
-    {
+    private static function action(
+        Fighter $fighter,
+        Player $player,
+        FighterCollection $opponents,
+        PlayerAction $playerAction,
+    ): void {
         if ($fighter instanceof Player) {
-            $action = $this->askForAction();
+            $action = self::askForAction($fighter, $playerAction);
 
             if ($action instanceof Usable) {
-                $action->use($fighter, $this->playerAction);
+                $action->use($fighter, $playerAction);
                 return;
             }
         } else {
@@ -74,53 +73,64 @@ final class Fight
             $fighter->getEtherum()->decreaseBy($action::getEtherumCost());
         }
 
-        Clash::invoke($fighter, $this->findOpponent($fighter), $action, $this->playerAction);
+        Clash::invoke(
+            $fighter,
+            self::findOpponent($fighter, $player, $opponents, $playerAction),
+            $action,
+            $playerAction,
+        );
     }
 
-    private function askForAction(): Attack|Usable
+    private static function askForAction(Player $player, PlayerAction $playerAction): Attack|Usable
     {
-        $action = $this->playerAction->askForChoice(
+        $action = $playerAction->askForChoice(
             'Select action',
-            array_merge($this->player->getTalents()->filterAttacks()->getItems(), ['Go to inventory']),
+            array_merge($player->getTalents()->filterAttacks()->getItems(), ['Go to inventory']),
         );
 
         if ($action === 'Go to inventory') {
-            $action = $this->playerAction->askForChoice(
+            $action = $playerAction->askForChoice(
                 'Select item to use',
-                array_merge($this->player->getInventory()->filterUsable()->getItems(), ['Back']),
+                array_merge($player->getInventory()->filterUsable()->getItems(), ['Back']),
             );
 
             if ($action === 'Back') {
-                return $this->askForAction();
+                return self::askForAction($player, $playerAction);
             }
         }
 
-        return $this->validateAction($action);
+        return self::validateAction($action, $player, $playerAction);
     }
 
-    private function validateAction(Attack|Usable $action): Attack|Usable
-    {
-        if ($action instanceof MeleeAttack && $this->player->getWeapon() === null) {
-            $this->playerAction->note('This attack requires weapon equipped.');
-            return $this->askForAction();
+    private static function validateAction(
+        Attack|Usable $action,
+        Player $player,
+        PlayerAction $playerAction,
+    ): Attack|Usable {
+        if ($action instanceof MeleeAttack && $player->getWeapon() === null) {
+            $playerAction->note('This attack requires weapon equipped.');
+            return self::askForAction($player, $playerAction);
         }
 
-        if ($action instanceof EtherumAttack && $this->player->getEtherum()->isLowerThan($action::getEtherumCost())) {
-            $this->playerAction->note('You do not posses enough Etherum.');
-            return $this->askForAction();
+        if ($action instanceof EtherumAttack && $player->getEtherum()->isLowerThan($action::getEtherumCost())) {
+            $playerAction->note('You do not posses enough Etherum.');
+            return self::askForAction($player, $playerAction);
         }
 
         return $action;
     }
 
-    private function findOpponent(Fighter $fighter): Fighter
-    {
-        if ($fighter instanceof Player) {
-            return $this->opponents->count() > 1
-                ? $this->playerAction->askForChoice('Select opponent to attack', $this->opponents->getItems())
-                : $this->opponents->getIterator()->current();
-        }
-
-        return $this->player;
+    private static function findOpponent(
+        Fighter $fighter,
+        Player $player,
+        FighterCollection $opponents,
+        PlayerAction $playerAction,
+    ): Fighter {
+        return match (true) {
+            $fighter instanceof Player && $opponents->count() > 1
+                => $playerAction->askForChoice('Select opponent to attack', $opponents->getItems()),
+            $fighter instanceof Player => $opponents->first(),
+            default => $player, // @todo: support player parties
+        };
     }
 }

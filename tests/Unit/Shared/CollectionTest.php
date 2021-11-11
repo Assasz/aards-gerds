@@ -13,7 +13,9 @@ final class CollectionTest extends TestCase
     /** @test */
     public function assertsType(): void
     {
-        $this->expectException(CollectionException::class);
+        $expectedException = CollectionException::invalidType(\ArrayObject::class, \stdClass::class);
+        $this->expectException(get_class($expectedException));
+        $this->expectExceptionMessage($expectedException->getMessage());
 
         $this->createCollection([new \ArrayObject()]);
     }
@@ -43,6 +45,17 @@ final class CollectionTest extends TestCase
         $collection = $this->createCollection([new \stdClass()]);
 
         self::assertCount(1, $collection);
+    }
+
+    /** @test */
+    public function canBeValidatedToBoNotEmpty(): void
+    {
+        $expectedException = CollectionException::emptyCollection();
+        $this->expectException(get_class($expectedException));
+        $this->expectExceptionMessage($expectedException->getMessage());
+
+        $collection = $this->createCollection([]);
+        $collection->makeSureNotEmpty();
     }
 
     private function createCollection(iterable $items): Collection

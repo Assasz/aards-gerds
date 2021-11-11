@@ -9,7 +9,7 @@ use function Lambdish\Phunctional\sort;
 
 final class FighterCollection extends Collection
 {
-    public function order(): self
+    public function orderByInitiative(): self
     {
         return new self(
             sort(
@@ -18,6 +18,13 @@ final class FighterCollection extends Collection
                 $this->items,
             ),
         );
+    }
+
+    public function first(): Fighter
+    {
+        $this->makeSureNotEmpty();
+
+        return $this->getIterator()->current();
     }
 
     protected function getType(): string

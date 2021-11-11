@@ -34,12 +34,11 @@ abstract class FightEvent extends Event
     {
         $playerAction->tell((string) $this->context);
 
-        (new Fight($player, new FighterCollection($this->subjects), $playerAction))();
+        Fight::invoke($player, new FighterCollection($this->subjects), $playerAction);
 
         $player->increaseExperience($this->experience, $playerAction);
 
-        $loot = $playerAction->askForConfirmation('Do you want to loot?');
-        if ($loot) {
+        if ($playerAction->askForConfirmation('Do you want to loot?')) {
             $lootInventory = new Inventory(
                 array_merge(...map(
                     static fn(Entity $subject): array => $subject->getInventory()->getItems(),
