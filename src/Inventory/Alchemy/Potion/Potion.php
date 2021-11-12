@@ -6,9 +6,9 @@ namespace AardsGerds\Game\Inventory\Alchemy\Potion;
 
 use AardsGerds\Game\Inventory\Coin;
 use AardsGerds\Game\Inventory\InventoryItem;
-use AardsGerds\Game\Inventory\Usable;
+use AardsGerds\Game\Inventory\Consumable;
 
-abstract class Potion extends InventoryItem implements Usable
+abstract class Potion extends InventoryItem implements Consumable
 {
     public function __construct(
         string $name,

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Fight;
 
 use AardsGerds\Game\Build\Attribute\Health;
-use AardsGerds\Game\Inventory\Usable;
+use AardsGerds\Game\Inventory\Consumable;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 use AardsGerds\Game\Player\PlayerException;
@@ -61,8 +61,8 @@ final class Fight
         if ($fighter instanceof Player) {
             $action = self::askForAction($fighter, $playerAction);
 
-            if ($action instanceof Usable) {
-                $action->use($fighter, $playerAction);
+            if ($action instanceof Consumable) {
+                $action->consume($fighter, $playerAction);
                 return;
             }
         } else {
@@ -81,7 +81,7 @@ final class Fight
         );
     }
 
-    private static function askForAction(Player $player, PlayerAction $playerAction): Attack|Usable
+    private static function askForAction(Player $player, PlayerAction $playerAction): Attack|Consumable
     {
         $action = $playerAction->askForChoice(
             'Select action',
@@ -91,7 +91,7 @@ final class Fight
         if ($action === 'Go to inventory') {
             $action = $playerAction->askForChoice(
                 'Select item to use',
-                array_merge($player->getInventory()->filterUsable()->getItems(), ['Back']),
+                array_merge($player->getInventory()->filterConsumable()->getItems(), ['Back']),
             );
 
             if ($action === 'Back') {
@@ -103,10 +103,10 @@ final class Fight
     }
 
     private static function validateAction(
-        Attack|Usable $action,
+        Attack|Consumable $action,
         Player $player,
         PlayerAction $playerAction,
-    ): Attack|Usable {
+    ): Attack|Consumable {
         if ($action instanceof MeleeAttack && $player->getWeapon() === null) {
             $playerAction->note('This attack requires weapon equipped.');
             return self::askForAction($player, $playerAction);

@@ -7,7 +7,7 @@ namespace AardsGerds\Game\Inventory;
 use AardsGerds\Game\Player\Player;
 use AardsGerds\Game\Player\PlayerAction;
 
-interface Usable extends \Stringable
+interface Consumable extends \Stringable
 {
-    public function use(Player $player, PlayerAction $playerAction): void;
+    public function consume(Player $player, PlayerAction $playerAction): void;
 }

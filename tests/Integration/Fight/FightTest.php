@@ -99,7 +99,7 @@ final class FightTest extends IntegrationTestCase
     public function playerHealsDuringFight(): void
     {
         $player = TestPlayerFactory::createNew();
-        $playerPotions = $player->getInventory()->filterUsable()->getItems();
+        $playerPotions = $player->getInventory()->filterConsumable()->getItems();
         $opponent = new Wolf();
 
         $playerAction = $this->createMock(PlayerAction::class);
@@ -115,6 +115,6 @@ final class FightTest extends IntegrationTestCase
             Fight::invoke($player, new FighterCollection([$opponent]), $playerAction);
         } catch (PlayerException) {}
 
-        self::assertTrue($player->getInventory()->filterUsable()->isEmpty());
+        self::assertTrue($player->getInventory()->filterConsumable()->isEmpty());
     }
 }

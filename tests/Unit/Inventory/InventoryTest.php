@@ -44,7 +44,7 @@ final class InventoryTest extends TestCase
     }
 
     /** @test */
-    public function filtersUsableItems(): void
+    public function filtersConsumableItems(): void
     {
         $inventory = new Inventory([
             $this->createMock(Weapon::class),
@@ -52,6 +52,6 @@ final class InventoryTest extends TestCase
             $this->createMock(Potion::class),
         ]);
 
-        self::assertCount(2, $inventory->filterUsable());
+        self::assertCount(2, $inventory->filterConsumable());
     }
 }

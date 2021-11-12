@@ -22,7 +22,7 @@ final class EtherumPotion extends Potion
         );
     }
 
-    public function use(Player $player, PlayerAction $playerAction): void
+    public function consume(Player $player, PlayerAction $playerAction): void
     {
         $player->increaseEtherum(new Etherum(1));
         $player->getInventory()->remove($this);

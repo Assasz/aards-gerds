@@ -8,10 +8,10 @@ use AardsGerds\Game\Shared\Collection;
 
 final class Inventory extends Collection
 {
-    public function filterUsable(): self
+    public function filterConsumable(): self
     {
         return $this->filter(
-            static fn(InventoryItem $inventoryItem): bool => $inventoryItem instanceof Usable,
+            static fn(InventoryItem $inventoryItem): bool => $inventoryItem instanceof Consumable,
         );
     }
 

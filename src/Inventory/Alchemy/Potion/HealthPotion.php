@@ -21,7 +21,7 @@ final class HealthPotion extends Potion
         );
     }
 
-    public function use(Player $player, PlayerAction $playerAction): void
+    public function consume(Player $player, PlayerAction $playerAction): void
     {
         $player->heal(new Health(40));
         $player->getInventory()->remove($this);

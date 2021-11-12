@@ -11,13 +11,11 @@ final class FighterCollection extends Collection
 {
     public function orderByInitiative(): self
     {
-        return new self(
-            sort(
-                static fn(Fighter $one, Fighter $another) =>
-                    $another->getInitiative()->get() <=> $one->getInitiative()->get(),
-                $this->items,
-            ),
-        );
+        return new self(sort(
+            static fn(Fighter $one, Fighter $another) =>
+                $another->getInitiative()->get() <=> $one->getInitiative()->get(),
+            $this->items,
+        ));
     }
 
     public function first(): Fighter
