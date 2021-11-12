@@ -48,7 +48,7 @@ final class CollectionTest extends TestCase
     }
 
     /** @test */
-    public function canBeValidatedToBoNotEmpty(): void
+    public function canBeValidatedToBeNotEmpty(): void
     {
         $expectedException = CollectionException::emptyCollection();
         $this->expectException(get_class($expectedException));
