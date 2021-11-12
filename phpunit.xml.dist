@@ -20,6 +20,9 @@
     <include>
       <directory suffix=".php">src</directory>
     </include>
+    <exclude>
+      <directory suffix=".php">src/Event/Story</directory>
+    </exclude>
   </coverage>
 
 </phpunit>
