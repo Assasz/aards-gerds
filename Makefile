@@ -24,7 +24,7 @@ up: ## spin up environment
 
 .PHONY: tests
 tests: ## executes project tests and calculates coverage
-		docker-compose exec php sh -lc "XDEBUG_MODE=coverage ./vendor/bin/phpunit --testdox --coverage-text --colors=never"
+		docker-compose run --rm php sh -lc 'XDEBUG_MODE=coverage ./vendor/bin/phpunit --testdox --coverage-text --colors=never'
 
 .PHONY: phpstan
 phpstan: ## executes php stan
@@ -36,11 +36,11 @@ exec: ## Gets inside a container, use 's' variable to select a service. make exe
 
 .PHONY: new-game
 new-game: ## Starts new game
-		docker-compose exec php sh -lc "php bin/console game:new"
+		docker-compose run --rm php sh -lc "php bin/console game:new"
 
 .PHONY: load-game
 load-game: ## Loads existing game, use 'p' variable to select a player to load. make load-game p=Barabarabasz
-		docker-compose exec php sh -lc "php bin/console game:load $(p)"
+		docker-compose run --rm php sh -lc "php bin/console game:load $(p)"
 
 .PHONY: logs
 logs: ## Look for 's' service logs, make s=php logs
