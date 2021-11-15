@@ -157,24 +157,4 @@ final class Player extends Entity
             $this->corrupted = true;
         }
     }
-
-    private function calculateCorruptionBoundary(): Etherum
-    {
-        $ascension = $this->talentCollection->findSecretKnowledge()?->getAscension();
-        if ($ascension === null) {
-            return new Etherum(2);
-        }
-
-        try {
-            $nextAscensionEtherum = (new Ascension($ascension->get()))->increment()->getRequiredEtherum();
-        } catch (IntegerValueException) {
-            // entity has 8th ascension
-            $nextAscensionEtherum = new Etherum(Ascension::eighthAscension()->getRequiredEtherum()->get() * 2);
-        }
-
-        // etherum required by next ascension + 0.5 x etherum required by next ascension
-        return $nextAscensionEtherum->increaseBy(
-            new Etherum((int) ($nextAscensionEtherum->get() * 0.5)),
-        );
-    }
 }

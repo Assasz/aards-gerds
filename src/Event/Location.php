@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AardsGerds\Game\Event\Story;
+namespace AardsGerds\Game\Event;
 
 final class Location implements \Stringable
 {

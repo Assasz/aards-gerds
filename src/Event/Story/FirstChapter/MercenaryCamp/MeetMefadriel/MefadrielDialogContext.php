@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MeetMefadriel;
 
 use AardsGerds\Game\Event\Context;
-use AardsGerds\Game\Event\Story\Location;
+use AardsGerds\Game\Event\Location;
 
 final class MefadrielDialogContext implements Context
 {

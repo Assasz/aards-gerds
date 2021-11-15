@@ -8,11 +8,13 @@ use AardsGerds\Game\Build\Attribute\Etherum;
 use AardsGerds\Game\Build\Attribute\Health;
 use AardsGerds\Game\Build\Attribute\Initiative;
 use AardsGerds\Game\Build\Attribute\Strength;
+use AardsGerds\Game\Build\Talent\SecretKnowledge\Ascension;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
 use AardsGerds\Game\Fight\Fighter;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\Weapon;
+use AardsGerds\Game\Shared\IntegerValueException;
 
 abstract class Entity implements Fighter
 {
@@ -25,7 +27,7 @@ abstract class Entity implements Fighter
         protected TalentCollection $talentCollection,
         protected Inventory $inventory,
         protected ?Weapon $weapon,
-        protected bool $corrupted = false,
+        protected bool $corrupted = false, // @todo: vo
     ) {}
 
     public function getName(): string
@@ -90,5 +92,25 @@ abstract class Entity implements Fighter
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    protected function calculateCorruptionBoundary(): Etherum
+    {
+        $ascension = $this->talentCollection->findSecretKnowledge()?->getAscension();
+        if ($ascension === null) {
+            return new Etherum(2);
+        }
+
+        try {
+            $nextAscensionEtherum = (new Ascension($ascension->get()))->increment()->getRequiredEtherum();
+        } catch (IntegerValueException) {
+            // entity has 8th ascension
+            $nextAscensionEtherum = new Etherum(Ascension::eighthAscension()->getRequiredEtherum()->get() * 2);
+        }
+
+        // etherum required by next ascension + 0.5 x etherum required by next ascension
+        return $nextAscensionEtherum->increaseBy(
+            new Etherum((int) ($nextAscensionEtherum->get() * 0.5)),
+        );
     }
 }
