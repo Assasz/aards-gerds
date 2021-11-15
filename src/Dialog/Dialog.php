@@ -12,48 +12,47 @@ final class Dialog
 {
     public function __construct(
         private Player $player,
-        private Entity $interlocutor,
-        private DialogOption $dialogOption,
-        private PlayerAction $playerAction,
+        private Entity $npc,
+        private NpcDialogOption $dialogOption,
     ) {}
 
-    public function __invoke(): void
+    public function __invoke(PlayerAction $playerAction): void
     {
-        $this->playerAction->tell("{$this->interlocutor->getName()}: {$this->dialogOption}");
+        $playerAction->tell("{$this->npc->getName()}: {$this->dialogOption}");
 
         while (!$this->dialogOption->getResponses()->isEmpty()) {
-            $this->playerDialog($this->dialogOption->getResponses());
+            $this->playerDialog($playerAction, $this->dialogOption->getResponses());
         }
     }
 
-    private function playerDialog(PlayerDialogOptionCollection $dialogOptions): void
+    private function playerDialog(PlayerAction $playerAction, PlayerDialogOptionCollection $dialogOptions): void
     {
-        $response = $this->playerAction->askForResponse($dialogOptions);
+        $playerDialogChoice = $playerAction->askForDialogChoice($dialogOptions);
 
-        $this->playerAction->tell("{$this->player->getName()}: {$response}");
-        $this->interlocutorDialog($response->getResponse());
+        $playerAction->tell("{$this->player->getName()}: {$playerDialogChoice}");
+        $this->npcDialog($playerAction, $playerDialogChoice->getResponse());
 
-        if ($response instanceof QuitDialogOption) {
+        if ($playerDialogChoice instanceof QuitDialogOption) {
             $this->dialogOption->getResponses()->clear();
             return;
         }
 
-        $this->dialogOption->getResponses()->remove($response);
+        $this->dialogOption->getResponses()->remove($playerDialogChoice);
 
-        if ($response instanceof FightDialogOption) {
-            $this->playerAction->askForConfirmation('Continue?');
-            $response->getEvent()($this->player, $this->playerAction);
+        if ($playerDialogChoice instanceof FightDialogOption) {
+            $playerAction->askForConfirmation('Continue?');
+            $playerDialogChoice->getEvent()($this->player, $playerAction);
         }
     }
 
-    private function interlocutorDialog(DialogOption $dialogOption): void
+    private function npcDialog(PlayerAction $playerAction, NpcDialogOption $dialogOption): void
     {
-        $this->playerAction->tell("{$this->interlocutor->getName()}: {$dialogOption}");
+        $playerAction->tell("{$this->npc->getName()}: {$dialogOption}");
 
         if ($dialogOption->getResponses()->isEmpty()) {
             return;
         }
 
-        $this->playerDialog($dialogOption->getResponses());
+        $this->playerDialog($playerAction, $dialogOption->getResponses());
     }
 }

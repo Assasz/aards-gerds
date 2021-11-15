@@ -32,7 +32,7 @@ final class FightTest extends IntegrationTestCase
         $playerAction->method('askForChoice')->willReturn(new Slash());
 
         try {
-            Fight::invoke($player, new FighterCollection([$opponent]), $playerAction);
+           (new Fight($player, new FighterCollection([$opponent])))($playerAction);
         } catch (PlayerException) {}
 
         $notDead = static fn(Fighter $fighter): bool => $fighter->getHealth()->isGreaterThan(new IntegerValue(0));
@@ -54,7 +54,7 @@ final class FightTest extends IntegrationTestCase
         $playerAction->method('askForChoice')->willReturn(new Slash());
 
         try {
-            Fight::invoke($player, new FighterCollection([$opponent]), $playerAction);
+            (new Fight($player, new FighterCollection([$opponent])))($playerAction);
         } catch (PlayerException) {}
 
         $notDead = static fn(Fighter $fighter): bool => $fighter->getHealth()->isGreaterThan(new IntegerValue(0));
@@ -87,7 +87,7 @@ final class FightTest extends IntegrationTestCase
         );
 
         try {
-            Fight::invoke($player, new FighterCollection([$firstOpponent, $secondOpponent]), $playerAction);
+            (new Fight($player, new FighterCollection([$firstOpponent, $secondOpponent])))($playerAction);
         } catch (PlayerException) {}
 
         $notDead = static fn(Fighter $fighter): bool => $fighter->getHealth()->isGreaterThan(new IntegerValue(0));
@@ -112,7 +112,7 @@ final class FightTest extends IntegrationTestCase
         );
 
         try {
-            Fight::invoke($player, new FighterCollection([$opponent]), $playerAction);
+            (new Fight($player, new FighterCollection([$opponent])))($playerAction);
         } catch (PlayerException) {}
 
         self::assertTrue($player->getInventory()->filterConsumable()->isEmpty());

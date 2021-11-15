@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Infrastructure\Cli;
 
-use AardsGerds\Game\Dialog\DialogOption;
 use AardsGerds\Game\Dialog\PlayerDialogOption;
 use AardsGerds\Game\Dialog\PlayerDialogOptionCollection;
-use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Event\Decision\Decision;
 use AardsGerds\Game\Event\Decision\DecisionCollection;
 use AardsGerds\Game\Infrastructure\Persistence\PlayerState;
@@ -35,7 +33,7 @@ final class PlayerIO implements PlayerAction
         return $this->io->choice($question, $decisions->getItems());
     }
 
-    public function askForResponse(PlayerDialogOptionCollection $dialogOptions): PlayerDialogOption
+    public function askForDialogChoice(PlayerDialogOptionCollection $dialogOptions): PlayerDialogOption
     {
         sleep(1);
         return $this->io->choice('Your response', $dialogOptions->getItems());

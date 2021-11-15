@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AardsGerds\Game\Event;
 
 use AardsGerds\Game\Dialog\Dialog;
-use AardsGerds\Game\Dialog\DialogOption;
+use AardsGerds\Game\Dialog\NpcDialogOption;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Event\Decision\Decision;
 use AardsGerds\Game\Event\Decision\DecisionCollection;
@@ -18,7 +18,7 @@ abstract class DialogEvent extends Event
         Context $context,
         DecisionCollection $decisionCollection,
         protected Entity $subject,
-        protected DialogOption $dialogOption,
+        protected NpcDialogOption $dialogOption,
     ) {
         parent::__construct(
             $context,
@@ -31,7 +31,7 @@ abstract class DialogEvent extends Event
         $playerAction->introduce($this->subject->getName());
         $playerAction->tell([(string) $this->context, '']);
 
-        (new Dialog($player, $this->subject, $this->dialogOption, $playerAction))();
+        (new Dialog($player, $this->subject, $this->dialogOption))($playerAction);
         $playerAction->askForConfirmation('Continue?');
 
         return $playerAction->askForDecision('Where do you want to go?', $this->decisionCollection);

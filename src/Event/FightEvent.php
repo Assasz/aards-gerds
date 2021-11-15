@@ -34,7 +34,7 @@ abstract class FightEvent extends Event
     {
         $playerAction->tell((string) $this->context);
 
-        Fight::invoke($player, new FighterCollection($this->subjects), $playerAction);
+        (new Fight($player, new FighterCollection($this->subjects)))($playerAction);
 
         $player->increaseExperience($this->experience, $playerAction);
 

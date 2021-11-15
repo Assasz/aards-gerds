@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MeetMefadriel;
 
-use AardsGerds\Game\Dialog\DialogOption;
+use AardsGerds\Game\Dialog\NpcDialogOption;
 use AardsGerds\Game\Dialog\PlayerDialogOption;
 use AardsGerds\Game\Dialog\PlayerDialogOptionCollection;
 use AardsGerds\Game\Dialog\QuitDialogOption;
@@ -20,19 +20,19 @@ final class MefadrielDialogEvent extends DialogEvent
             new MefadrielDialogContext(),
             new DecisionCollection([]),
             $mefadriel,
-            new DialogOption(
+            new NpcDialogOption(
                 'Hey, you. You are finally awake.',
                 new PlayerDialogOptionCollection([
                     new PlayerDialogOption(
                         'Who are you?',
-                        new DialogOption(
+                        new NpcDialogOption(
                             'My name is Mefadriel. I joined this miserable camp when they marched at south.',
                             new PlayerDialogOptionCollection([]),
                         ),
                     ),
                     new QuitDialogOption(
                         'Farewell.',
-                        new DialogOption(
+                        new NpcDialogOption(
                             'See you soon.',
                             new PlayerDialogOptionCollection([]),
                         ),

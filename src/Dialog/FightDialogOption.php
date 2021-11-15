@@ -10,7 +10,7 @@ final class FightDialogOption extends PlayerDialogOption
 {
     public function __construct(
         string $dialog,
-        DialogOption $response,
+        NpcDialogOption $response,
         private FightEvent $event,
     ) {
         parent::__construct($dialog, $response);

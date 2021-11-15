@@ -16,9 +16,9 @@ interface PlayerAction
 
     public function askForDecision(string $question, DecisionCollection $decisions): Decision;
 
-    public function askForResponse(PlayerDialogOptionCollection $dialogOptions): PlayerDialogOption;
-
     public function askForChoice(string $question, array $choices): mixed;
+
+    public function askForDialogChoice(PlayerDialogOptionCollection $dialogOptions): PlayerDialogOption;
 
     public function askForInformation(string $question): string;
 
