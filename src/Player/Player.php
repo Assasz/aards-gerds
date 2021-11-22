@@ -18,6 +18,7 @@ use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\ShortSword\Novice\Slash;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Entity\Corruption;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Event\Story\FirstChapter\MercenaryCamp\MercenaryCampVisitEvent;
 use AardsGerds\Game\Event\VisitEvent;
@@ -38,7 +39,7 @@ final class Player extends Entity
         TalentCollection $talentCollection,
         Inventory $inventory,
         ?Weapon $weapon,
-        bool $corrupted,
+        ?Corruption $corruption,
         private LevelProgress $levelProgress,
         private Health $maximumHealth,
         private AttributePoints $attributePoints,
@@ -54,7 +55,7 @@ final class Player extends Entity
             $talentCollection,
             $inventory,
             $weapon,
-            $corrupted,
+            $corruption,
         );
     }
 
@@ -72,7 +73,7 @@ final class Player extends Entity
             ]),
             new Inventory([new HealthPotion(), new HealthPotion()]),
             new RustyShortSword(),
-            false,
+            null,
             new LevelProgress(
                 new Level(1),
                 new Experience(0),
@@ -140,21 +141,23 @@ final class Player extends Entity
     {
         $this->etherum->increaseBy($etherum);
 
-        if ($this->isCorrupted()) {
-            return;
-        }
-
         $playerAscension = $this->talentCollection->findSecretKnowledge()?->getAscension()
             ?? throw PlayerException::etherumOverdose();
 
         $corruptionBoundary = $this->calculateCorruptionBoundary();
 
         if ($this->etherum->isGreaterThanOrEqual($corruptionBoundary)) {
+            if ($this->isCorrupted()) {
+                try {
+                    $this->corruption->increment();
+                } catch (IntegerValueException) {}
+            }
+
             if ($playerAscension->isLowerThan(Ascension::sixthAscension())) {
                 throw PlayerException::etherumOverdose();
             }
 
-            $this->corrupted = true;
+            $this->corruption = Corruption::low();
         }
     }
 }

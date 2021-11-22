@@ -48,7 +48,7 @@ final class TestPlayerFactory
             ]),
             new Inventory([new HealthPotion(), new HealthPotion()]),
             $weapon ?? new RustyShortSword(),
-            false,
+            null,
             new LevelProgress(
                 new Level(1),
                 new Experience(1000),
@@ -74,7 +74,7 @@ final class TestPlayerFactory
             ]),
             new Inventory([new HealthPotion(), new HealthPotion()]),
             $weapon ?? new RustyShortSword(),
-            false,
+            null,
             new LevelProgress(
                 new Level(1),
                 new Experience(1000),
@@ -101,7 +101,7 @@ final class TestPlayerFactory
             ]),
             new Inventory([new HealthPotion(), new HealthPotion()]),
             new Amuril(new Etherum(1)),
-            false,
+            null,
             new LevelProgress(
                 new Level(100),
                 new Experience(1000000),

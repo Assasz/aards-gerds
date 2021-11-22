@@ -30,7 +30,7 @@
     "className": "AardsGerds\\Game\\Inventory\\Weapon\\GreatSword\\Amuril",
     "etherumLoad": 100
   },
-  "corrupted": true,
+  "corruption": null,
   "levelProgress": {
     "level": 10,
     "currentExperience": 9000

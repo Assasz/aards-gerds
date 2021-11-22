@@ -14,6 +14,7 @@ use AardsGerds\Game\Build\Talent\SecretKnowledge\SecretKnowledge;
 use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Entity\Corruption;
 use AardsGerds\Game\Entity\Entity;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\Weapon\GreatSword\Protector;
@@ -35,7 +36,7 @@ final class Mefadriel extends Entity
             ]),
             new Inventory([]),
             new Protector(new Etherum(200)),
-            true,
+            Corruption::high(),
         );
     }
 }

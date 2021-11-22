@@ -57,7 +57,7 @@ final class PlayerStateTest extends IntegrationTestCase
             ]),
             new Inventory([new WolfFur(), new RustyShortSword()]),
             new Amuril(new Etherum(100)),
-            true,
+            null,
             new LevelProgress(new Level(10), new Experience(9000)),
             new Health(100),
             new AttributePoints(5),

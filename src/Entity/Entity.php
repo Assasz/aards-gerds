@@ -26,8 +26,8 @@ abstract class Entity implements Fighter
         protected Initiative $initiative,
         protected TalentCollection $talentCollection,
         protected Inventory $inventory,
-        protected ?Weapon $weapon,
-        protected bool $corrupted = false, // @todo: vo
+        protected ?Weapon $weapon = null,
+        protected ?Corruption $corruption = null,
     ) {}
 
     public function getName(): string
@@ -84,9 +84,19 @@ abstract class Entity implements Fighter
         return $this->weapon;
     }
 
+    public function hasWeapon(): bool
+    {
+        return $this->weapon !== null;
+    }
+
+    public function getCorruption(): ?Corruption
+    {
+        return $this->corruption;
+    }
+
     public function isCorrupted(): bool
     {
-        return $this->corrupted;
+        return $this->corruption !== null;
     }
 
     public function __toString(): string

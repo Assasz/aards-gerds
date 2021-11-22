@@ -104,7 +104,7 @@ final class Fight
         Attack|Consumable $action,
         PlayerAction $playerAction,
     ): Attack|Consumable {
-        if ($action instanceof MeleeAttack && $this->player->getWeapon() === null) {
+        if ($action instanceof MeleeAttack && $this->player->hasWeapon() === false) {
             $playerAction->note('This attack requires weapon equipped.');
             return $this->askForPlayerAction($playerAction);
         }

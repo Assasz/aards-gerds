@@ -19,6 +19,7 @@ use AardsGerds\Game\Build\Talent\TalentCollection;
 use AardsGerds\Game\Build\Talent\TalentPoints;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMastery;
 use AardsGerds\Game\Build\Talent\WeaponMastery\WeaponMasteryLevel;
+use AardsGerds\Game\Entity\Corruption;
 use AardsGerds\Game\Inventory\Inventory;
 use AardsGerds\Game\Inventory\InventoryItem;
 use AardsGerds\Game\Inventory\Weapon\RebredirWeapon;
@@ -40,7 +41,7 @@ final class DenormalizePlayer
             self::denormalizeTalents($data['talents']),
             self::denormalizeInventory($data['inventory']),
             $data['weapon'] !== null ? self::denormalizeWeapon($data['weapon']) : null,
-            $data['corrupted'],
+            $data['corruption'] !== null ? new Corruption($data['corruption']) : null,
             new LevelProgress(
                 new Level($data['levelProgress']['level']),
                 new Experience($data['levelProgress']['currentExperience']),

@@ -27,8 +27,8 @@ final class NormalizePlayer
             'initiative' => $player->getInitiative()->get(),
             'talents' => self::normalizeTalents($player->getTalents()),
             'inventory' => self::normalizeInventory($player->getInventory()),
-            'weapon' => $player->getWeapon() !== null ? self::normalizeWeapon($player->getWeapon()) : null,
-            'corrupted' => $player->isCorrupted(),
+            'weapon' => $player->hasWeapon() ? self::normalizeWeapon($player->getWeapon()) : null,
+            'corruption' => $player->getCorruption()?->get(),
             'levelProgress' => [
                 'level' => $player->getLevelProgress()->getLevel()->get(),
                 'currentExperience' => $player->getLevelProgress()->getCurrentExperience()->get(),
@@ -63,7 +63,7 @@ final class NormalizePlayer
 
     private static function normalizeWeapon(Weapon $weapon): array
     {
-        $data = ['className' => $className = get_class($weapon)];
+        $data = ['className' => get_class($weapon)];
 
         return match (true) {
             $weapon instanceof RebredirWeapon => array_merge($data, [

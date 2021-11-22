@@ -27,7 +27,6 @@ final class Wolf extends Entity
             new Initiative(10),
             new TalentCollection([new Bite(), new DoubleClaw()]),
             new Inventory([new WolfFur()]),
-            null,
         );
     }
 }
