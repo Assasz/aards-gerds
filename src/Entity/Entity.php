@@ -86,7 +86,7 @@ abstract class Entity implements Fighter
 
     public function hasWeapon(): bool
     {
-        return $this->weapon !== null;
+        return $this->weapon instanceof Weapon;
     }
 
     public function getCorruption(): ?Corruption

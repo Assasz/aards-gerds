@@ -46,7 +46,7 @@ final class PlayerTest extends IntegrationTestCase
     {
         $player->increaseEtherum($etherum);
 
-        self::assertTrue($player->isCorrupted());
+        self::assertNotNull($player->getCorruption());
     }
 
     public function provideCorruptionCases(): \Generator

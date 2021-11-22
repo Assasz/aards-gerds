@@ -147,7 +147,7 @@ final class Player extends Entity
         $corruptionBoundary = $this->calculateCorruptionBoundary();
 
         if ($this->etherum->isGreaterThanOrEqual($corruptionBoundary)) {
-            if ($this->isCorrupted()) {
+            if ($this->corruption !== null) {
                 try {
                     $this->corruption->increment();
                 } catch (IntegerValueException) {}

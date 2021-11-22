@@ -27,7 +27,7 @@ final class NormalizePlayer
             'initiative' => $player->getInitiative()->get(),
             'talents' => self::normalizeTalents($player->getTalents()),
             'inventory' => self::normalizeInventory($player->getInventory()),
-            'weapon' => $player->hasWeapon() ? self::normalizeWeapon($player->getWeapon()) : null,
+            'weapon' => $player->getWeapon() !== null ? self::normalizeWeapon($player->getWeapon()) : null,
             'corruption' => $player->getCorruption()?->get(),
             'levelProgress' => [
                 'level' => $player->getLevelProgress()->getLevel()->get(),
